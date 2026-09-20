@@ -1,0 +1,87 @@
+/* camera = scroll; pointer layer = pointer; scene-node = story;
+   control = route transition; core = ambient; outer SVG group = D3. */
+.constellation-camera-layer, .constellation-pointer-layer { width: 100%; height: 100%; transform-origin: 50% 50%; }
+.constellation-pointer-layer { transition: transform var(--hover-duration, 0.22s) ease-out; }
+.scene-node { opacity: var(--scene-opacity, 1); transform: scale(var(--scene-scale, 1)); transform-origin: center; }
+.scene-node:focus-within { opacity: 1 !important; }
+.story-star-marker { position: absolute; left: calc(50% + 1.25rem); top: calc(50% - 1.5rem); color: var(--accent); font: 0.65rem var(--font-code); }
+[data-kind="concept"] .knowledge-star-core { width: 0.36rem; height: 0.36rem; box-shadow: none; }
+.scroll-scene .force-edge[data-story-state="weakened"] { stroke-dasharray: 0.025 0.018; opacity: 0.12; }
+.story-compact-map { display: block; margin-top: 1.5rem; color: #b0c8c3; }
+.story-compact-map svg { width: 100%; max-width: 24rem; }
+.story-compact-map figcaption { color: var(--text-muted); font-size: 0.7rem; }
+.subject-context-nav { position: sticky; z-index: 40; top: 0; min-height: 3rem; display: flex; align-items: center; flex-wrap: wrap; gap: 0.55rem; padding: 0.4rem 5vw; background: rgb(5 7 10 / 0.96); font-size: 0.75rem; color: var(--text-secondary); }
+.subject-context-nav a { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 2.75rem; color: var(--text-primary); }
+.subject-context-nav a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.subject-context-nav [aria-current] { color: var(--accent-strong); }
+.subject-world .subject-world-copy { top: 6rem; max-width: 29rem; }
+.subject-world [data-root="true"] .knowledge-star-core { width: 0.82rem; height: 0.82rem; }
+.subject-world .constellation-meta { top: 4rem; }
+.subject-world .constellation-meta p { max-width: 16rem; }
+.scene-node .force-node-control .knowledge-star-label { opacity: max(var(--scene-label, 0), 0.32); }
+.scene-node .force-node-control[data-kind="cluster"] .knowledge-star-label { opacity: max(var(--scene-label, 0), 0.54); }
+.scene-node .force-node-control[data-root="true"] .knowledge-star-label { opacity: 1; }
+.scene-node .force-node-control[data-proximity="true"] .knowledge-star-label { opacity: 1; color: var(--text-primary); }
+.force-node-control[data-proximity="true"] .knowledge-star-halo { opacity: 0.5; }
+[data-ambient-running="true"] .knowledge-star-core { animation: star-breathe var(--breath-duration, 9s) ease-in-out var(--breath-phase, 0s) infinite alternate; }
+[data-ambient-running="false"] .knowledge-star-core { animation-play-state: paused; }
+.force-edge[data-ambient-active="true"]:not([data-muted="true"]):not([data-highlighted="true"]) { opacity: 0.38; }
+.scroll-scene .ambient-starfield { translate: 0 var(--velocity-depth, 0px); transition: translate 350ms ease-out; }
+.story-moments { position: relative; z-index: 15; }
+.story-moment { padding: 4rem 1.5rem; max-width: 33rem; }
+.story-moment h2 { font-size: clamp(1.7rem, 3vw, 2.75rem); line-height: 1.12; letter-spacing: -0.04em; margin: 1rem 0; text-wrap: balance; }
+.story-moment > p:not(.eyebrow) { color: var(--text-secondary); line-height: 1.8; max-width: 24rem; }
+.story-moment > p { white-space: pre-line; }
+.story-moment .content-status, .content-status { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-top: 0.6rem; }
+.story-route-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 1rem; color: var(--accent-strong); pointer-events: auto; }
+.story-route-link:focus-visible, .node-relationships a:focus-visible, footer a:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+.node-relationships { font-size: 0.75rem; margin-top: 0.75rem; }
+.node-relationships summary { cursor: pointer; min-height: 44px; padding-block: 0.75rem; }
+.node-relationships ul { max-height: 10rem; overflow-y: auto; padding: 0.5rem; background: var(--background); }
+.node-relationships li { margin-block: 0.65rem; line-height: 1.6; }
+.node-relationships li span { color: var(--accent); }
+.force-edge[data-relationship^="proposed-"], .force-edge[data-relationship="requires-checking"] { stroke-dasharray: 0.015 0.012; }
+.public-world .public-world-copy { position: relative; top: auto; left: auto; max-width: 64rem; min-height: auto; padding: 3.5rem 5vw 2rem; }
+.public-world-copy h1, .about-page h1 { font-size: clamp(2rem, 4.2vw, 4rem); line-height: 1.1; letter-spacing: -0.045em; max-width: 52rem; }
+.public-world-copy > p:not(.eyebrow) { max-width: 43rem; font-size: 1rem; line-height: 1.8; margin-top: 1.25rem; }
+.public-world .constellation-meta { top: 1.5rem; }
+.about-page { max-width: 64rem; width: 100%; padding: 3rem 5vw 5rem; margin-inline: auto; }
+.about-page p { max-width: 42rem; line-height: 1.9; margin-block: 1.5rem; color: var(--text-secondary); }
+.about-page h2 { font-size: 1.6rem; margin-top: 3rem; }
+.about-page nav { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 2rem; }
+.about-page a { display: inline-flex; min-height: 44px; align-items: center; color: var(--accent-strong); }
+.about-page a:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+.public-world .story-moment h2, .public-world .story-moment p { background: rgb(5 7 10 / 0.96); }
+@media (max-width: 47.999rem) {
+  .site-navigation-shell { padding-block: 0.75rem; gap: 0.5rem; }
+  .site-navigation-shell nav a { font-size: 0.75rem; padding-inline: 0.55rem; }
+  .public-world .public-world-copy { padding: 2rem 1.25rem; }
+  .public-world .constellation-inspector { position: relative; inset: auto; margin: 1rem 1.25rem; }
+  .public-world .graph-surface { position: relative; inset: auto; }
+  .public-world .constellation-meta { position: relative; inset: auto; max-width: none; margin: 1.25rem; text-align: left; }
+  .public-world .mobile-graph-list { padding-top: 1rem; padding-bottom: 1rem; }
+  .public-world .constellation-shell { min-height: auto; padding-bottom: 1rem; }
+}
+@keyframes star-breathe { from { opacity: 0.88; scale: 0.99; } to { opacity: 1; scale: var(--breath-scale, 1.018); } }
+@media (min-width: 48rem) {
+  [data-motion-reduced="false"] .story-compact-map { display: none; }
+  [data-subject-story="true"][data-motion-reduced="false"] .story-moment[data-placement="right"] { margin-left: auto; padding: 12vh 5vw 12vh 2vw; }
+  [data-subject-story="true"] .story-moment[data-scene-active="true"] .eyebrow { color: var(--text-primary); }
+  .subject-world .story-moment h2, .subject-world .story-moment p { background: rgb(5 7 10 / 0.96); }
+  .subject-world .constellation-inspector { bottom: 1.5rem; max-width: 20rem; }
+  [data-motion-reduced="false"] .scroll-scene-stage { position: sticky; top: 0; height: 100svh; }
+  [data-motion-reduced="false"] .constellation-shell { height: 100svh; min-height: 100svh; }
+  [data-motion-reduced="false"] .story-moments { pointer-events: none; margin-top: 10svh; }
+  [data-motion-reduced="false"] .story-moment { min-height: 85svh; padding: 12vh 2vw 12vh 5vw; max-width: 36vw; }
+  [data-motion-reduced="false"] .story-moment h2, [data-motion-reduced="false"] .story-moment p { background: linear-gradient(90deg, rgb(5 7 10 / 0.94), rgb(5 7 10 / 0.78) 75%, transparent); }
+  [data-motion-reduced="false"] .constellation-inspector { right: 3rem; left: auto; max-width: 24rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .knowledge-star-core { animation: none !important; }
+  .constellation-pointer-layer, .constellation-camera-layer { transform: none !important; }
+  .scroll-scene .ambient-starfield { translate: none; }
+}
+@media (max-width: 47.999rem) {
+  .subject-world .subject-world-copy { top: auto; }
+  .subject-context-nav { padding-inline: 1.25rem; gap: 0.35rem; font-size: 0.7rem; }
+}

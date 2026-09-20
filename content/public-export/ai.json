@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "1.0.0",
+  "items": [
+    {
+      "id": "ai-experiments",
+      "title": "AI & Technology",
+      "summary": "Exploring how AI tools can support research, organization and personal knowledge workflows.",
+      "displayStatus": "theme",
+      "sections": [
+        {
+          "id": "ai-hermes",
+          "kind": "context",
+          "heading": "Hermes",
+          "body": [
+            "Experiments with Hermes, an existing AI-agent tool, for research assistance and organization."
+          ],
+          "displayStatus": "experiment"
+        },
+        {
+          "id": "ai-local",
+          "kind": "context",
+          "heading": "Local AI",
+          "body": [
+            "Experiments with locally run AI models for research and personal knowledge workflows."
+          ],
+          "displayStatus": "experiment"
+        },
+        {
+          "id": "ai-agents",
+          "kind": "approach",
+          "heading": "AI Agents",
+          "body": [
+            "Exploring task-oriented AI agents while keeping human review part of the process."
+          ],
+          "displayStatus": "experiment"
+        },
+        {
+          "id": "ai-research-workflows",
+          "kind": "approach",
+          "heading": "Research Workflows",
+          "body": [
+            "AI-assisted experiments for organizing information and supporting research tasks."
+          ],
+          "displayStatus": "experiment"
+        },
+        {
+          "id": "ai-knowledge-management",
+          "kind": "approach",
+          "heading": "Knowledge Management",
+          "body": [
+            "A personal knowledge-management approach for organizing useful ideas, revisiting them over time and keeping private material separate."
+          ],
+          "displayStatus": "theme"
+        },
+        {
+          "id": "ai-local-cloud-tradeoffs",
+          "kind": "learning",
+          "heading": "Local and Cloud Trade-offs",
+          "body": [
+            "Exploring the practical trade-offs between local and cloud AI workflows without claiming a formal benchmark."
+          ],
+          "displayStatus": "experiment"
+        }
+      ],
+      "graphNodeId": "topic-ai-technology"
+    }
+  ]
+}

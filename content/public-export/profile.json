@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "profile-adnan",
+  "name": "Adnan Sami Khan",
+  "graphNodeId": "person-adnan",
+  "headline": {
+    "id": "homepage-headline",
+    "text": "Engineering questions. Connected ideas. Careful experiments."
+  },
+  "introduction": {
+    "id": "homepage-introduction",
+    "text": "Civil & Environmental Engineering student exploring infrastructure and accessibility, computational methods, and AI-assisted research."
+  },
+  "themes": [
+    {
+      "id": "homepage-primary-themes",
+      "text": "Infrastructure & Access • AI-assisted Research • Learning through Projects"
+    }
+  ],
+  "biography": [
+    {
+      "id": "about-biography",
+      "text": "I’m Adnan Sami Khan, a Civil & Environmental Engineering student at the Islamic University of Technology (IUT) in Bangladesh. I’m interested in where infrastructure, environmental questions and computation meet.\n\nMy exploratory work has included flood-accessibility research using spatial data and road-network analysis, alongside experiments with AI-assisted research and personal knowledge workflows. I’m especially interested in practical questions: what can a model tell us, which assumptions shape the answer, and where does the evidence stop?\n\nThrough Toastmasters and Model United Nations, I’ve also developed experience in public speaking, structured feedback, policy preparation and negotiation. This site is a growing map of what I research, build and learn—with experiments, plans and completed work clearly distinguished."
+    }
+  ],
+  "supportingLine": {
+    "id": "homepage-supporting-line",
+    "text": "A growing map of selected work, experiments and learning—with assumptions and limitations kept visible."
+  },
+  "currentFocus": [
+    {
+      "id": "focus-flood-research",
+      "text": "I’m currently refining a flood-accessibility research question, with particular attention to validation, assumptions and uncertainty.",
+      "displayStatus": "current-work"
+    },
+    {
+      "id": "focus-computational-engineering",
+      "text": "I’m strengthening my computational and geospatial foundations by applying them to engineering problems.",
+      "displayStatus": "current-work"
+    },
+    {
+      "id": "focus-ai-workflows",
+      "text": "I’m actively experimenting with AI-assisted research, organization and knowledge workflows while testing where they work well and where human review is still essential.",
+      "displayStatus": "current-work"
+    },
+    {
+      "id": "focus-communication-practice",
+      "text": "I’m continuing to develop my public speaking and structured communication through regular practice.",
+      "displayStatus": "current-work"
+    }
+  ],
+  "links": [
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/adnan-khan-25957b28a/"
+    },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/adnan140900"
+    },
+    {
+      "label": "Email",
+      "url": "mailto:adnankhan140900@gmail.com"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "1.0.0",
+  "items": [
+    {
+      "id": "project-nothipotro-overview",
+      "title": "Nothipotro",
+      "summary": "Nothipotro is a student-focused project I’m currently developing around useful educational content, practical learning ideas and student needs. My work so far has focused on strategy, content direction and experimentation rather than presenting the project as a validated or mature product.",
+      "displayStatus": "current-work",
+      "sections": [
+        {
+          "id": "nothipotro-audience-first",
+          "kind": "approach",
+          "heading": "Audience-first Design",
+          "body": [
+            "A design principle I use is to understand useful student content and real learning problems before assuming there is demand for a product."
+          ],
+          "displayStatus": "theme"
+        },
+        {
+          "id": "nothipotro-student-needs",
+          "kind": "learning",
+          "heading": "Student Learning Needs",
+          "body": [
+            "I’m interested in practical study problems and small learning ideas that could be genuinely useful to students, while treating assumptions about demand as something to test rather than assume."
+          ],
+          "displayStatus": "interest"
+        }
+      ],
+      "graphNodeId": "project-nothipotro"
+    },
+    {
+      "id": "project-knowledge-workflow-overview",
+      "title": "Knowledge Workflow Experiments",
+      "summary": "I experiment with combining a personal knowledge base and AI tools to organize research, connect ideas and support longer-term projects. It’s a personal workflow experiment rather than a finished software product.",
+      "displayStatus": "experiment",
+      "sections": [
+        {
+          "id": "knowledge-workflow-human-review",
+          "kind": "approach",
+          "heading": "Approach",
+          "body": [
+            "I’m actively experimenting with AI-assisted research, organization and knowledge workflows while testing where they work well and where human review is still essential."
+          ],
+          "displayStatus": "current-work"
+        }
+      ],
+      "graphNodeId": "project-knowledge-workflows"
+    }
+  ]
+}

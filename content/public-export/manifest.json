@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0.0",
+  "releaseVersion": "public-export-v1-2026-09-11-r1",
+  "assetPolicy": "asset-free",
+  "files": [
+    {
+      "path": "profile.json",
+      "kind": "profile"
+    },
+    {
+      "path": "graph.json",
+      "kind": "graph"
+    },
+    {
+      "path": "research.json",
+      "kind": "research"
+    },
+    {
+      "path": "projects.json",
+      "kind": "projects"
+    },
+    {
+      "path": "ai.json",
+      "kind": "ai"
+    },
+    {
+      "path": "leadership.json",
+      "kind": "leadership"
+    },
+    {
+      "path": "learning.json",
+      "kind": "learning"
+    }
+  ],
+  "graphNodeCount": 38,
+  "graphEdgeCount": 50
+}

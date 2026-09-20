@@ -1,0 +1,25 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "incremental": false,
+    "noEmit": false,
+    "outDir": ".test-dist",
+    "rootDir": "src",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "ES2022",
+    "verbatimModuleSyntax": false
+  },
+  "include": [
+    "src/tests/**/*.ts",
+    "src/features/graph/types.ts",
+    "src/features/graph/state/graph-state.ts",
+    "src/features/graph/physics/graph-runtime-policy.ts",
+    "src/features/graph/physics/graph-geometry.ts",
+    "src/features/graph/physics/types.ts",
+    "src/features/atmosphere/starfield-policy.ts",
+    "src/features/transitions/transition-policy.ts",
+    "src/features/transitions/transition-state.ts",
+    "src/lib/graph/parse-graph-document.ts"
+  ]
+}

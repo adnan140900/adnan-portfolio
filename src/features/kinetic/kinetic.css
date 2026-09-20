@@ -1,0 +1,26 @@
+/* Editorial owners never write semantic node positions or the camera transform. */
+.kinetic-word { white-space: nowrap; }
+[data-reveal-token] { position: relative; }
+[data-typing="true"] [data-caret="true"]::after { content: ""; position: absolute; right: -0.04em; top: 0.15em; width: 1px; height: 0.75em; background: currentColor; opacity: 0.5; animation: kinetic-caret 0.7s steps(2) infinite; }
+@keyframes kinetic-caret { 50% { opacity: 0.1; } }
+.knowledge-field { position: fixed; inset: 4rem 0 0; z-index: 2; overflow: hidden; pointer-events: none; contain: strict; color: #c5d1c6; }
+.knowledge-field::before { content: ""; position: absolute; inset: -25%; background: radial-gradient(ellipse at 30% 45%, #a6bca414, transparent 48%); animation: kinetic-light 48s ease-in-out infinite alternate paused; }
+.knowledge-field[data-running="true"]::before { animation-play-state: running; }
+.knowledge-field > span { position: absolute; display: block; width: max-content; max-width: 70vw; opacity: 0; user-select: none; }
+.field-annotation { font: 0.65rem/1.7 var(--font-code); letter-spacing: 0.12em; }
+.field-ghost { font: clamp(5rem, 12vw, 13rem)/1 var(--font-display); letter-spacing: -0.05em; white-space: nowrap; }
+.field-preview { font: clamp(1rem, 1.4vw, 1.4rem)/1.3 var(--font-display); max-width: 18rem !important; transition: opacity 0.4s; }
+[data-relationship="true"] { max-width: 25rem !important; }
+@keyframes kinetic-light { to { transform: translate3d(5%, -3%, 0) scale(1.05); } }
+.public-world .force-node-control[data-kinetic-related="false"] .knowledge-star-visual { opacity: 0.8; }
+.public-world .force-edge[data-kinetic-related="true"] { opacity: 0.4; stroke-width: 0.8; }
+@media (max-width: 47.999rem), (pointer: coarse) {
+  .knowledge-field > span:nth-child(n+4) { display: none; }
+  .field-ghost { font-size: 4.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .knowledge-field::before { animation: none !important; }
+  [data-caret]::after { display: none !important; }
+  [data-reveal-token] { visibility: visible !important; }
+  .field-preview { transition: none; }
+}

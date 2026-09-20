@@ -1,0 +1,650 @@
+{
+  "schemaVersion": "1.0.0",
+  "rootId": "person-adnan",
+  "nodes": [
+    {
+      "id": "practice-mun-policy-negotiation",
+      "label": "MUN Policy Preparation and Negotiation",
+      "category": "leadership",
+      "depth": 3,
+      "importance": "supporting",
+      "displayStatus": "theme",
+      "summary": "Model United Nations has given me practice in policy preparation, argument construction and negotiation in simulated committee settings."
+    },
+    {
+      "id": "method-road-networks",
+      "label": "Road Networks",
+      "category": "engineering",
+      "depth": 2,
+      "importance": "supporting",
+      "displayStatus": "exploratory-work",
+      "summary": "An exploratory road-network model compares travel paths under simulated disruption and restoration assumptions."
+    },
+    {
+      "id": "concept-road-disruption-restoration",
+      "label": "Road Disruption and Restoration",
+      "category": "research",
+      "depth": 3,
+      "importance": "supporting",
+      "displayStatus": "research-question",
+      "summary": "How could road restoration choices change access to health services under different assumptions?"
+    },
+    {
+      "id": "concept-critical-health-service-access",
+      "label": "Access to Critical Health Services",
+      "category": "research",
+      "depth": 3,
+      "importance": "supporting",
+      "displayStatus": "research-question",
+      "summary": "How might flood disruption change road access to critical health services?"
+    },
+    {
+      "id": "person-adnan",
+      "label": "Adnan",
+      "category": "profile",
+      "depth": 0,
+      "importance": "primary",
+      "displayStatus": "theme",
+      "summary": "I’m Adnan Sami Khan, a Civil & Environmental Engineering student at the Islamic University of Technology (IUT) in Bangladesh."
+    },
+    {
+      "id": "topic-research",
+      "label": "Research",
+      "category": "research",
+      "depth": 1,
+      "importance": "primary",
+      "displayStatus": "theme",
+      "summary": "Research questions connecting infrastructure, environmental systems and access to essential services."
+    },
+    {
+      "id": "topic-engineering",
+      "label": "Engineering",
+      "category": "engineering",
+      "depth": 1,
+      "importance": "primary",
+      "displayStatus": "theme",
+      "summary": "An engineering perspective focused on infrastructure, environmental systems and practical problems."
+    },
+    {
+      "id": "topic-ai-technology",
+      "label": "AI & Technology",
+      "category": "ai",
+      "depth": 1,
+      "importance": "primary",
+      "displayStatus": "theme",
+      "summary": "Exploring how AI tools can support research, organization and personal knowledge workflows."
+    },
+    {
+      "id": "topic-projects",
+      "label": "Projects",
+      "category": "project",
+      "depth": 1,
+      "importance": "primary",
+      "displayStatus": "theme",
+      "summary": "Selected project concepts and workflow experiments, with their status stated clearly."
+    },
+    {
+      "id": "topic-leadership",
+      "label": "Leadership",
+      "category": "leadership",
+      "depth": 1,
+      "importance": "primary",
+      "displayStatus": "theme",
+      "summary": "Leadership and communication through public speaking, structured feedback and policy simulation."
+    },
+    {
+      "id": "topic-learning",
+      "label": "Learning",
+      "category": "learning",
+      "depth": 1,
+      "importance": "primary",
+      "displayStatus": "theme",
+      "summary": "Learning through engineering questions, small experiments and reflection."
+    },
+    {
+      "id": "research-flood-accessibility",
+      "label": "Flood Accessibility",
+      "category": "research",
+      "depth": 2,
+      "importance": "featured",
+      "displayStatus": "exploratory-work",
+      "summary": "Exploring flood disruption and road access to critical health services in Bangladesh; real-world validation remains incomplete."
+    },
+    {
+      "id": "method-geospatial-analysis",
+      "label": "Geospatial Analysis",
+      "category": "engineering",
+      "depth": 2,
+      "importance": "supporting",
+      "displayStatus": "exploratory-work",
+      "summary": "Spatial data support an exploratory flood-accessibility model, not a validated real-world accessibility assessment."
+    },
+    {
+      "id": "method-flood-exposure",
+      "label": "Flood Exposure Scenarios",
+      "category": "research",
+      "depth": 3,
+      "importance": "supporting",
+      "displayStatus": "exploratory-work",
+      "summary": "Satellite-detected water overlap is an exposure proxy, not flood depth or evidence that a road was closed."
+    },
+    {
+      "id": "method-validation-uncertainty",
+      "label": "Validation and Uncertainty",
+      "category": "research",
+      "depth": 3,
+      "importance": "supporting",
+      "displayStatus": "research-question",
+      "summary": "Validation remains incomplete; sensitivity to assumptions still needs testing."
+    },
+    {
+      "id": "theme-civil-environmental-engineering",
+      "label": "Civil & Environmental Engineering",
+      "category": "engineering",
+      "depth": 2,
+      "importance": "supporting",
+      "displayStatus": "theme",
+      "summary": "I’m studying Civil & Environmental Engineering, with interests in infrastructure, environmental systems and computation."
+    },
+    {
+      "id": "theme-environmental-systems",
+      "label": "Environmental Systems",
+      "category": "engineering",
+      "depth": 2,
+      "importance": "supporting",
+      "displayStatus": "interest",
+      "summary": "I’m interested in how water, infrastructure and environmental systems interact."
+    },
+    {
+      "id": "tool-hermes",
+      "label": "Hermes",
+      "category": "ai",
+      "depth": 2,
+      "importance": "supporting",
+      "displayStatus": "experiment",
+      "summary": "Experiments with Hermes, an existing AI-agent tool, for research assistance and organization."
+    },
+    {
+      "id": "experiment-local-ai",
+      "label": "Local AI",
+      "category": "ai",
+      "depth": 2,
+      "importance": "supporting",
+      "displayStatus": "experiment",
+      "summary": "Experiments with locally run AI models for research and personal knowledge workflows."
+    },
+    {
+      "id": "theme-ai-agents",
+      "label": "AI Agents",
+      "category": "ai",
+      "depth": 2,
+      "importance": "supporting",
+      "displayStatus": "experiment",
+      "summary": "Exploring task-oriented AI agents while keeping human review part of the process."
+    },
+    {
+      "id": "theme-research-workflows",
+      "label": "Research Workflows",
+      "category": "ai",
+      "depth": 2,
+      "importance": "supporting",
+      "displayStatus": "experiment",
+      "summary": "AI-assisted experiments for organizing information and supporting research tasks."
+    },
+    {
+      "id": "theme-knowledge-management",
+      "label": "Knowledge Management",
+      "category": "ai",
+      "depth": 2,
+      "importance": "supporting",
+      "displayStatus": "theme",
+      "summary": "A personal knowledge-management approach for organizing useful ideas, revisiting them over time and keeping private material separate."
+    },
+    {
+      "id": "theme-local-cloud-tradeoffs",
+      "label": "Local and Cloud Trade-offs",
+      "category": "ai",
+      "depth": 2,
+      "importance": "supporting",
+      "displayStatus": "experiment",
+      "summary": "Exploring the practical trade-offs between local and cloud AI workflows without claiming a formal benchmark."
+    },
+    {
+      "id": "project-nothipotro",
+      "label": "Nothipotro",
+      "category": "project",
+      "depth": 2,
+      "importance": "featured",
+      "displayStatus": "current-work",
+      "summary": "Nothipotro is a student-focused project in development, centred on educational content, learning ideas and student needs—not a validated or mature product."
+    },
+    {
+      "id": "project-knowledge-workflows",
+      "label": "Knowledge Workflow Experiments",
+      "category": "project",
+      "depth": 2,
+      "importance": "featured",
+      "displayStatus": "experiment",
+      "summary": "Personal experiments combining a knowledge base and AI tools to organize research and connect ideas—not a finished software product."
+    },
+    {
+      "id": "practice-public-speaking",
+      "label": "Public Speaking",
+      "category": "leadership",
+      "depth": 2,
+      "importance": "supporting",
+      "displayStatus": "current-work",
+      "summary": "Public-speaking experience through Toastmasters and Model United Nations, alongside continued communication practice."
+    },
+    {
+      "id": "practice-structured-feedback",
+      "label": "Structured Feedback",
+      "category": "leadership",
+      "depth": 3,
+      "importance": "supporting",
+      "displayStatus": "theme",
+      "summary": "Practice in giving structured feedback through Toastmasters meeting roles."
+    },
+    {
+      "id": "learning-projects",
+      "label": "Learning Through Projects",
+      "category": "learning",
+      "depth": 2,
+      "importance": "supporting",
+      "displayStatus": "theme",
+      "summary": "I like to start with a real question, build a small baseline, test what works and explain the limits clearly."
+    },
+    {
+      "id": "learning-computational-civil",
+      "label": "Computational Civil Engineering",
+      "category": "learning",
+      "depth": 2,
+      "importance": "supporting",
+      "displayStatus": "interest",
+      "summary": "I’m exploring how computation and geospatial methods can help investigate civil-engineering problems."
+    },
+    {
+      "id": "learning-python-geospatial",
+      "label": "Python and Geospatial Learning",
+      "category": "learning",
+      "depth": 3,
+      "importance": "supporting",
+      "displayStatus": "interest",
+      "summary": "My learning includes Python, spatial data and reproducible approaches to engineering analysis."
+    },
+    {
+      "id": "learning-decision-making",
+      "label": "Decision-making",
+      "category": "learning",
+      "depth": 2,
+      "importance": "supporting",
+      "displayStatus": "interest",
+      "summary": "I’m interested in decision-making, incentives and judgement under uncertainty."
+    },
+    {
+      "id": "learning-cognitive-biases",
+      "label": "Cognitive Biases",
+      "category": "learning",
+      "depth": 3,
+      "importance": "supporting",
+      "displayStatus": "interest",
+      "summary": "I’m interested in how cognitive biases can shape judgement, decisions and communication."
+    },
+    {
+      "id": "principle-audience-first",
+      "label": "Audience-first Design",
+      "category": "project",
+      "depth": 3,
+      "importance": "supporting",
+      "displayStatus": "theme",
+      "summary": "A design principle I use is to understand useful student content and real learning problems before assuming there is demand for a product."
+    },
+    {
+      "id": "learning-technical-communication",
+      "label": "Technical Communication",
+      "category": "learning",
+      "depth": 2,
+      "importance": "supporting",
+      "displayStatus": "theme",
+      "summary": "For technical communication, I try to explain the question, assumptions, evidence and limitations together."
+    },
+    {
+      "id": "principle-student-learning",
+      "label": "Student Learning Needs",
+      "category": "project",
+      "depth": 3,
+      "importance": "supporting",
+      "displayStatus": "interest",
+      "summary": "I’m interested in practical study problems and small learning ideas that could be genuinely useful to students, while treating assumptions about demand as something to test rather than assume."
+    },
+    {
+      "id": "learning-content",
+      "label": "Content as Learning",
+      "category": "learning",
+      "depth": 2,
+      "importance": "supporting",
+      "displayStatus": "theme",
+      "summary": "I use documenting and explaining real work as part of the learning process—not as a substitute for evidence."
+    },
+    {
+      "id": "experience-toastmasters",
+      "label": "Toastmasters",
+      "category": "leadership",
+      "depth": 2,
+      "importance": "featured",
+      "displayStatus": "theme",
+      "summary": "Toastmasters has been a practical setting for developing my public speaking, structured feedback and meeting-participation skills."
+    },
+    {
+      "id": "experience-mun",
+      "label": "Model United Nations",
+      "category": "leadership",
+      "depth": 2,
+      "importance": "featured",
+      "displayStatus": "theme",
+      "summary": "Through Model United Nations, I’ve practised policy preparation, public speaking and negotiation in simulated international-policy settings."
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-experience-mun-practice-mun-policy-negotiation-includes",
+      "source": "experience-mun",
+      "target": "practice-mun-policy-negotiation",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-topic-engineering-method-road-networks-includes",
+      "source": "topic-engineering",
+      "target": "method-road-networks",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-research-flood-accessibility-method-road-networks-uses-method",
+      "source": "research-flood-accessibility",
+      "target": "method-road-networks",
+      "relationship": "uses-method"
+    },
+    {
+      "id": "edge-research-flood-accessibility-concept-road-disruption-restoration-frames-question",
+      "source": "research-flood-accessibility",
+      "target": "concept-road-disruption-restoration",
+      "relationship": "frames-question"
+    },
+    {
+      "id": "edge-research-flood-accessibility-concept-critical-health-service-access-frames-question",
+      "source": "research-flood-accessibility",
+      "target": "concept-critical-health-service-access",
+      "relationship": "frames-question"
+    },
+    {
+      "id": "edge-concept-critical-health-service-access-concept-road-disruption-restoration-motivates",
+      "source": "concept-critical-health-service-access",
+      "target": "concept-road-disruption-restoration",
+      "relationship": "motivates"
+    },
+    {
+      "id": "edge-person-adnan-topic-research-has-theme",
+      "source": "person-adnan",
+      "target": "topic-research",
+      "relationship": "has-theme"
+    },
+    {
+      "id": "edge-person-adnan-topic-engineering-has-theme",
+      "source": "person-adnan",
+      "target": "topic-engineering",
+      "relationship": "has-theme"
+    },
+    {
+      "id": "edge-person-adnan-topic-ai-technology-has-theme",
+      "source": "person-adnan",
+      "target": "topic-ai-technology",
+      "relationship": "has-theme"
+    },
+    {
+      "id": "edge-person-adnan-topic-projects-has-theme",
+      "source": "person-adnan",
+      "target": "topic-projects",
+      "relationship": "has-theme"
+    },
+    {
+      "id": "edge-person-adnan-topic-leadership-has-theme",
+      "source": "person-adnan",
+      "target": "topic-leadership",
+      "relationship": "has-theme"
+    },
+    {
+      "id": "edge-person-adnan-topic-learning-has-theme",
+      "source": "person-adnan",
+      "target": "topic-learning",
+      "relationship": "has-theme"
+    },
+    {
+      "id": "edge-topic-research-research-flood-accessibility-includes",
+      "source": "topic-research",
+      "target": "research-flood-accessibility",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-topic-engineering-method-geospatial-analysis-includes",
+      "source": "topic-engineering",
+      "target": "method-geospatial-analysis",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-research-flood-accessibility-method-flood-exposure-frames-question",
+      "source": "research-flood-accessibility",
+      "target": "method-flood-exposure",
+      "relationship": "frames-question"
+    },
+    {
+      "id": "edge-research-flood-accessibility-method-validation-uncertainty-frames-question",
+      "source": "research-flood-accessibility",
+      "target": "method-validation-uncertainty",
+      "relationship": "frames-question"
+    },
+    {
+      "id": "edge-topic-engineering-theme-civil-environmental-engineering-includes",
+      "source": "topic-engineering",
+      "target": "theme-civil-environmental-engineering",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-topic-engineering-theme-environmental-systems-includes",
+      "source": "topic-engineering",
+      "target": "theme-environmental-systems",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-topic-ai-technology-tool-hermes-includes",
+      "source": "topic-ai-technology",
+      "target": "tool-hermes",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-topic-ai-technology-experiment-local-ai-includes",
+      "source": "topic-ai-technology",
+      "target": "experiment-local-ai",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-topic-ai-technology-theme-ai-agents-includes",
+      "source": "topic-ai-technology",
+      "target": "theme-ai-agents",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-topic-ai-technology-theme-research-workflows-includes",
+      "source": "topic-ai-technology",
+      "target": "theme-research-workflows",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-topic-ai-technology-theme-knowledge-management-includes",
+      "source": "topic-ai-technology",
+      "target": "theme-knowledge-management",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-topic-ai-technology-theme-local-cloud-tradeoffs-includes",
+      "source": "topic-ai-technology",
+      "target": "theme-local-cloud-tradeoffs",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-topic-projects-project-nothipotro-includes",
+      "source": "topic-projects",
+      "target": "project-nothipotro",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-topic-projects-project-knowledge-workflows-includes",
+      "source": "topic-projects",
+      "target": "project-knowledge-workflows",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-topic-leadership-practice-public-speaking-includes",
+      "source": "topic-leadership",
+      "target": "practice-public-speaking",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-experience-toastmasters-practice-structured-feedback-includes",
+      "source": "experience-toastmasters",
+      "target": "practice-structured-feedback",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-topic-learning-learning-projects-includes",
+      "source": "topic-learning",
+      "target": "learning-projects",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-topic-learning-learning-computational-civil-includes",
+      "source": "topic-learning",
+      "target": "learning-computational-civil",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-learning-computational-civil-learning-python-geospatial-includes",
+      "source": "learning-computational-civil",
+      "target": "learning-python-geospatial",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-topic-learning-learning-decision-making-includes",
+      "source": "topic-learning",
+      "target": "learning-decision-making",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-learning-decision-making-learning-cognitive-biases-includes",
+      "source": "learning-decision-making",
+      "target": "learning-cognitive-biases",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-project-nothipotro-principle-audience-first-has-design-theme",
+      "source": "project-nothipotro",
+      "target": "principle-audience-first",
+      "relationship": "has-design-theme"
+    },
+    {
+      "id": "edge-topic-learning-learning-technical-communication-includes",
+      "source": "topic-learning",
+      "target": "learning-technical-communication",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-project-nothipotro-principle-student-learning-has-design-theme",
+      "source": "project-nothipotro",
+      "target": "principle-student-learning",
+      "relationship": "has-design-theme"
+    },
+    {
+      "id": "edge-topic-learning-learning-content-includes",
+      "source": "topic-learning",
+      "target": "learning-content",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-topic-leadership-experience-toastmasters-includes",
+      "source": "topic-leadership",
+      "target": "experience-toastmasters",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-topic-leadership-experience-mun-includes",
+      "source": "topic-leadership",
+      "target": "experience-mun",
+      "relationship": "includes"
+    },
+    {
+      "id": "edge-research-flood-accessibility-method-geospatial-analysis-uses-method",
+      "source": "research-flood-accessibility",
+      "target": "method-geospatial-analysis",
+      "relationship": "uses-method"
+    },
+    {
+      "id": "edge-method-flood-exposure-method-validation-uncertainty-requires-checking",
+      "source": "method-flood-exposure",
+      "target": "method-validation-uncertainty",
+      "relationship": "requires-checking"
+    },
+    {
+      "id": "edge-tool-hermes-theme-ai-agents-used-in-experiments",
+      "source": "tool-hermes",
+      "target": "theme-ai-agents",
+      "relationship": "used-in-experiments"
+    },
+    {
+      "id": "edge-project-knowledge-workflows-theme-research-workflows-explores",
+      "source": "project-knowledge-workflows",
+      "target": "theme-research-workflows",
+      "relationship": "explores"
+    },
+    {
+      "id": "edge-project-knowledge-workflows-theme-knowledge-management-explores",
+      "source": "project-knowledge-workflows",
+      "target": "theme-knowledge-management",
+      "relationship": "explores"
+    },
+    {
+      "id": "edge-experiment-local-ai-theme-local-cloud-tradeoffs-raises-tradeoffs",
+      "source": "experiment-local-ai",
+      "target": "theme-local-cloud-tradeoffs",
+      "relationship": "raises-tradeoffs"
+    },
+    {
+      "id": "edge-experience-toastmasters-practice-public-speaking-practice-context",
+      "source": "experience-toastmasters",
+      "target": "practice-public-speaking",
+      "relationship": "practice-context"
+    },
+    {
+      "id": "edge-experience-mun-practice-public-speaking-practice-context",
+      "source": "experience-mun",
+      "target": "practice-public-speaking",
+      "relationship": "practice-context"
+    },
+    {
+      "id": "edge-learning-projects-learning-computational-civil-proposed-learning-context",
+      "source": "learning-projects",
+      "target": "learning-computational-civil",
+      "relationship": "proposed-learning-context"
+    },
+    {
+      "id": "edge-learning-python-geospatial-method-geospatial-analysis-learning-direction",
+      "source": "learning-python-geospatial",
+      "target": "method-geospatial-analysis",
+      "relationship": "learning-direction"
+    },
+    {
+      "id": "edge-learning-technical-communication-learning-content-proposed-learning-practice",
+      "source": "learning-technical-communication",
+      "target": "learning-content",
+      "relationship": "proposed-learning-practice"
+    }
+  ]
+}

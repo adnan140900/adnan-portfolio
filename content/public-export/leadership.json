@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "1.0.0",
+  "items": [
+    {
+      "id": "leadership-toastmasters",
+      "title": "Toastmasters",
+      "summary": "Toastmasters has been a practical setting for developing my public speaking, structured feedback and meeting-participation skills.",
+      "displayStatus": "theme",
+      "sections": [
+        {
+          "id": "toastmasters-public-speaking",
+          "kind": "experience",
+          "heading": "Public Speaking",
+          "body": [
+            "Public-speaking experience developed through Toastmasters and Model United Nations."
+          ],
+          "displayStatus": "current-work"
+        },
+        {
+          "id": "toastmasters-structured-feedback",
+          "kind": "experience",
+          "heading": "Structured Feedback",
+          "body": [
+            "Practice in giving structured feedback through Toastmasters meeting roles."
+          ],
+          "displayStatus": "theme"
+        },
+        {
+          "id": "toastmasters-grammatian",
+          "kind": "experience",
+          "heading": "Grammarian",
+          "body": [
+            "I have served as Grammarian in Toastmasters meetings."
+          ],
+          "displayStatus": "historical"
+        },
+        {
+          "id": "toastmasters-ah-counter",
+          "kind": "experience",
+          "heading": "Ah-Counter",
+          "body": [
+            "I have served as Ah-Counter in Toastmasters meetings."
+          ],
+          "displayStatus": "historical"
+        },
+        {
+          "id": "toastmasters-evaluator",
+          "kind": "experience",
+          "heading": "Evaluator",
+          "body": [
+            "I have served as an Evaluator in Toastmasters meetings."
+          ],
+          "displayStatus": "historical"
+        },
+        {
+          "id": "toastmasters-sergeant-at-arms",
+          "kind": "experience",
+          "heading": "Sergeant-at-Arms",
+          "body": [
+            "I currently serve as the elected Sergeant-at-Arms of my Toastmasters club.",
+            "As Sergeant-at-Arms, I support meeting readiness, opening procedures, announcements and meeting logistics."
+          ],
+          "displayStatus": "current-work"
+        }
+      ],
+      "graphNodeId": "experience-toastmasters"
+    },
+    {
+      "id": "leadership-mun",
+      "title": "Model United Nations",
+      "summary": "Through Model United Nations, I’ve practised policy preparation, public speaking and negotiation in simulated international-policy settings.",
+      "displayStatus": "theme",
+      "sections": [
+        {
+          "id": "mun-policy-negotiation",
+          "kind": "experience",
+          "heading": "Policy Preparation and Negotiation",
+          "body": [
+            "Model United Nations has given me practice in policy preparation, argument construction and negotiation in simulated committee settings."
+          ],
+          "displayStatus": "theme"
+        },
+        {
+          "id": "mun-buftimun-2025",
+          "kind": "experience",
+          "heading": "BUFTIMUN 2025",
+          "body": [
+            "At BUFTIMUN 2025, I represented Nigeria in the OIC committee.",
+            "I received a Special Mention at BUFTIMUN 2025."
+          ],
+          "displayStatus": "historical"
+        },
+        {
+          "id": "mun-dunmun-2026",
+          "kind": "experience",
+          "heading": "DUNMUN 2026",
+          "body": [
+            "At DUNMUN 2026, I represented Belgium in the FATF committee."
+          ],
+          "displayStatus": "historical"
+        }
+      ],
+      "graphNodeId": "experience-mun"
+    }
+  ]
+}

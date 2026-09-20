@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "1.0.0",
+  "items": [
+    {
+      "id": "learning-overview",
+      "title": "Learning",
+      "summary": "Learning through engineering questions, small experiments and reflection.",
+      "displayStatus": "theme",
+      "sections": [
+        {
+          "id": "learning-through-projects",
+          "kind": "learning",
+          "heading": "Learning Through Projects",
+          "body": [
+            "I like to start with a real question, build a small baseline, test what works and explain the limits clearly."
+          ],
+          "displayStatus": "theme"
+        },
+        {
+          "id": "learning-computational-civil",
+          "kind": "learning",
+          "heading": "Computational Civil Engineering",
+          "body": [
+            "I’m exploring how computation and geospatial methods can help investigate civil-engineering problems."
+          ],
+          "displayStatus": "interest"
+        },
+        {
+          "id": "learning-python-geospatial",
+          "kind": "learning",
+          "heading": "Python and Geospatial Learning",
+          "body": [
+            "My learning includes Python, spatial data and reproducible approaches to engineering analysis."
+          ],
+          "displayStatus": "interest"
+        },
+        {
+          "id": "learning-decision-making",
+          "kind": "learning",
+          "heading": "Decision-making",
+          "body": [
+            "I’m interested in decision-making, incentives and judgement under uncertainty."
+          ],
+          "displayStatus": "interest"
+        },
+        {
+          "id": "learning-cognitive-biases",
+          "kind": "learning",
+          "heading": "Cognitive Biases",
+          "body": [
+            "I’m interested in how cognitive biases can shape judgement, decisions and communication."
+          ],
+          "displayStatus": "interest"
+        },
+        {
+          "id": "learning-technical-communication",
+          "kind": "learning",
+          "heading": "Technical Communication",
+          "body": [
+            "For technical communication, I try to explain the question, assumptions, evidence and limitations together."
+          ],
+          "displayStatus": "theme"
+        },
+        {
+          "id": "learning-content",
+          "kind": "learning",
+          "heading": "Content as Learning",
+          "body": [
+            "I use documenting and explaining real work as part of the learning process—not as a substitute for evidence."
+          ],
+          "displayStatus": "theme"
+        }
+      ],
+      "graphNodeId": "topic-learning"
+    }
+  ]
+}

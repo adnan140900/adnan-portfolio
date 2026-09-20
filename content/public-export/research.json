@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "1.0.0",
+  "items": [
+    {
+      "id": "research-flood-story",
+      "title": "Flood Accessibility",
+      "summary": "I’m exploring how flood-disruption scenarios could affect road access to critical health services in Bangladesh. The work so far is exploratory and computational; it has not yet been validated against real-world road closures or population-level accessibility.",
+      "displayStatus": "exploratory-work",
+      "sections": [
+        {
+          "id": "flood-question",
+          "kind": "question",
+          "heading": "Question",
+          "body": [
+            "How might flooding change access to critical health facilities, and which road restorations could matter most under different assumptions?"
+          ],
+          "displayStatus": "research-question"
+        },
+        {
+          "id": "flood-motivation",
+          "kind": "motivation",
+          "heading": "Motivation",
+          "body": [
+            "A disrupted road can mean a longer journey or no route at all. This research focuses on access to health services and on how restoration choices might change that access—not simply on how much road is exposed to water."
+          ],
+          "displayStatus": "research-question"
+        },
+        {
+          "id": "flood-method",
+          "kind": "method",
+          "heading": "Method",
+          "body": [
+            "To test the idea, I built an exploratory network model using mapped roads, candidate health facilities and satellite-detected water. It compares shortest travel paths before and after simulated disruption, then tests how restoring individual road segments changes access. The pilot uses simplified origins and assumed travel speeds, so it is a method test rather than a real-world accessibility model."
+          ],
+          "displayStatus": "exploratory-work"
+        },
+        {
+          "id": "flood-assumptions",
+          "kind": "assumptions",
+          "heading": "Data and assumptions",
+          "body": [
+            "The pilot uses OpenStreetMap-derived roads, candidate health facilities and satellite-detected water extent. Water overlap is treated as an exposure proxy—not flood depth or proof that a road was actually closed. The model also depends on assumptions about road speeds, bridges, origins and facility data."
+          ],
+          "displayStatus": "exploratory-work"
+        },
+        {
+          "id": "flood-exploratory-work",
+          "kind": "exploratory-work",
+          "heading": "Exploratory work",
+          "body": [
+            "An archived test in Bagerhat was used to check whether the workflow could run from baseline analysis through disruption and restoration testing. The workflow operated as intended, but the test scenario was not disruptive enough to answer the main research question. Bagerhat was a test area, not a finalized study location."
+          ],
+          "displayStatus": "historical"
+        },
+        {
+          "id": "flood-limitations",
+          "kind": "limitations",
+          "heading": "Limitations",
+          "body": [
+            "The pilot simplifies reality in several ways. It uses network nodes as origin proxies, assumes free-flow travel speeds, treats water overlap as exposure rather than observed road closure, and does not establish population-weighted access or verified facility operations. The results should therefore be read as exploratory model behavior, not operational routing advice."
+          ],
+          "displayStatus": "exploratory-work"
+        },
+        {
+          "id": "flood-validation",
+          "kind": "validation",
+          "heading": "Validation",
+          "body": [
+            "Validation is still incomplete. The workflow has been tested computationally, but the model has not yet been checked against observed road closures, measured travel times, verified facility operations or population-weighted accessibility. Real-world validation remains a next step."
+          ],
+          "displayStatus": "exploratory-work"
+        },
+        {
+          "id": "flood-uncertainty",
+          "kind": "uncertainty",
+          "heading": "Uncertainty",
+          "body": [
+            "Any restoration priorities may change when the flood scenario, disruption rule, road speeds, facility definitions or representation of origins changes. A sensitivity analysis is needed to test whether the same priorities remain stable under different assumptions."
+          ],
+          "displayStatus": "exploratory-work"
+        }
+      ],
+      "graphNodeId": "research-flood-accessibility"
+    }
+  ]
+}
