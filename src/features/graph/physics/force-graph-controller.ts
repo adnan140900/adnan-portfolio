@@ -28,6 +28,7 @@ interface CreateForceGraphControllerOptions {
   rootNodeId: GraphNodeId;
   animate: boolean;
   dragEnabled: boolean;
+  project?: (point: GraphPoint) => GraphPoint;
 }
 
 export function createForceGraphController({
@@ -37,10 +38,11 @@ export function createForceGraphController({
   rootNodeId,
   animate,
   dragEnabled,
+  project,
 }: CreateForceGraphControllerOptions): ForceGraphController {
   const nodes = createStableGraphNodes(graphNodes, rootNodeId);
   const links = createForceGraphLinks(graphEdges);
-  const adapter = createSvgGraphAdapter(svg);
+  const adapter = createSvgGraphAdapter(svg, project);
   const nodeById = new Map(nodes.map((node) => [node.id, node]));
   const authored = graphNodes.some(node => node.kind === "person") || rootNodeId === "research-flood-accessibility";
   const anchors = new Map(nodes.map(node => [node.id, { x: node.x!, y: node.y! }]));

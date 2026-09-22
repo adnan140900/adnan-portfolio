@@ -3,32 +3,35 @@
 import { useEffect, useMemo, useRef } from "react";
 import type { GraphDocument } from "../graph/types";
 import { useSemanticIdle } from "../motion/use-semantic-idle";
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { useExperienceProfile } from "../experience/experience-profile-provider";
 import { publishGraphGeometry } from "../graph/physics/story-projection";
 import type { FilmScene } from "./film-model";
 import { createProjectionSequence, projectionLabelLines, projectionNodeEmphasis } from "./semantic-projection-model";
+import { getGraphViewport, projectGraphPoints } from "../graph/physics/graph-projection";
 
-/** One persistent desktop SVG/idle clock. Normal-flow copies are static. */
-export function SemanticProjection({ graph, scenes, identity = false, mobile = false }: {
-  graph: GraphDocument; scenes: FilmScene[]; identity?: boolean; mobile?: boolean;
+/** One persistent semantic SVG and idle clock at every viewport. */
+export function SemanticProjection({ graph, scenes, identity = false }: {
+  graph: GraphDocument; scenes: FilmScene[]; identity?: boolean;
 }) {
   const root = useRef<HTMLDivElement>(null), svg = useRef<SVGSVGElement>(null);
-  const reduced = usePrefersReducedMotion();
+  const profile = useExperienceProfile();
   const plan = useMemo(() => createProjectionSequence(graph, scenes, identity), [graph, scenes, identity]);
-  useEffect(() => { if (svg.current) publishGraphGeometry(svg.current, plan.base); }, [plan]);
-  useSemanticIdle(root, svg, plan.nodes, plan.frames[0]?.anchorId, mobile ? true : reduced);
+  const base = useMemo(() => projectGraphPoints(plan.base, profile.viewport), [plan.base, profile.viewport]);
+  const viewport = getGraphViewport(profile.viewport);
+  useEffect(() => { if (svg.current) publishGraphGeometry(svg.current, base); }, [base]);
+  useSemanticIdle(root, svg, plan.nodes, plan.frames[0]?.anchorId, profile);
   const frame = plan.frames[0];
-  return <div ref={root} className={`semantic-projection${mobile ? " projection-mobile" : " projection-desktop"}`} data-projection-identity={identity}>
-    <svg ref={svg} viewBox="0 0 1040 620" aria-hidden="true" focusable="false" data-semantic-projection>
+  return <div ref={root} className="semantic-projection projection-persistent" data-projection-identity={identity}>
+    <svg ref={svg} viewBox={`0 0 ${viewport.width} ${viewport.height}`} aria-hidden="true" focusable="false" data-semantic-projection data-semantic-mobile={profile.viewport === "compact"}>
       {plan.edges.map(edge => {
-        const a = plan.base.get(edge.source)!, b = plan.base.get(edge.target)!;
+        const a = base.get(edge.source)!, b = base.get(edge.target)!;
         const active = frame.edges.some(item => item.id === edge.id);
         return <path key={edge.id} data-force-edge data-edge-id={edge.id} data-source={edge.source} data-target={edge.target}
           d={`M ${a.x} ${a.y} L ${b.x} ${b.y}`} fill="none" stroke="currentColor" strokeWidth="0.8"
           opacity={active ? edge.source === frame.anchorId || edge.target === frame.anchorId ? 0.58 : 0.28 : 0} />;
       })}
       {plan.nodes.map(node => {
-        const p = plan.base.get(node.id)!;
+        const p = base.get(node.id)!;
         const emphasis = projectionNodeEmphasis(node, frame);
         return <g key={node.id} transform={`translate(${p.x} ${p.y})`} data-projection-node={node.id} opacity={emphasis}>
           <g data-story-position={node.id}>

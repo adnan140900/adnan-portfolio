@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const defaultSiteOrigin = "https://adnan.is-a.dev";
+const defaultSiteOrigin = "https://adnan-sk.is-a.dev";
 
 function resolveSiteOrigin(value = process.env.NEXT_PUBLIC_SITE_URL) {
   const configuredOrigin = value?.trim() || defaultSiteOrigin;

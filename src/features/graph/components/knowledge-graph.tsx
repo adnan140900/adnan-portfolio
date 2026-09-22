@@ -1,8 +1,9 @@
 "use client";
 
-import type { MouseEvent as ReactMouseEvent } from "react";
-import { useMemo, useReducer, useRef, useState } from "react";
+import type { MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent } from "react";
+import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import Link from "next/link";
+import { gsap } from "gsap";
 import { getGraphView, getViewEdges, getViewNodes } from "../selectors";
 import {
   createInitialGraphState,
@@ -13,19 +14,20 @@ import {
   createForceGraphLinks,
   createConstellationPath,
   createStableGraphNodes,
-  GRAPH_HEIGHT,
-  GRAPH_WIDTH,
   NODE_BOX,
   resolveForcePoint,
 } from "../physics/graph-geometry";
 import { useForceGraph } from "../physics/use-force-graph";
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { useExperienceProfile } from "@/features/experience/experience-profile-provider";
 import { usePortfolioTransition } from "@/features/transitions/portfolio-transition-provider";
 import { AmbientStarfield } from "@/features/atmosphere/ambient-starfield";
 import { useConstellationMotion } from "@/features/motion/use-constellation-motion";
 import { useSemanticIdle } from "@/features/motion/use-semantic-idle";
 import { createUniverseDepth } from "../universe-depth";
 import { UniverseDepthLayer } from "./universe-depth-layer";
+import { getGraphViewport, projectGraphPoint } from "../physics/graph-projection";
+import { createBranchGrowthPlan, scheduleBranchGrowth } from "../../transitions/branch-growth-plan";
+import { motionTokens as M } from "../../motion/motion-tokens";
 
 interface KnowledgeGraphProps {
   graph: GraphDocument;
@@ -38,11 +40,14 @@ export function KnowledgeGraph({ graph, initialViewId, routePath }: KnowledgeGra
   const [state, dispatch] = useReducer(graphExplorerReducer, view, createInitialGraphState);
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
   const [focusedVisualNodeId, setFocusedVisualNodeId] = useState<string | null>(null);
+  const [pressedNodeId, setPressedNodeId] = useState<string | null>(null);
+  const [touchSelectedNodeId, setTouchSelectedNodeId] = useState<string | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const rootRef = useRef<HTMLElement>(null);
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const pressTimeoutRef = useRef<number | null>(null);
+  const profile = useExperienceProfile();
   const transition = usePortfolioTransition();
-  useConstellationMotion(rootRef, prefersReducedMotion, transition.isTransitioning);
+  useConstellationMotion(rootRef, profile, transition.isTransitioning);
   const visibleNodes = useMemo(
     () => getViewNodes(graph, view.id),
     [graph, view.id],
@@ -52,23 +57,25 @@ export function KnowledgeGraph({ graph, initialViewId, routePath }: KnowledgeGra
     [graph, view.id],
   );
   const idleNodes = routePath === "/" ? graph.nodes : visibleNodes;
-  useSemanticIdle(rootRef, svgRef, idleNodes, view.rootNodeId, prefersReducedMotion);
+  useSemanticIdle(rootRef, svgRef, idleNodes, view.rootNodeId, profile);
   const stableNodes = useMemo(
     () => createStableGraphNodes(visibleNodes, view.rootNodeId),
     [visibleNodes, view.rootNodeId],
   );
   const stableLinks = useMemo(() => createForceGraphLinks(visibleEdges), [visibleEdges]);
   const stableNodesById = useMemo(
-    () => new Map(stableNodes.map((node) => [node.id, node])),
-    [stableNodes],
+    () => new Map(stableNodes.map((node) => [node.id, { ...node, ...projectGraphPoint({ x: node.x ?? 0, y: node.y ?? 0 }, profile.viewport) }])),
+    [profile.viewport, stableNodes],
   );
-  const primaryPoints = useMemo(() => new Map(stableNodes.map(node => [node.id, { x: node.x ?? 0, y: node.y ?? 0 }])), [stableNodes]);
-  const universeDepth = useMemo(() => routePath === "/" ? createUniverseDepth(graph, primaryPoints) : null, [graph, primaryPoints, routePath]);
+  const canonicalPrimaryPoints = useMemo(() => new Map(stableNodes.map(node => [node.id, { x: node.x ?? 0, y: node.y ?? 0 }])), [stableNodes]);
+  const primaryPoints = useMemo(() => new Map([...canonicalPrimaryPoints].map(([id, point]) => [id, projectGraphPoint(point, profile.viewport)])), [canonicalPrimaryPoints, profile.viewport]);
+  const universeDepth = useMemo(() => routePath === "/" ? createUniverseDepth(graph, canonicalPrimaryPoints) : null, [graph, canonicalPrimaryPoints, routePath]);
   const nodeById = useMemo(
     () => new Map(visibleNodes.map((node) => [node.id, node])),
     [visibleNodes],
   );
-  const activeNodeId = hoveredNodeId ?? focusedVisualNodeId;
+  const activeNodeId = pressedNodeId ?? hoveredNodeId ?? focusedVisualNodeId ?? touchSelectedNodeId;
+  const viewport = getGraphViewport(profile.viewport);
   const focusedNode = activeNodeId ? nodeById.get(activeNodeId) : state.focusedNodeId
     ? nodeById.get(state.focusedNodeId)
     : nodeById.get(view.rootNodeId);
@@ -77,9 +84,50 @@ export function KnowledgeGraph({ graph, initialViewId, routePath }: KnowledgeGra
     nodes: visibleNodes,
     edges: visibleEdges,
     rootNodeId: view.rootNodeId,
-    prefersReducedMotion,
+    profile,
     suspended: transition.isTransitioning,
   });
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root || routePath !== "/" || profile.viewport !== "compact" || profile.motionPreference !== "full" || transition.isTransitioning) return;
+    const svg = svgRef.current;
+    if (!svg) return;
+    const controls = new Map([...svg.querySelectorAll<HTMLElement>("[data-graph-control]")].map(control => [control.dataset.controlNode ?? "", control]));
+    const edges = [...svg.querySelectorAll<SVGPathElement>(".force-edge")];
+    const edgeData = edges.map(edge => ({ id: edge.dataset.edgeId ?? "", source: edge.dataset.source ?? "", target: edge.dataset.target ?? "" }));
+    const edgeMap = new Map(edges.map(edge => [edge.dataset.edgeId ?? "", edge]));
+    const plan = createBranchGrowthPlan(view.rootNodeId, [...controls.keys()], edgeData);
+    const otherControls = [...controls].filter(([id]) => id !== view.rootNodeId).map(([, control]) => control);
+    const labels = otherControls.flatMap(control => [...control.querySelectorAll<HTMLElement>(".knowledge-star-label")]);
+    root.dataset.mobileForming = "true";
+    gsap.set(edges, { opacity: 0 });
+    gsap.set(otherControls, { opacity: 0, scale: 0.3 });
+    gsap.set(labels, { opacity: 0 });
+    const timeline = gsap.timeline({ onComplete() {
+      gsap.set([...edges, ...otherControls, ...labels], { clearProps: "opacity,transform,strokeDasharray,strokeDashoffset" });
+      delete root.dataset.mobileForming;
+    } });
+    for (const branch of scheduleBranchGrowth(view.rootNodeId, plan, edgeData, M.transition)) {
+      const edge = edgeMap.get(branch.edgeId);
+      const at = branch.at * 0.7;
+      if (edge) {
+        timeline.set(edge, { opacity: 0.3, strokeDasharray: 1, strokeDashoffset: branch.reverse ? -1 : 1 }, at);
+        timeline.to(edge, { strokeDashoffset: 0, duration: M.transition.branch * 0.72, ease: M.ease.quiet }, at);
+      }
+      const control = branch.nodeId ? controls.get(branch.nodeId) : undefined;
+      if (control) {
+        timeline.to(control, { opacity: 1, scale: 1, duration: M.transition.star * 0.72, ease: M.ease.reveal }, at + M.transition.branch * 0.65);
+        timeline.to(control.querySelector(".knowledge-star-label"), { opacity: 1, duration: M.transition.label * 0.7 }, at + M.transition.branch * 0.78);
+      }
+    }
+    root.dataset.mobileFormationEdges = String(plan.branches.length);
+    return () => {
+      timeline.kill();
+      gsap.set([...edges, ...otherControls, ...labels], { clearProps: "opacity,transform,strokeDasharray,strokeDashoffset" });
+      delete root.dataset.mobileForming;
+    };
+  }, [profile.motionPreference, profile.viewport, routePath, transition.isTransitioning, view.rootNodeId]);
 
   const selectNode = (node: GraphNode) => {
     if (node.kind === "subject" && node.parentId) {
@@ -106,15 +154,36 @@ export function KnowledgeGraph({ graph, initialViewId, routePath }: KnowledgeGra
       return;
     }
 
-    if (!followsRoute) selectNode(node);
+    if (!followsRoute) {
+      setTouchSelectedNodeId(current => current === node.id ? null : node.id);
+      selectNode(node);
+    }
   };
 
   const isNodeSelected = (node: GraphNode) =>
     (state.level === "cluster" && state.activeClusterId === node.id) ||
     (state.level === "subject" && state.activeSubjectId === node.id);
 
-  const renderNodeControl = (node: GraphNode, mobile = false) => {
-    const className = mobile ? "mobile-graph-node" : "force-node-control";
+  const previewPress = (event: ReactPointerEvent<HTMLElement>, node: GraphNode) => {
+    if (event.pointerType === "touch" || event.pointerType === "pen" || profile.pointer === "coarse") setPressedNodeId(node.id);
+    drag.beginDrag(event, node.id);
+  };
+
+  const finishPress = (event: ReactPointerEvent<HTMLElement>) => {
+    drag.finishDrag(event);
+    if (pressTimeoutRef.current !== null) window.clearTimeout(pressTimeoutRef.current);
+    pressTimeoutRef.current = window.setTimeout(() => {
+      setPressedNodeId(null);
+      pressTimeoutRef.current = null;
+    }, 140);
+  };
+
+  useEffect(() => () => {
+    if (pressTimeoutRef.current !== null) window.clearTimeout(pressTimeoutRef.current);
+  }, []);
+
+  const renderNodeControl = (node: GraphNode) => {
+    const className = "force-node-control";
     const sharedProps = {
       className,
       "data-graph-control": true,
@@ -167,11 +236,11 @@ export function KnowledgeGraph({ graph, initialViewId, routePath }: KnowledgeGra
             });
             if (handled) event.preventDefault();
           }}
-          onPointerDown={(event) => drag.beginDrag(event, node.id)}
+          onPointerDown={(event) => previewPress(event, node)}
           onPointerMove={drag.moveDrag}
-          onPointerUp={drag.finishDrag}
-          onPointerCancel={drag.finishDrag}
-          onLostPointerCapture={drag.finishDrag}
+          onPointerUp={finishPress}
+          onPointerCancel={finishPress}
+          onLostPointerCapture={finishPress}
           {...sharedProps}
         >
           {content}
@@ -185,11 +254,11 @@ export function KnowledgeGraph({ graph, initialViewId, routePath }: KnowledgeGra
         type="button"
         aria-pressed={isNodeSelected(node)}
         onClick={(event) => handleControlClick(event, node, false)}
-        onPointerDown={(event) => drag.beginDrag(event, node.id)}
+        onPointerDown={(event) => previewPress(event, node)}
         onPointerMove={drag.moveDrag}
-        onPointerUp={drag.finishDrag}
-        onPointerCancel={drag.finishDrag}
-        onLostPointerCapture={drag.finishDrag}
+        onPointerUp={finishPress}
+        onPointerCancel={finishPress}
+        onLostPointerCapture={finishPress}
         {...sharedProps}
       >
         {content}
@@ -205,7 +274,7 @@ export function KnowledgeGraph({ graph, initialViewId, routePath }: KnowledgeGra
       className="constellation-shell"
       data-graph-root
       data-graph-route={routePath}
-      data-reduced-motion={prefersReducedMotion !== false}
+      data-reduced-motion={profile.motionPreference !== "full"}
       data-graph-level={state.level}
       data-graph-view={state.activeViewId}
       data-route-transition-active={transition.isTransitioning}
@@ -231,7 +300,7 @@ export function KnowledgeGraph({ graph, initialViewId, routePath }: KnowledgeGra
         <div className="constellation-runtime">
           <span className="h-2 w-2 rounded-full bg-[var(--accent)]" aria-hidden="true" />
           <span className="font-mono uppercase tracking-[0.1em]">
-            {prefersReducedMotion === false ? "Scroll to explore" : "Still constellation"}
+            {profile.motionPreference === "full" ? "Scroll to explore" : profile.motionPreference === "reduced" ? "Still constellation" : "Preparing constellation"}
           </span>
         </div>
       </div>
@@ -242,11 +311,15 @@ export function KnowledgeGraph({ graph, initialViewId, routePath }: KnowledgeGra
           <svg
             ref={svgRef}
             className="force-graph-svg"
-            viewBox={`0 0 ${GRAPH_WIDTH} ${GRAPH_HEIGHT}`}
+            viewBox={`0 0 ${viewport.width} ${viewport.height}`}
             role="group"
             aria-label={`${view.label}, ${visibleNodes.length} nodes`}
+            data-semantic-mobile={profile.viewport === "compact"}
+            onPointerDown={(event) => {
+              if (event.target === event.currentTarget) setTouchSelectedNodeId(null);
+            }}
           >
-            {universeDepth && <UniverseDepthLayer depth={universeDepth} primary={primaryPoints} activeId={activeNodeId} />}
+            {universeDepth && <UniverseDepthLayer depth={universeDepth} primary={primaryPoints} activeId={activeNodeId} viewport={profile.viewport} />}
             <g aria-hidden="true">
               {visibleEdges.map((edge, index) => {
                 const stableLink = stableLinks[index];
@@ -316,14 +389,6 @@ export function KnowledgeGraph({ graph, initialViewId, routePath }: KnowledgeGra
             })}
           </svg>
 
-          {universeDepth && <svg className="mobile-universe-depth" viewBox={`0 0 ${GRAPH_WIDTH} ${GRAPH_HEIGHT}`} aria-hidden="true"><UniverseDepthLayer depth={universeDepth} primary={primaryPoints} activeId={null} /></svg>}
-          <ul className="mobile-graph-list">
-            {visibleNodes.map((node) => (
-              <li key={node.id} className={node.id === view.rootNodeId ? "mobile-root-node" : ""}>
-                {renderNodeControl(node, true)}
-              </li>
-            ))}
-          </ul>
         </nav>
         </div></div>
       </div>

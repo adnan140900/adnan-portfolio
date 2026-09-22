@@ -6,7 +6,7 @@ Frozen visual baseline: Phase 9AA
 
 Prior acceptance: Phase 10 passed
 
-Intended public origin: `https://adnan.is-a.dev`
+Intended public origin: `https://adnan-sk.is-a.dev`
 
 Phase 11A prepared the verified portfolio for a GitHub → Vercel → custom-domain workflow. It did not publish the site, configure DNS, create a remote repository, alter approved content or graph topology, add analytics, or redesign the interface.
 
@@ -34,7 +34,7 @@ Only document metadata changed. The visible About heading, biography, introducti
 
 `src/lib/site-metadata.ts` now owns origin validation and reusable route metadata.
 
-- Default origin: `https://adnan.is-a.dev`
+- Default origin: `https://adnan-sk.is-a.dev`
 - Optional build-time override: `NEXT_PUBLIC_SITE_URL`
 - Accepted value: an absolute HTTP(S) origin only
 - Rejected: credentials, path, query, hash, or non-HTTP(S) scheme
@@ -48,16 +48,16 @@ The root layout defines `metadataBase` using the validated origin. Every public 
 
 | Route | Canonical |
 | --- | --- |
-| `/` | `https://adnan.is-a.dev` |
-| `/about` | `https://adnan.is-a.dev/about` |
-| `/research` | `https://adnan.is-a.dev/research` |
-| `/research/flood-accessibility` | `https://adnan.is-a.dev/research/flood-accessibility` |
-| `/projects` | `https://adnan.is-a.dev/projects` |
-| `/projects/nothipotro` | `https://adnan.is-a.dev/projects/nothipotro` |
-| `/projects/knowledge-workflows` | `https://adnan.is-a.dev/projects/knowledge-workflows` |
-| `/ai` | `https://adnan.is-a.dev/ai` |
-| `/leadership` | `https://adnan.is-a.dev/leadership` |
-| `/learning` | `https://adnan.is-a.dev/learning` |
+| `/` | `https://adnan-sk.is-a.dev` |
+| `/about` | `https://adnan-sk.is-a.dev/about` |
+| `/research` | `https://adnan-sk.is-a.dev/research` |
+| `/research/flood-accessibility` | `https://adnan-sk.is-a.dev/research/flood-accessibility` |
+| `/projects` | `https://adnan-sk.is-a.dev/projects` |
+| `/projects/nothipotro` | `https://adnan-sk.is-a.dev/projects/nothipotro` |
+| `/projects/knowledge-workflows` | `https://adnan-sk.is-a.dev/projects/knowledge-workflows` |
+| `/ai` | `https://adnan-sk.is-a.dev/ai` |
+| `/leadership` | `https://adnan-sk.is-a.dev/leadership` |
+| `/learning` | `https://adnan-sk.is-a.dev/learning` |
 
 No OpenGraph or Twitter image was invented. The release remains asset-free apart from its existing favicon.
 
@@ -123,7 +123,7 @@ No GitHub remote was supplied or discovered. No remote was invented, no push occ
 
 | Variable | Required | Secret? | Default | Purpose |
 | --- | --- | --- | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | No | No | `https://adnan.is-a.dev` | Override the metadata/canonical origin for another build target |
+| `NEXT_PUBLIC_SITE_URL` | No | No | `https://adnan-sk.is-a.dev` | Override the metadata/canonical origin for another build target |
 
 No secret runtime variable is required. Sensitive data must never be placed in a `NEXT_PUBLIC_*` value.
 
@@ -174,6 +174,6 @@ git remote add origin <EXACT_GITHUB_REPOSITORY_URL>
 git push -u origin main
 ```
 
-Then import that repository into Vercel using the standard Next.js preset. The optional `NEXT_PUBLIC_SITE_URL` may be set to `https://adnan.is-a.dev`; omitting it produces the same final origin. Configure the custom domain and DNS only in the separate, explicitly authorized deployment phase.
+Then import that repository into Vercel using the standard Next.js preset. The optional `NEXT_PUBLIC_SITE_URL` may be set to `https://adnan-sk.is-a.dev`; omitting it produces the same final origin. Configure the custom domain and DNS only in the separate, explicitly authorized deployment phase.
 
 PHASE 11A: PASS — REPOSITORY READY FOR PUBLIC DEPLOYMENT

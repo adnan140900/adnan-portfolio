@@ -1,5 +1,5 @@
 export type ClusterTransitionDirection = "enter-cluster" | "exit-cluster" | "enter-subject" | "exit-subject";
-export type ClusterTransitionMode = "cinematic" | "compact" | "reduced";
+export type ClusterTransitionMode = "cinematic" | "mobile-cinematic" | "reduced";
 
 export type ClusterTransitionState =
   | { phase: "idle" }

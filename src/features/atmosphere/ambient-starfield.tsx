@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { useExperienceProfile } from "../experience/experience-profile-provider";
 import { getStarfieldProfile } from "./starfield-policy";
 import { motionCanRun, motionTokens as M } from "../motion/motion-tokens";
 
@@ -52,7 +52,7 @@ function createStars(count: number, depth: number, random: () => number) {
 
 export function AmbientStarfield({ seed }: AmbientStarfieldProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const profile = useExperienceProfile();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -105,7 +105,7 @@ export function AmbientStarfield({ seed }: AmbientStarfieldProps) {
 
     const animateTowardPointer = (time: number) => {
       animationFrame = null;
-      if (!motionCanRun(prefersReducedMotion, document.visibilityState === "visible", intersecting)) return;
+      if (!motionCanRun(profile.motionPreference, profile.visibility === "visible", intersecting)) return;
       if (time - previousTime < 1000 / fps) {
         animationFrame = requestAnimationFrame(animateTowardPointer);
         return;
@@ -122,7 +122,7 @@ export function AmbientStarfield({ seed }: AmbientStarfieldProps) {
     };
 
     const requestDraw = () => {
-      if (animationFrame === null && motionCanRun(prefersReducedMotion, document.visibilityState === "visible", intersecting) && (animate || parallaxEnabled)) {
+      if (animationFrame === null && motionCanRun(profile.motionPreference, profile.visibility === "visible", intersecting) && (animate || parallaxEnabled)) {
         animationFrame = requestAnimationFrame(animateTowardPointer);
       }
     };
@@ -131,21 +131,12 @@ export function AmbientStarfield({ seed }: AmbientStarfieldProps) {
       const bounds = container.getBoundingClientRect();
       width = Math.max(Math.round(bounds.width), 1);
       height = Math.max(Math.round(bounds.height), 1);
-      const isMobile = window.matchMedia("(max-width: 47.999rem)").matches;
-      const connection = navigator as Navigator & {
-        deviceMemory?: number;
-      };
-      const isLowPower =
-        (navigator.hardwareConcurrency > 0 && navigator.hardwareConcurrency <= 4) ||
-        (connection.deviceMemory !== undefined && connection.deviceMemory <= 4);
-      const profile = getStarfieldProfile({
+      const starfieldProfile = getStarfieldProfile({
         height,
-        isLowPower,
-        isMobile,
-        prefersReducedMotion,
+        profile,
         width,
       });
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, isMobile ? 1.25 : 1.6);
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, profile.viewport === "compact" ? 1.25 : 1.6);
       canvas.width = Math.round(width * pixelRatio);
       canvas.height = Math.round(height * pixelRatio);
       canvas.style.width = `${width}px`;
@@ -154,12 +145,12 @@ export function AmbientStarfield({ seed }: AmbientStarfieldProps) {
 
       const random = createRandom(hashSeed(`${seed}:${width}:${height}`));
       stars = [
-        ...createStars(profile.farStarCount, 0.28, random),
-        ...createStars(profile.midStarCount, 0.72, random),
+        ...createStars(starfieldProfile.farStarCount, 0.28, random),
+        ...createStars(starfieldProfile.midStarCount, 0.72, random),
       ];
-      parallaxEnabled = profile.parallaxEnabled;
-      animate = profile.animate;
-      fps = profile.fps;
+      parallaxEnabled = starfieldProfile.parallaxEnabled;
+      animate = starfieldProfile.animate;
+      fps = starfieldProfile.fps;
       canvas.dataset.starCount = String(stars.length);
       canvas.dataset.targetFps = String(fps);
       currentX = 0;
@@ -222,7 +213,7 @@ export function AmbientStarfield({ seed }: AmbientStarfieldProps) {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       if (animationFrame !== null) cancelAnimationFrame(animationFrame);
     };
-  }, [prefersReducedMotion, seed]);
+  }, [profile, seed]);
 
   return <canvas ref={canvasRef} aria-hidden="true" className="ambient-starfield" />;
 }

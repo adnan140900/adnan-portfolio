@@ -15,7 +15,7 @@ import { gsap } from "gsap";
 import { startDecode } from "../kinetic/decode-controller";
 import { motionTokens as M } from "@/features/motion/motion-tokens";
 import { createBranchGrowthPlan, scheduleBranchGrowth } from "./branch-growth-plan";
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { useExperienceProfile } from "../experience/experience-profile-provider";
 import {
   clusterTransitionReducer,
   idleClusterTransition,
@@ -34,7 +34,7 @@ import type {
 
 interface ActiveRequest extends ClusterTransitionRequest {
   direction: ClusterTransitionDirection;
-  mode: "cinematic" | "compact" | "reduced";
+  mode: "cinematic" | "mobile-cinematic" | "reduced";
   originPath: string;
   sourceElement: HTMLElement;
   sourceGraph: HTMLElement;
@@ -72,7 +72,7 @@ function getCenteredBounds(sourceBounds: DOMRect) {
 export function PortfolioTransitionProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const profile = useExperienceProfile();
   const [state, dispatch] = useReducer(clusterTransitionReducer, idleClusterTransition);
   const stateRef = useRef<ClusterTransitionState>(idleClusterTransition);
   const requestRef = useRef<ActiveRequest | null>(null);
@@ -172,8 +172,7 @@ export function PortfolioTransitionProvider({ children }: { children: ReactNode 
       if (!sourceElement || !sourceGraph) return false;
 
       const mode = selectClusterTransitionMode({
-        isDesktop: window.matchMedia("(min-width: 48rem)").matches,
-        prefersReducedMotion,
+        profile,
       });
       const activeRequest: ActiveRequest = {
         ...request,
@@ -208,15 +207,15 @@ export function PortfolioTransitionProvider({ children }: { children: ReactNode 
         ...edges,
       ];
 
-      if (mode !== "cinematic") {
+      if (mode === "reduced") {
         const timeline = gsap.timeline({
           onComplete: () => requestNavigation(activeRequest),
         });
         timeline.to(sourceControl ?? sourceElement, {
-          duration: mode === "reduced" ? M.transition.fade : M.transition.compact,
+          duration: M.transition.fade,
           ease: M.ease.quiet,
           opacity: 0.62,
-          scale: mode === "compact" ? 1.025 : 1,
+          scale: 1,
         });
         timelineRef.current = timeline;
         return true;
@@ -268,10 +267,11 @@ export function PortfolioTransitionProvider({ children }: { children: ReactNode 
               ? centered.y + centered.height * 0.05
               : centered.y,
         }, 0.045);
+      if (mode === "mobile-cinematic") timeline.timeScale(1.35);
       timelineRef.current = timeline;
       return true;
     },
-    [clearVisuals, pathname, prefersReducedMotion, requestNavigation, send],
+    [clearVisuals, pathname, profile, requestNavigation, send],
   );
 
   const runTargetEntrance = useCallback(
@@ -281,7 +281,7 @@ export function PortfolioTransitionProvider({ children }: { children: ReactNode 
 
         const targetAnchor = findVisibleAnchor(request.nodeId);
         const targetGraph = targetAnchor?.closest<HTMLElement>("[data-graph-root]");
-        if (!targetAnchor || !targetGraph || (request.mode === "cinematic" && targetGraph.dataset.reducedMotion !== "false")) {
+        if (!targetAnchor || !targetGraph || (request.mode !== "reduced" && targetGraph.dataset.reducedMotion !== "false")) {
           if (attempt < 20) {
             entryFrameRef.current = requestAnimationFrame(() =>
               attemptEntrance(attempt + 1),
@@ -301,7 +301,7 @@ export function PortfolioTransitionProvider({ children }: { children: ReactNode 
         // Route navigation from a lower story moment must land at the new world.
         // Longer approved introductions sit before the graph. Cinematic entry
         // keeps the shared star and all growing endpoints in the viewport.
-        const landingTop = request.mode === "cinematic"
+        const landingTop = request.mode !== "reduced"
           ? Math.max(0, targetGraph.getBoundingClientRect().top + window.scrollY - 56)
           : 0;
         window.scrollTo({ top: landingTop, behavior: "instant" });
@@ -320,13 +320,13 @@ export function PortfolioTransitionProvider({ children }: { children: ReactNode 
           ...edges,
         );
 
-        if (request.mode !== "cinematic") {
+        if (request.mode === "reduced") {
           const timeline = gsap.timeline({ onComplete: finishTransition });
           timeline.fromTo(
             targetGraph,
             { opacity: 0.7 },
             {
-              duration: request.mode === "reduced" ? M.transition.fade : M.transition.compact,
+              duration: M.transition.fade,
               ease: M.ease.quiet,
               opacity: 1,
             },
@@ -389,6 +389,7 @@ export function PortfolioTransitionProvider({ children }: { children: ReactNode 
           timeline.to(edges, { opacity: 0.18, duration: M.transition.star }, 0.3)
             .to(otherControls, { opacity: 1, scale: 1, duration: M.transition.star, stagger: 0.025 }, 0.32);
         }
+        if (request.mode === "mobile-cinematic") timeline.timeScale(1.35);
         timelineRef.current = timeline;
       };
 
@@ -462,12 +463,12 @@ export function PortfolioTransitionProvider({ children }: { children: ReactNode 
   }, [cancelTransition, router]);
 
   useEffect(() => {
-    if (prefersReducedMotion && requestRef.current) {
+    if (profile.motionPreference === "reduced" && requestRef.current) {
       const href = requestRef.current.href;
       cancelTransition();
       if (window.location.pathname !== href) router.push(href);
     }
-  }, [cancelTransition, prefersReducedMotion, router]);
+  }, [cancelTransition, profile.motionPreference, router]);
 
   const contextValue = useMemo<PortfolioTransitionContextValue>(() => {
     const active = isClusterTransitionActive(state);
