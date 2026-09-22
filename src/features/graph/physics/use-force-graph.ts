@@ -8,13 +8,15 @@ import { GRAPH_HEIGHT, GRAPH_WIDTH } from "./graph-geometry";
 import { getGraphRuntimePolicy } from "./graph-runtime-policy";
 import type { ForceGraphController, GraphPoint } from "./types";
 import { getVisualOffset } from "./story-projection";
+import type { ExperienceProfile } from "../../experience/experience-profile";
+import { projectGraphPoint } from "./graph-projection";
 
 interface UseForceGraphOptions {
   svgRef: RefObject<SVGSVGElement | null>;
   nodes: GraphNode[];
   edges: GraphEdge[];
   rootNodeId: GraphNodeId;
-  prefersReducedMotion: boolean | null;
+  profile: ExperienceProfile;
   suspended?: boolean;
 }
 
@@ -48,7 +50,7 @@ export function useForceGraph({
   nodes,
   edges,
   rootNodeId,
-  prefersReducedMotion,
+  profile,
   suspended = false,
 }: UseForceGraphOptions) {
   const controllerRef = useRef<ForceGraphController | null>(null);
@@ -58,21 +60,16 @@ export function useForceGraph({
 
   useEffect(() => {
     const mountedSvg = svgRef.current;
-    const desktopQuery = window.matchMedia("(min-width: 48rem)");
-    const finePointerQuery = window.matchMedia("(pointer: fine)");
-
     const configureController = () => {
       controllerRef.current?.destroy();
       controllerRef.current = null;
 
       const policy = getGraphRuntimePolicy({
-        isDesktop: desktopQuery.matches,
-        hasFinePointer: finePointerQuery.matches,
-        prefersReducedMotion,
+        profile,
       });
 
       const svg = svgRef.current;
-      if (!svg || !policy.shouldCreateController || document.hidden) {
+      if (!svg || !policy.shouldCreateController || profile.visibility === "hidden") {
         setDragEnabled(false);
         return;
       }
@@ -84,31 +81,21 @@ export function useForceGraph({
         rootNodeId,
         animate: policy.shouldAnimate,
         dragEnabled: policy.dragEnabled && !suspended,
+        project: point => projectGraphPoint(point, profile.viewport),
       });
       if (suspended) controllerRef.current.destroy();
       setDragEnabled(policy.dragEnabled && !suspended);
     };
 
     configureController();
-    const visibility = () => {
-      if (document.hidden) controllerRef.current?.pause();
-      else if (!controllerRef.current) configureController();
-    };
-    desktopQuery.addEventListener("change", configureController);
-    finePointerQuery.addEventListener("change", configureController);
-    document.addEventListener("visibilitychange", visibility);
-
     return () => {
-      desktopQuery.removeEventListener("change", configureController);
-      finePointerQuery.removeEventListener("change", configureController);
-      document.removeEventListener("visibilitychange", visibility);
       dragRef.current = null;
       const root = mountedSvg?.closest<HTMLElement>("[data-graph-root]");
       if (root) delete root.dataset.draggingNode;
       controllerRef.current?.destroy();
       controllerRef.current = null;
     };
-  }, [edges, nodes, prefersReducedMotion, rootNodeId, suspended, svgRef]);
+  }, [edges, nodes, profile, rootNodeId, suspended, svgRef]);
 
   const beginDrag = useCallback(
     (event: ReactPointerEvent<HTMLElement>, nodeId: GraphNodeId) => {

@@ -1,5 +1,6 @@
 import type { GraphNode } from "../graph/types";
 import type { GraphPoint } from "../graph/physics/types";
+import type { MotionPreference } from "../experience/experience-profile";
 
 export const idleSettlingSeconds = 2;
 
@@ -28,8 +29,8 @@ export function idlePoint(parameters: ReturnType<typeof createIdleParameters>, s
   return { x: Math.sin(angle + parameters.phase) * parameters.x, y: Math.cos(angle * parameters.yRatio + parameters.phase) * parameters.y };
 }
 
-export function idleCanRun(reduced: boolean | null, desktop: boolean, visible: boolean, intersecting: boolean, forming: boolean) {
-  return reduced === false && desktop && visible && intersecting && !forming;
+export function idleCanRun(motionPreference: MotionPreference, rendererReady: boolean, visible: boolean, intersecting: boolean, forming: boolean) {
+  return motionPreference === "full" && rendererReady && visible && intersecting && !forming;
 }
 
 /** Active-time clock: no wall-clock catch-up after backgrounding or a slow frame. */

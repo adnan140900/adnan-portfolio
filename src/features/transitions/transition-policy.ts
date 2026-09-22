@@ -1,14 +1,13 @@
 import type { ClusterTransitionMode } from "./transition-state";
+import type { ExperienceProfile } from "../experience/experience-profile";
 
 interface TransitionPolicyInput {
-  isDesktop: boolean;
-  prefersReducedMotion: boolean | null;
+  profile: Pick<ExperienceProfile, "motionPreference" | "viewport">;
 }
 
 export function selectClusterTransitionMode({
-  isDesktop,
-  prefersReducedMotion,
+  profile,
 }: TransitionPolicyInput): ClusterTransitionMode {
-  if (prefersReducedMotion !== false) return "reduced";
-  return isDesktop ? "cinematic" : "compact";
+  if (profile.motionPreference !== "full") return "reduced";
+  return profile.viewport === "wide" ? "cinematic" : "mobile-cinematic";
 }

@@ -1,7 +1,7 @@
+import type { ExperienceProfile } from "../../experience/experience-profile";
+
 export interface GraphRuntimePolicyInput {
-  isDesktop: boolean;
-  hasFinePointer: boolean;
-  prefersReducedMotion: boolean | null;
+  profile: Pick<ExperienceProfile, "motionPreference" | "pointer" | "viewport">;
 }
 
 export interface GraphRuntimePolicy {
@@ -11,15 +11,14 @@ export interface GraphRuntimePolicy {
 }
 
 export function getGraphRuntimePolicy({
-  isDesktop,
-  hasFinePointer,
-  prefersReducedMotion,
+  profile,
 }: GraphRuntimePolicyInput): GraphRuntimePolicy {
-  const motionAllowed = prefersReducedMotion === false;
+  const motionAllowed = profile.motionPreference === "full";
+  const rendererSupportsController = true;
 
   return {
-    shouldCreateController: isDesktop,
-    shouldAnimate: isDesktop && motionAllowed,
-    dragEnabled: isDesktop && hasFinePointer && motionAllowed,
+    shouldCreateController: rendererSupportsController,
+    shouldAnimate: rendererSupportsController && motionAllowed,
+    dragEnabled: profile.viewport === "wide" && profile.pointer === "fine" && motionAllowed,
   };
 }

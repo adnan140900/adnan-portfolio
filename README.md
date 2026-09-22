@@ -78,10 +78,10 @@ Open [localhost:3000](http://localhost:3000). Keep the server running. Stop an e
 
 ### Production origin
 
-Metadata defaults to the intended public origin, `https://adnan.is-a.dev`, and emits an exact canonical URL for every public route. A deployment may override the origin at build time with the optional public variable shown in `.env.example`:
+Metadata defaults to the intended public origin, `https://adnan-sk.is-a.dev`, and emits an exact canonical URL for every public route. A deployment may override the origin at build time with the optional public variable shown in `.env.example`:
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://adnan.is-a.dev
+NEXT_PUBLIC_SITE_URL=https://adnan-sk.is-a.dev
 ```
 
 The value must be an absolute HTTP(S) origin with no credentials, path, query, or hash. It is public metadata—not a secret. No other runtime or build-time environment variable is required.

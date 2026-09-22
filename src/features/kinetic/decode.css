@@ -9,6 +9,9 @@
 .film-term .decode-system { font-family: inherit; font-size: inherit; letter-spacing: inherit; }
 .film-term .decode-cursor { display: none !important; }
 .decode-mark { width: 0.9em; height: 0.9em; display: inline-block; vertical-align: -0.08em; }
+.decode-system .decode-mark { width: 0.82em; height: 0.82em; vertical-align: -0.055em; }
+.decode-editorial .decode-mark { width: 0.7em; height: 0.7em; vertical-align: -0.015em; transform: translateY(-0.015em); stroke-width: 1.35; }
+.decode-editorial .decode-cursor .decode-mark { width: 0.86em; height: 0.86em; transform: none; }
 [data-decode-glyph] .decode-mark { display: none; }
 [data-decode-glyph][data-custom="true"] .decode-mark { display: inline-block; }
 [data-custom="true"] [data-decode-character] { display: none; }
@@ -21,7 +24,7 @@
 .decode-signal { position: absolute; top: 2rem; left: 6vw; z-index: 15; color: var(--text-secondary); pointer-events: none; opacity: 0; }
 .decode-signal[data-decoding="true"] { opacity: 0.8; }
 .decode-signal[data-decode-complete="true"] { opacity: 0; }
-@media (max-width: 63.999rem), (pointer: coarse), (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) {
   .decode-signal { display: none; }
   .decode-visual { filter: none !important; opacity: 1 !important; }
   .decode-final { visibility: visible !important; }

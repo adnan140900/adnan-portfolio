@@ -3,9 +3,10 @@ import type { GraphDocument } from "../graph/types";
 import { applyStoryProjection } from "../graph/physics/story-projection";
 import type { FilmScene } from "./film-model";
 import { stageEmphasis, stageOffset } from "./semantic-stage-model";
+import type { ExperienceViewport } from "../experience/experience-profile";
 
 /** Scroll authors offsets/emphasis; the existing idle clock keeps this SAME SVG alive. */
-export function createSemanticStage(svg: SVGSVGElement, graph: GraphDocument, kind: string) {
+export function createSemanticStage(svg: SVGSVGElement, graph: GraphDocument, kind: string, viewport: ExperienceViewport = "wide") {
   const groups = [...svg.querySelectorAll<SVGGElement>("[data-force-node]")];
   const edges = [...svg.querySelectorAll<SVGPathElement>("[data-force-edge]")];
   const nodes = groups.map(group => graph.nodes.find(node => node.id === group.dataset.nodeId)!);
@@ -17,7 +18,9 @@ export function createSemanticStage(svg: SVGSVGElement, graph: GraphDocument, ki
       const plan = stageEmphasis(graph, scene, kind, nodes);
       nodes.forEach((node, index) => {
         const focused = plan.focus.has(node.id);
-        timeline.to(values.get(node.id)!, { ...stageOffset(node, index, sceneIndex, kind, focused), emphasis: focused ? 1 : plan.neighbors.has(node.id) ? 0.84 : 0.62, duration: sceneIndex ? 0.6 : 0.18 }, Math.max(0, sceneIndex - 0.45));
+        const offset = stageOffset(node, index, sceneIndex, kind, focused);
+        const scale = viewport === "compact" ? 0.58 : 1;
+        timeline.to(values.get(node.id)!, { x: offset.x * scale, y: offset.y * scale, emphasis: focused ? 1 : plan.neighbors.has(node.id) ? 0.84 : 0.62, duration: sceneIndex ? 0.6 : 0.18 }, Math.max(0, sceneIndex - 0.45));
       });
       edges.forEach(edge => timeline.to(lines.get(edge.dataset.edgeId!)!, {
         opacity: plan.limited ? 0.29 : plan.edges.has(edge.dataset.edgeId!) ? 0.73 : 0.34,
@@ -30,6 +33,8 @@ export function createSemanticStage(svg: SVGSVGElement, graph: GraphDocument, ki
         const id = group.dataset.nodeId!, value = values.get(id)!;
         const point = offsets.get(id)!;
         point.x = value.x; point.y = value.y;
+        group.dataset.storyActive = String(value.emphasis >= 0.99);
+        group.dataset.storyNeighbor = String(value.emphasis >= 0.8 && value.emphasis < 0.99);
         group.style.setProperty("--semantic-emphasis", String(value.emphasis));
       });
       edges.forEach(edge => {
@@ -41,7 +46,7 @@ export function createSemanticStage(svg: SVGSVGElement, graph: GraphDocument, ki
     },
     reset() {
       applyStoryProjection(svg, new Map());
-      groups.forEach(group => group.style.removeProperty("--semantic-emphasis"));
+      groups.forEach(group => { group.style.removeProperty("--semantic-emphasis"); delete group.dataset.storyActive; delete group.dataset.storyNeighbor; });
       edges.forEach(edge => { edge.style.removeProperty("--story-edge-opacity"); edge.style.removeProperty("stroke-dasharray"); });
     },
   };

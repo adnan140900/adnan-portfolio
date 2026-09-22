@@ -1,18 +1,13 @@
 .semantic-projection { color: #c4cec9; width: 100%; height: 100%; pointer-events: none; }
 .semantic-projection svg { width: 100%; height: 100%; overflow: visible; }
 .projection-label { fill: #d2d5cc; font-family: var(--font-body); font-size: 19px; }
-.projection-desktop { display: none; }
-.projection-mobile { height: auto; margin-block: 1rem; }
-.projection-mobile svg { display: block; min-height: 15rem; }
-.projection-mobile .projection-label { font-size: 32px; }
+.projection-persistent { display: block; }
 .projection-film .film-geometry-caption { color: var(--text-muted); }
 .projection-film[data-film-kind="identity"] .semantic-projection { color: #aebbb3; }
 .projection-film[data-film-kind="identity"] .film-term { opacity: 0.025; }
 @media (min-width: 64rem) and (min-height: 50rem) and (pointer: fine) {
-  .projection-film[data-film-reduced="false"] .projection-desktop { display: block; }
-  .projection-film[data-film-reduced="false"] .projection-mobile { display: none; }
+  .projection-film[data-film-reduced="false"] .projection-persistent { display: block; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .projection-desktop { display: none !important; }
-  .projection-mobile { display: block !important; max-width: 48rem; }
+@media (max-width: 63.999rem), (max-height: 49.999rem), (pointer: coarse) {
+  .projection-persistent .projection-label { font-size: 24px; }
 }

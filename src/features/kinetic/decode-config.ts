@@ -12,6 +12,6 @@ export const decodeConfig = {
     { id: "paired-arc", path: "M5 5Q16 3 16 12 M19 19Q8 21 8 12 M3 10H7 M17 14H21 M11 7 13 9 M11 15 13 17" },
   ],
   cursor: "offset-orbit",
-  timing: { system: 1.3, editorial: 1.65, major: 1.95, cursorHold: 0.14, fps: 12 },
-  policy: { editorialStride: 5, editorialMax: 3, symbolicUntil: 0.22, mostlyResolvedAt: 0.57, tailAt: 0.78, finalAt: 0.91, glyphStages: 3, maxJobs: 2 },
+  timing: { system: 0.6, editorial: 0.8, major: 1.05, cursorHold: 0.07, fps: 24, compactFactor: 0.92 },
+  policy: { acquireUntil: 0.12, reconstructionUntil: 0.45, semanticLockUntil: 0.72, tailAt: 0.78, finalAt: 0.88, substitutions: 4, maxJobs: 2, customWide: 4, customCompact: 2 },
 } as const;

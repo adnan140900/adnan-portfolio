@@ -1,10 +1,9 @@
 import { motionTokens } from "../motion/motion-tokens";
+import type { ExperienceProfile } from "../experience/experience-profile";
 
 export interface StarfieldProfileInput {
   height: number;
-  isLowPower: boolean;
-  isMobile: boolean;
-  prefersReducedMotion: boolean | null;
+  profile: Pick<ExperienceProfile, "motionPreference" | "performance" | "pointer" | "viewport">;
   width: number;
 }
 
@@ -22,12 +21,12 @@ function clamp(value: number, minimum: number, maximum: number) {
 
 export function getStarfieldProfile({
   height,
-  isLowPower,
-  isMobile,
-  prefersReducedMotion,
+  profile,
   width,
 }: StarfieldProfileInput): StarfieldProfile {
   const area = Math.max(width * height, 1);
+  const isMobile = profile.viewport === "compact";
+  const isLowPower = profile.performance === "constrained";
   const baseCount = isMobile
     ? clamp(Math.round(area / 3_600), 80, 140)
     : clamp(Math.round(area / 1_350), 440, 900);
@@ -37,8 +36,8 @@ export function getStarfieldProfile({
     farStarCount: Math.round(total * 0.78),
     midStarCount: Math.max(total - Math.round(total * 0.78), 1),
     parallaxEnabled:
-      !isMobile && !isLowPower && prefersReducedMotion === false,
-    animate: prefersReducedMotion === false && !isLowPower && !isMobile,
-    fps: isMobile ? motionTokens.ambient.mobileFps : motionTokens.ambient.desktopFps,
+      !isMobile && !isLowPower && profile.pointer === "fine" && profile.motionPreference === "full",
+    animate: profile.motionPreference === "full",
+    fps: isLowPower ? motionTokens.ambient.constrainedFps : isMobile ? motionTokens.ambient.mobileFps : motionTokens.ambient.desktopFps,
   };
 }

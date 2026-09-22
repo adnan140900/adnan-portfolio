@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { useExperienceProfile } from "../experience/experience-profile-provider";
 import type { GraphDocument } from "../graph/types";
 import { createKnowledgeVocabulary, publicPreview, worldPersonality } from "./kinetic-model";
 import { decodeFrame, relationshipFrame } from "./decode-model";
@@ -13,20 +13,19 @@ const pool = Array.from({ length: 11 }, (_, index) => index);
 export function KnowledgeField({ graph }: { graph: GraphDocument }) {
   const root = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  const reduced = usePrefersReducedMotion();
+  const profile = useExperienceProfile();
   const vocabulary = useMemo(() => createKnowledgeVocabulary(graph, pathname), [graph, pathname]);
   const personality = worldPersonality(pathname);
 
   useEffect(() => {
     const element = root.current;
-    if (!element || reduced === null) return;
-    const compact = window.matchMedia("(max-width: 47.999rem), (pointer: coarse)");
+    if (!element || profile.motionPreference === "unresolved") return;
     let dispose = () => {};
     const configure = () => {
       dispose();
       const spans = [...element.querySelectorAll<HTMLElement>("[data-field-slot]")];
-      const quiet = reduced || compact.matches;
-      element.dataset.mode = reduced ? "reduced" : compact.matches ? "compact" : "living";
+      const quiet = profile.motionPreference !== "full" || profile.visibility === "hidden";
+      element.dataset.mode = profile.motionPreference === "reduced" ? "reduced" : profile.viewport === "compact" ? "compact" : "living";
       let frame = 0, last = 0, seconds = 0, paint = 0;
       let pointerId = "", focusId = "", currentId = "";
       const heading = document.querySelector("h1");
@@ -72,8 +71,8 @@ export function KnowledgeField({ graph }: { graph: GraphDocument }) {
           used.add(term);
           const resolving = Math.min(1, progress / (relation ? 0.22 : 0.1));
           const typed = relation && term === relation.text
-            ? relationshipFrame(relation, resolving, Math.floor(seconds * 12))
-            : decodeFrame(term, resolving, index === 0 ? "editorial" : "system", Math.floor(seconds * 12));
+            ? relationshipFrame(relation, resolving, Math.floor(seconds * 24))
+            : decodeFrame(term, resolving, index === 0 ? "editorial" : "system", Math.floor(seconds * 24));
           if (span.textContent !== typed) span.textContent = typed;
           const envelope = Math.min(1, progress / 0.16, (1 - progress) / 0.25);
           span.style.opacity = String(Math.max(0, envelope) * (index === 0 ? 0.028 : pathname === "/about" ? 0.026 : 0.055));
@@ -85,7 +84,7 @@ export function KnowledgeField({ graph }: { graph: GraphDocument }) {
       const tick = (now: number) => {
         seconds += last ? Math.min((now - last) / 1000, 0.1) : 0;
         last = now;
-        if (now - paint >= 1000 / 12) { paint = now; update(); }
+        if (now - paint >= 1000 / (profile.performance === "constrained" ? 12 : 24)) { paint = now; update(); }
         frame = requestAnimationFrame(tick);
       };
       const visibility = () => {
@@ -118,9 +117,8 @@ export function KnowledgeField({ graph }: { graph: GraphDocument }) {
       };
     };
     configure();
-    compact.addEventListener("change", configure);
-    return () => { dispose(); compact.removeEventListener("change", configure); };
-  }, [graph, pathname, reduced, vocabulary, personality.lifetime, personality.drift]);
+    return () => { dispose(); };
+  }, [graph, pathname, profile, vocabulary, personality.lifetime, personality.drift]);
 
   return <div ref={root} className="knowledge-field" aria-hidden="true" data-personality={personality.name} data-field-route={pathname}>
     {pool.map(index => <span key={index} data-field-slot={index} className={index >= 8 ? "field-preview" : index === 0 ? "field-ghost" : "field-annotation"}

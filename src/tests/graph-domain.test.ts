@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFileSync } from "node:fs";
 import type { GraphDocument } from "../features/graph/types";
 import {
   createInitialGraphState,
@@ -35,8 +36,14 @@ import { semanticProjection, createProjectionSequence, projectionLabelLines, pro
 import { decodeConfig } from "../features/kinetic/decode-config";
 import { createUniverseDepth, semanticNeighborhood } from "../features/graph/universe-depth";
 import { stageEmphasis, stageOffset } from "../features/narrative/semantic-stage-model";
-import { decodeFrame, decodeAllowed, relationshipFrame } from "../features/kinetic/decode-model";
+import { decodeFrame, decodeFrameState, decodeAllowed, decodeDuration, relationshipFrame } from "../features/kinetic/decode-model";
 import { startDecode, hasDecoded } from "../features/kinetic/decode-controller";
+import { createExperienceProfile, type ExperienceProfile } from "../features/experience/experience-profile";
+import { getGraphViewport, projectGraphPoint, projectGraphPoints } from "../features/graph/physics/graph-projection";
+
+const experience = (overrides: Partial<ExperienceProfile> = {}): ExperienceProfile => ({
+  motionPreference: "full", viewport: "wide", pointer: "fine", performance: "normal", visibility: "visible", ...overrides,
+});
 
 test("decode preserves final strings, whitespace and punctuation with restrained editorial substitutions", () => {
   const text = "AI & Technology — café, 2026.";
@@ -53,12 +60,44 @@ test("decode preserves final strings, whitespace and punctuation with restrained
   assert.equal(decodeFrame("", 0, "system"), "");
 });
 
-test("decode policy instantly resolves reduced, compact, hidden and already-played entrances", () => {
-  assert.equal(decodeAllowed(false, false, false, false), true);
-  for (let i = 0; i < 4; i++) {
-    const flags = [false, false, false, false]; flags[i] = true;
-    assert.equal(decodeAllowed(flags[0], flags[1], flags[2], flags[3]), false);
-  }
+test("compact normal motion decodes while reduced, unresolved, hidden and played entrances settle", () => {
+  assert.equal(decodeAllowed(experience({ viewport: "compact", pointer: "coarse" }), false), true);
+  assert.equal(decodeAllowed(experience({ motionPreference: "reduced" }), false), false);
+  assert.equal(decodeAllowed(experience({ motionPreference: "unresolved" }), false), false);
+  assert.equal(decodeAllowed(experience({ visibility: "hidden" }), false), false);
+  assert.equal(decodeAllowed(experience(), true), false);
+});
+
+test("experience dimensions remain independent", () => {
+  const compact = createExperienceProfile({ prefersReducedMotion: false, compactViewport: true, coarsePointer: true, constrainedPerformance: true, hidden: false });
+  assert.deepEqual(compact, { motionPreference: "full", viewport: "compact", pointer: "coarse", performance: "constrained", visibility: "visible" });
+  assert.equal(decodeAllowed(compact, false), true);
+  const reducedWide = createExperienceProfile({ prefersReducedMotion: true, compactViewport: false, coarsePointer: false, constrainedPerformance: false, hidden: false });
+  assert.equal(reducedWide.motionPreference, "reduced");
+  assert.equal(reducedWide.viewport, "wide");
+  assert.equal(decodeAllowed(reducedWide, false), false);
+});
+
+test("Decode V2 is dense, deterministic, frame-progressive and readable before completion", () => {
+  const text = "KINETIC KNOWLEDGE SYSTEM";
+  const initial = decodeFrameState(text, 0.05, "system", 0, { seed: "test", tier: "system" });
+  assert.ok(initial.unresolvedIndices.size >= Math.floor(Array.from(text).filter(char => /[\p{L}\p{N}]/u.test(char)).length * 0.55));
+  assert.equal(decodeFrameState(text, 0.22, "system", 0, { seed: "test" }).text, decodeFrameState(text, 0.22, "system", 0, { seed: "test" }).text);
+  assert.notEqual(decodeFrameState(text, 0.22, "system", 0, { seed: "test" }).text, decodeFrameState(text, 0.22, "system", 12, { seed: "test" }).text);
+  assert.ok(decodeFrameState(text, 0.55, "system", 12, { seed: "test" }).unresolvedIndices.size <= Math.ceil(initial.unresolvedIndices.size * 0.3));
+  assert.ok(decodeFrameState(text, 0.79, "system", 20, { seed: "test" }).unresolvedIndices.size <= 2);
+  assert.equal(decodeFrameState(text, 0.88, "system", 24, { seed: "test" }).text, text);
+  for (const progress of [0, 0.2, 0.55, 0.79, 1]) assert.equal(Array.from(decodeFrame(text, progress, "system", 8)).length, Array.from(text).length);
+});
+
+test("Decode V2 timing and custom glyph budgets stay bounded", () => {
+  assert.ok(decodeDuration("system") >= 0.45 && decodeDuration("system") <= 0.8);
+  assert.ok(decodeDuration("editorial") >= 0.6 && decodeDuration("editorial") <= 1);
+  assert.ok(decodeDuration("major") <= 1.2);
+  assert.ok(decodeDuration("major", "compact") <= decodeDuration("major"));
+  const text = "SEMANTIC RECONSTRUCTION FIELD";
+  assert.ok(decodeFrameState(text, 0.05, "system", 0, { viewport: "wide" }).customIndices.size <= 4);
+  assert.ok(decodeFrameState(text, 0.05, "system", 0, { viewport: "compact" }).customIndices.size <= 2);
 });
 
 test("shared decode scheduler caps jobs at two and cleans up synchronously", () => {
@@ -181,6 +220,54 @@ test("homepage depth bands become progressively freer while themes remain heavy"
   });
 });
 
+test("compact portrait projection is deterministic, bounded, and topology-neutral", () => {
+  const graph = adaptPublicGraph(approvedBundle.graph);
+  const view = graph.views.find(view => view.id === graph.entryViewId)!;
+  const canonical = createStableGraphNodes(graph.nodes.filter(node => view.nodeIds.includes(node.id)), view.rootNodeId);
+  const points = new Map(canonical.map(node => [node.id, { x: node.x!, y: node.y! }]));
+  const portrait = projectGraphPoints(points, "compact");
+  assert.deepEqual(portrait, projectGraphPoints(points, "compact"));
+  assert.deepEqual([...portrait.keys()], [...points.keys()]);
+  assert.deepEqual(graph.edges.map(edge => [edge.source, edge.target]), approvedBundle.graph.edges.map(edge => [edge.source, edge.target]));
+  for (const point of portrait.values()) {
+    assert.ok(point.x >= 54 && point.x <= 566);
+    assert.ok(point.y >= 72 && point.y <= 908);
+  }
+  assert.deepEqual(projectGraphPoint({ x: 520, y: 290 }, "compact"), { x: 310, y: 490 });
+  assert.deepEqual(getGraphViewport("compact"), { width: 620, height: 980 });
+});
+
+test("mobile graph presentation uses the semantic SVG without the visible grid fallback", () => {
+  const source = readFileSync("src/features/graph/components/knowledge-graph.tsx", "utf8");
+  assert.match(source, /data-semantic-mobile/);
+  assert.doesNotMatch(source, /mobile-graph-list/);
+  assert.match(source, /visibleEdges\.map/);
+  assert.match(source, /visibleNodes\.map/);
+});
+
+test("mobile semantic navigation keeps approved routes, single-tap links and accessible location state", () => {
+  const header = readFileSync("src/components/layout/site-header.tsx", "utf8");
+  const navigation = readFileSync("src/components/layout/primary-navigation.tsx", "utf8");
+  assert.match(header, /publicRoutes\.filter/);
+  assert.match(header, /href: "\/about"/);
+  assert.match(navigation, /<Link/);
+  assert.match(navigation, /aria-current=/);
+  assert.match(navigation, /aria-label=\{item\.label\}/);
+  assert.match(navigation, /data-navigation-active/);
+  assert.doesNotMatch(navigation, /onClick|preventDefault|pointerdown|touchstart/i);
+});
+
+test("compact composition retains one semantic stage and a complete reduced-motion layout", () => {
+  const film = readFileSync("src/features/narrative/narrative-film.tsx", "utf8");
+  const stage = readFileSync("src/features/narrative/semantic-stage.css", "utf8");
+  const layout = readFileSync("src/app/globals.css", "utf8");
+  assert.equal((film.match(/className="semantic-stage"/g) ?? []).length, 1);
+  assert.match(stage, /--mobile-stage-height/);
+  assert.match(layout, /@media \(prefers-reduced-motion: reduce\)/);
+  assert.match(layout, /\.home-world \.discovery-hero > \.constellation-shell/);
+  assert.doesNotMatch(film, /grid-cols|mobile-graph-list/);
+});
+
 test("background relationship endpoints combine fixed depth positions with D3 and shared idle offsets", () => {
   const attrs = new Map<string, string>();
   const edge = { dataset: { source: "theme", target: "deep", edgeId: "real-edge" }, setAttribute: (key: string, value: string) => attrs.set(key, value) };
@@ -263,7 +350,7 @@ test("About centers the public person and six actual themes, with no extra relat
   assert.deepEqual(projection.positions.get("person-adnan"), { x: 520, y: 290 });
 });
 
-test("signature decode has a bounded original glyph family and staged monotonic resolution", () => {
+test("signature decode has a bounded original glyph family and staged readable resolution", () => {
   assert.equal(new Set(decodeConfig.customGlyphs.map(mark => mark.path)).size, 6);
   assert.ok(decodeConfig.customGlyphs.some(mark => mark.id === decodeConfig.cursor));
   assert.ok([...decodeConfig.systemPool, ...decodeConfig.editorialPool].every(mark => !"_/|.".includes(mark)));
@@ -271,9 +358,19 @@ test("signature decode has a bounded original glyph family and staged monotonic 
   for (const mode of ["system", "editorial"] as const) {
     const counts = [0, 0.3, 0.6, 0.8, 1].map(progress => Array.from(decodeFrame(text, progress, mode)).filter((char, index) => char !== text[index]).length);
     assert.ok(counts.every((count, index) => !index || count <= counts[index - 1]));
-    assert.ok(counts[2] <= 3); assert.ok(counts[3] <= 1); assert.equal(counts[4], 0);
-    assert.equal(decodeFrame(text, 0.3, mode, 1), decodeFrame(text, 0.3, mode, 100), "no random per-frame soup");
+    assert.ok(counts[2] <= Math.ceil(counts[0] * 0.3)); assert.ok(counts[3] <= 2); assert.equal(counts[4], 0);
+    assert.notEqual(decodeFrame(text, 0.3, mode, 1), decodeFrame(text, 0.3, mode, 12), "frame progression advances deterministic substitutions");
+    assert.equal(decodeFrame(text, 0.3, mode, 12), decodeFrame(text, 0.3, mode, 12), "the same frame remains deterministic");
   }
+});
+
+test("decode glyph optics are tier-specific without changing accepted timing", () => {
+  const styles = readFileSync("src/features/kinetic/decode.css", "utf8");
+  assert.ok(styles.includes(".decode-system .decode-mark { width: 0.82em; height: 0.82em; vertical-align: -0.055em; }"));
+  assert.ok(styles.includes(".decode-editorial .decode-mark { width: 0.7em; height: 0.7em; vertical-align: -0.015em;"));
+  assert.equal(decodeDuration("system", "wide"), 0.6);
+  assert.equal(decodeDuration("editorial", "wide"), 0.8);
+  assert.equal(decodeDuration("major", "wide"), 1.05);
 });
 
 test("film semantic progress is bounded and reverses without history-dependent state", () => {
@@ -298,7 +395,7 @@ test("reduced film lifecycle never enhances or hides panels and disconnects its 
   globals.document = { documentElement: { dataset: {} }, querySelectorAll: () => [] };
   globals.IntersectionObserver = ObserverStub;
   try {
-    const cleanup = registerFilm(root as unknown as HTMLElement, [], true, adaptPublicGraph(approvedBundle.graph));
+    const cleanup = registerFilm(root as unknown as HTMLElement, [], experience({ motionPreference: "reduced" }), adaptPublicGraph(approvedBundle.graph));
     assert.deepEqual(root.dataset, {});
     assert.deepEqual(panel.style, {});
     assert.equal(created, 2);
@@ -404,8 +501,8 @@ test("semantic idle freezes interaction time and blends release without catch-up
   const released = advanceIdleClock(held.time, held.speed, 0.033, false);
   assert.ok(released.time > 20 && released.time < 20.001);
   assert.ok(advanceIdleClock(20, 1, 600, false).time <= 20.05);
-  assert.equal(idleCanRun(false,true,true,true,false),true);
-  for (const values of [[true,true,true,true,false],[null,true,true,true,false],[false,false,true,true,false],[false,true,false,true,false],[false,true,true,false,false],[false,true,true,true,true]] as const) {
+  assert.equal(idleCanRun("full",true,true,true,false),true);
+  for (const values of [["reduced",true,true,true,false],["unresolved",true,true,true,false],["full",false,true,true,false],["full",true,false,true,false],["full",true,true,false,false],["full",true,true,true,true]] as const) {
     assert.equal(idleCanRun(values[0],values[1],values[2],values[3],values[4]),false);
   }
 });
@@ -429,16 +526,17 @@ test("long graph labels wrap without changing approved wording", () => {
   assert.ok(wrapGraphLabel("MUN Policy Preparation and Negotiation").length > 1);
 });
 
-test("ambient budgets are capped and mobile/reduced policies remain static", () => {
-  const input = {width:4000,height:3000,isLowPower:false,isMobile:false,prefersReducedMotion:false};
+test("ambient budgets are capped while normal-motion mobile remains alive", () => {
+  const input = {width:4000,height:3000,profile:experience()};
   const wide = getStarfieldProfile(input);
   assert.equal(wide.farStarCount + wide.midStarCount, 900);
   assert.ok(wide.farStarCount > wide.midStarCount * 3);
-  for (const policy of [{...input,isMobile:true},{...input,isLowPower:true},{...input,prefersReducedMotion:true}]) {
-    const value = getStarfieldProfile(policy);
-    assert.equal(value.animate,false);
-    assert.equal(value.parallaxEnabled,false);
-  }
+  const mobile = getStarfieldProfile({...input, profile: experience({viewport:"compact",pointer:"coarse"})});
+  assert.equal(mobile.animate,true); assert.equal(mobile.parallaxEnabled,false); assert.equal(mobile.fps,24);
+  const constrained = getStarfieldProfile({...input, profile: experience({performance:"constrained"})});
+  assert.equal(constrained.animate,true); assert.equal(constrained.parallaxEnabled,false); assert.equal(constrained.fps,12);
+  const reduced = getStarfieldProfile({...input, profile: experience({motionPreference:"reduced"})});
+  assert.equal(reduced.animate,false); assert.equal(reduced.parallaxEnabled,false);
 });
 
 function createFixture(): GraphDocument {
@@ -564,12 +662,10 @@ test("activating the Research view creates route-aligned cluster state", () => {
   });
 });
 
-test("disables physics and dragging for reduced motion and mobile layouts", () => {
+test("graph runtime separates motion preference, viewport renderer and pointer capability", () => {
   assert.deepEqual(
     getGraphRuntimePolicy({
-      isDesktop: true,
-      hasFinePointer: true,
-      prefersReducedMotion: true,
+      profile: experience({ motionPreference: "reduced" }),
     }),
     {
       shouldCreateController: true,
@@ -580,16 +676,16 @@ test("disables physics and dragging for reduced motion and mobile layouts", () =
 
   assert.deepEqual(
     getGraphRuntimePolicy({
-      isDesktop: false,
-      hasFinePointer: true,
-      prefersReducedMotion: false,
+      profile: experience({ viewport: "compact" }),
     }),
     {
-      shouldCreateController: false,
-      shouldAnimate: false,
+      shouldCreateController: true,
+      shouldAnimate: true,
       dragEnabled: false,
     },
   );
+  assert.equal(getGraphRuntimePolicy({ profile: experience({ pointer: "coarse" }) }).shouldAnimate, true);
+  assert.equal(getGraphRuntimePolicy({ profile: experience({ pointer: "coarse" }) }).dragEnabled, false);
 });
 
 test("runs the cluster transition through one guarded route lifecycle", () => {
@@ -622,25 +718,22 @@ test("runs the cluster transition through one guarded route lifecycle", () => {
   });
 });
 
-test("selects reduced and compact transition fallbacks", () => {
+test("selects transition composition independently from motion preference", () => {
   assert.equal(
     selectClusterTransitionMode({
-      isDesktop: true,
-      prefersReducedMotion: true,
+      profile: experience({ motionPreference: "reduced" }),
     }),
     "reduced",
   );
   assert.equal(
     selectClusterTransitionMode({
-      isDesktop: false,
-      prefersReducedMotion: false,
+      profile: experience({ viewport: "compact", pointer: "coarse" }),
     }),
-    "compact",
+    "mobile-cinematic",
   );
   assert.equal(
     selectClusterTransitionMode({
-      isDesktop: true,
-      prefersReducedMotion: false,
+      profile: experience(),
     }),
     "cinematic",
   );
@@ -675,16 +768,12 @@ test("creates straight geometric relationships with exact endpoints", () => {
 test("reduces ambient work and disables parallax for constrained contexts", () => {
   const desktop = getStarfieldProfile({
     height: 800,
-    isLowPower: false,
-    isMobile: false,
-    prefersReducedMotion: false,
+    profile: experience(),
     width: 1200,
   });
   const mobileReduced = getStarfieldProfile({
     height: 800,
-    isLowPower: true,
-    isMobile: true,
-    prefersReducedMotion: true,
+    profile: experience({ performance: "constrained", viewport: "compact", pointer: "coarse", motionPreference: "reduced" }),
     width: 390,
   });
 
@@ -712,10 +801,10 @@ test("branch growth follows reachable real edges, reverses incoming branches and
 });
 
 test("motion pauses while hidden, offscreen, unresolved or reduced and clamps velocity", () => {
-  for (const reduced of [true, null]) assert.equal(motionCanRun(reduced, true, true), false);
-  assert.equal(motionCanRun(false, false, true), false);
-  assert.equal(motionCanRun(false, true, false), false);
-  assert.equal(motionCanRun(false, true, true), true);
+  for (const preference of ["reduced", "unresolved"] as const) assert.equal(motionCanRun(preference, true, true), false);
+  assert.equal(motionCanRun("full", false, true), false);
+  assert.equal(motionCanRun("full", true, false), false);
+  assert.equal(motionCanRun("full", true, true), true);
   assert.equal(clampMotion(50000, -1800, 1800), 1800);
   assert.equal(clampMotion(-50000, -1800, 1800), -1800);
   assert.equal(clampMotion(NaN, -1800, 1800), 0);

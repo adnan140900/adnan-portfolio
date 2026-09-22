@@ -43,15 +43,42 @@
 }
 
 @media (max-width: 63.999rem), (max-height: 49.999rem), (pointer: coarse) {
-  .semantic-stage .constellation-shell { height: auto; min-height: 28rem; }
-  .semantic-film [data-film-panel] { min-height: 65svh; padding-top: 5rem; justify-content: center; }
+  .semantic-film { --mobile-stage-height: 42svh; --mobile-scene-height: 82svh; }
+  .semantic-film[data-film-kind="flood"] { --mobile-stage-height: 50svh; --mobile-scene-height: 86svh; }
+  .semantic-film[data-film-kind="ai"] { --mobile-stage-height: 48svh; --mobile-scene-height: 82svh; }
+  .semantic-film[data-film-kind="projects"] { --mobile-stage-height: 44svh; --mobile-scene-height: 78svh; }
+  .semantic-film[data-film-kind="leadership"] { --mobile-stage-height: 40svh; --mobile-scene-height: 76svh; }
+  .semantic-film[data-film-kind="learning"] { --mobile-stage-height: 46svh; --mobile-scene-height: 82svh; }
+  .semantic-film[data-film-kind="identity"] { --mobile-stage-height: 50svh; --mobile-scene-height: 80svh; }
+  .semantic-film[data-film-kind="focus"] { --mobile-stage-height: 44svh; --mobile-scene-height: 80svh; }
+  .semantic-film[data-film-reduced="false"] .semantic-stage {
+    position: sticky;
+    z-index: 3;
+    top: calc(3.45rem + env(safe-area-inset-top, 0px));
+    height: clamp(18rem, var(--mobile-stage-height), 29rem);
+    overflow: hidden;
+    background: linear-gradient(180deg, #080a0cf7 76%, #080a0c00);
+    -webkit-mask-image: linear-gradient(180deg, #000 0 56%, rgb(0 0 0 / 0.7) 76%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 0 56%, rgb(0 0 0 / 0.7) 76%, transparent 100%);
+  }
+  .semantic-film[data-film-reduced="false"] .semantic-stage .constellation-shell { height: 100%; min-height: 0; background: transparent; }
+  .semantic-film[data-film-reduced="false"] .semantic-stage .constellation-meta,
+  .semantic-film[data-film-reduced="false"] .semantic-stage .graph-inspection { display: none; }
+  .semantic-film[data-film-reduced="false"] .film-panels { position: relative; z-index: 4; margin-top: calc(clamp(18rem, var(--mobile-stage-height), 29rem) * -1); }
+  .semantic-film[data-film-reduced="false"] [data-film-panel] { min-height: var(--mobile-scene-height); padding-top: calc(clamp(18rem, var(--mobile-stage-height), 29rem) + clamp(2.75rem, 7svh, 4rem)); justify-content: flex-start; }
+  .semantic-film[data-film-reduced="false"] [data-film-title] { text-shadow: 0 0 22px #080a0c, 0 0 9px #080a0c; }
   .semantic-film .film-term { font-size: 5rem; opacity: 0.035; }
   .semantic-film .node-annotation { display: none; }
+  .semantic-film [data-composition="atlas"] [data-film-title] { width: 84%; margin-left: auto; text-align: right; }
+  .semantic-film [data-composition="split"] [data-film-title] { width: 82%; }
+  .semantic-film [data-composition="distributed"] [data-film-title] { text-align: center; }
+  .semantic-film [data-composition="convergent"] [data-film-title] { width: 78%; margin-top: 1.5rem; }
+  .semantic-film [data-composition="wide"] .film-copy { margin-left: 12%; }
+  .semantic-film[data-film-kind="leadership"] .film-copy { max-width: 31rem; }
+  .semantic-film[data-film-kind="learning"] [data-film-panel]:nth-child(even) [data-film-title] { margin-left: auto; text-align: right; }
 }
 @media (max-width: 47.999rem) {
-  .semantic-film .semantic-stage .graph-surface { position: relative; height: auto; }
-  .semantic-film .semantic-stage .constellation-shell { min-height: 0; }
-  .semantic-stage .mobile-graph-list { padding-top: 6rem; padding-bottom: 2rem; }
+  .semantic-film .semantic-stage .graph-surface { position: absolute; height: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
   .semantic-film .film-term { display: none; }

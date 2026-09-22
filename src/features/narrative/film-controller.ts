@@ -5,9 +5,10 @@ import { activeFilmScene } from "./film-model";
 import type { GraphDocument } from "../graph/types";
 import { createSemanticStage } from "./semantic-stage-controller";
 import { createProjectionStage } from "./semantic-projection-controller";
+import type { ExperienceProfile } from "../experience/experience-profile";
 
 /** One owner per film. CSS sticky, no body locks/pin spacers; reverse scroll is the same timeline. */
-export function registerFilm(root: HTMLElement, scenes: FilmScene[], reduced: boolean, graph: GraphDocument) {
+export function registerFilm(root: HTMLElement, scenes: FilmScene[], profile: ExperienceProfile, graph: GraphDocument) {
   gsap.registerPlugin(ScrollTrigger);
   const panels = [...root.querySelectorAll<HTMLElement>("[data-film-panel]")];
   const progress = [...root.querySelectorAll<HTMLAnchorElement>("[data-film-seek]")];
@@ -36,7 +37,7 @@ export function registerFilm(root: HTMLElement, scenes: FilmScene[], reduced: bo
     root.dataset.filmActive = String(entries[0]?.isIntersecting ?? false); activeEnvironment();
   }, { rootMargin: "-20% 0px -20%" });
   environmentObserver.observe(root);
-  if (reduced) {
+  if (profile.motionPreference !== "full") {
     const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) select(panels.indexOf(entry.target as HTMLElement)); }), { rootMargin: "-15% 0px -50%" });
     panels.forEach(panel => observer.observe(panel));
     return () => { observer.disconnect(); environmentObserver.disconnect(); media.revert(); resetTabs(); delete root.dataset.filmActive; activeEnvironment(); };
@@ -44,9 +45,9 @@ export function registerFilm(root: HTMLElement, scenes: FilmScene[], reduced: bo
   media.add("(min-width: 64rem) and (min-height: 50rem) and (pointer: fine)", () => {
     root.dataset.filmEnhanced = "true";
     const semanticSvg = root.querySelector<SVGSVGElement>(".semantic-stage .force-graph-svg");
-    const projectionSvg = root.querySelector<SVGSVGElement>(".projection-desktop svg");
-    const semantic = semanticSvg ? createSemanticStage(semanticSvg, graph, root.dataset.filmKind ?? "world")
-      : projectionSvg ? createProjectionStage(projectionSvg, graph, scenes, root.dataset.filmKind === "identity") : null;
+    const projectionSvg = root.querySelector<SVGSVGElement>(".projection-persistent svg");
+    const semantic = semanticSvg ? createSemanticStage(semanticSvg, graph, root.dataset.filmKind ?? "world", "wide")
+      : projectionSvg ? createProjectionStage(projectionSvg, graph, scenes, root.dataset.filmKind === "identity", "wide") : null;
     let updates = 0;
     const render = () => {
       semantic?.render();
@@ -107,6 +108,11 @@ export function registerFilm(root: HTMLElement, scenes: FilmScene[], reduced: bo
     };
   });
   media.add("(max-width: 63.999rem), (max-height: 49.999rem), (pointer: coarse)", () => {
+    root.dataset.filmEnhanced = "compact";
+    const semanticSvg = root.querySelector<SVGSVGElement>(".semantic-stage .force-graph-svg");
+    const projectionSvg = root.querySelector<SVGSVGElement>(".projection-persistent svg");
+    const semantic = semanticSvg ? createSemanticStage(semanticSvg, graph, root.dataset.filmKind ?? "world", "compact")
+      : projectionSvg ? createProjectionStage(projectionSvg, graph, scenes, root.dataset.filmKind === "identity", "compact") : null;
     const click = (event: MouseEvent) => {
       const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("[data-film-seek]") : null;
       if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
@@ -116,22 +122,30 @@ export function registerFilm(root: HTMLElement, scenes: FilmScene[], reduced: bo
       select(index);
     };
     root.addEventListener("click", click);
-    panels.forEach((panel, index) => {
-      const timeline = gsap.timeline({ scrollTrigger: { id: `film:${root.id}:${index}`, trigger: panel, start: "top 55%", end: "bottom 20%", scrub: 0.35,
-        onEnter: () => select(index), onEnterBack: () => select(index),
-      } });
-      timeline.fromTo(panel.querySelector("[data-film-term]"), { x: -65, clipPath: "inset(0 80% 0 0)" }, { x: 40, clipPath: "inset(0 0% 0 0)", duration: 1 }, 0);
-      const mobileGeometry = panel.querySelector(".film-mobile-geometry");
-      if (mobileGeometry) timeline.fromTo(mobileGeometry, { x: index % 2 ? -45 : 45, scale: 0.86 }, { x: index % 2 ? 30 : -30, scale: 1.08, duration: 1 }, 0);
-      timeline.fromTo(panel.querySelector("[data-film-title]"), { y: 12 }, { y: 0, duration: 0.45 }, 0);
+    let updates = 0;
+    const timeline = gsap.timeline({ paused: true, defaults: { ease: "none" }, onUpdate() {
+      semantic?.render(); select(activeFilmScene(this.time(), scenes.length));
+      root.style.setProperty("--film-progress", String(this.progress()));
+      root.dataset.filmUpdates = String(++updates);
+    } });
+    scenes.forEach((scene, index) => {
+      semantic?.schedule(timeline, scene, index);
+      timeline.fromTo(panels[index].querySelector("[data-film-term]"), { x: -38, clipPath: "inset(0 80% 0 0)" }, { x: 18, clipPath: "inset(0 0% 0 0)", duration: 0.72 }, index);
+      timeline.fromTo(panels[index].querySelector("[data-film-title]"), { y: 10 }, { y: 0, duration: 0.38 }, index);
     });
-    root.dataset.filmTriggerCount = String(panels.length);
-    const visibility = () => ScrollTrigger.getAll().filter(trigger => String(trigger.vars.id).startsWith(`film:${root.id}:`)).forEach(trigger => {
+    timeline.to({}, { duration: 0.01 }, scenes.length);
+    const trigger = ScrollTrigger.create({ id: `film:${root.id}`, trigger: root, start: "top 64px", end: "bottom top", animation: timeline, scrub: 0.38 });
+    root.dataset.filmTriggerCount = "1";
+    const visibility = () => {
       if (document.hidden) { trigger.getTween()?.pause(); trigger.disable(false); }
       else { trigger.enable(false); trigger.update(); trigger.getTween()?.resume(); }
-    });
+    };
     document.addEventListener("visibilitychange", visibility);
-    return () => { root.removeEventListener("click", click); document.removeEventListener("visibilitychange", visibility); root.dataset.filmTriggerCount = "0"; active = -1; };
+    select(0); semantic?.render();
+    return () => {
+      semantic?.reset(); root.removeEventListener("click", click); document.removeEventListener("visibilitychange", visibility);
+      delete root.dataset.filmEnhanced; root.dataset.filmTriggerCount = "0"; root.style.removeProperty("--film-progress"); active = -1;
+    };
   });
   return () => { environmentObserver.disconnect(); media.revert(); resetTabs(); delete root.dataset.filmActive; activeEnvironment(); };
 }

@@ -16,7 +16,7 @@ export default function AboutPage() {
   return <main id="main-content" className="identity-page narrative-page flex-1">
     <Link href="/" className="constellation-return-link">← Universe</Link>
     <div className="about-universe" aria-hidden="true"><AmbientStarfield seed="shared-public-universe" /></div>
-    <header className="world-intro"><h1>About</h1><p>{profile.introduction.text}</p></header>
+    <header className="world-intro identity-intro"><h1>About</h1><p>{profile.introduction.text}</p></header>
     <NarrativeFilm id="identity" scenes={biography} graph={portfolioGraph} kind="identity" label="Identity and directions" />
     <header className="film-entrance"><h2>Current focus</h2></header>
     <NarrativeFilm id="about-focus" scenes={createFocusFilm(profile.currentFocus, portfolioGraph)} graph={portfolioGraph} kind="focus" label="Current directions" />
