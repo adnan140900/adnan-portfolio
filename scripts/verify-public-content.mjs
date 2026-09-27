@@ -6,7 +6,7 @@ const expected = {
   "leadership.json": "0954e882ddce91bd4c42fabde00db9b5c93ce417575974c32d1b8b0fd208fa18",
   "learning.json": "a1f2056dc4bac374016ce681488e779698479a18eea1b129ed6970a2da034051",
   "manifest.json": "9d189624aab8d19aa799067e4c0b9dc4e305af5c8ece229fd12ca226ee88c98c",
-  "profile.json": "f12f53de06708280343713a0ed8d98dbe3b82ac913e90ee844a006b1a3aa6b50",
+  "profile.json": "5b63cc4be9050ec14cbdca4b3b14c07b22ed97da0e81e65362bd4ce8ab4dd9c6",
   "projects.json": "6b87b8522c874470bcaa683693f1dc5a760150037d50c67da269497f4a30257d",
   "research.json": "b59c1ea77a6a3e5f5bee4bfb929f6a93e32f39f999baf5fc936a280d014d3d2d",
 };

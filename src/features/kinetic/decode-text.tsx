@@ -6,6 +6,7 @@ import { decodeAllowed, type DecodeMode } from "./decode-model";
 import { hasDecoded, startDecode } from "./decode-controller";
 import { decodeConfig } from "./decode-config";
 import { DecodeGlyph } from "./decode-glyph";
+import { typewriterDuration } from "./decode-typewriter-model";
 import { useExperienceProfile } from "../experience/experience-profile-provider";
 
 /** Static SSR and accessible final text; only the hidden visual duplicate mutates. */
@@ -36,7 +37,7 @@ export function DecodeText({ text, mode = "editorial", replayKey, signal = false
         if (stage < heroStage) { settle(); return; }
         if (cycle === nextCycle) return;
         cycle = nextCycle;
-        cancel = startDecode(element, text, mode, key, { replay: true, presentation, duration: presentation === "typewriter" ? 2.3 : 0.5, viewport: profile.viewport });
+        cancel = startDecode(element, text, mode, key, { replay: true, presentation, duration: presentation === "typewriter" ? typewriterDuration(text) : 0.5, viewport: profile.viewport });
       };
       const observer = new MutationObserver(synchronize);
       observer.observe(hero, { attributes: true, attributeFilter: ["data-hero-stage", "data-hero-cycle"] });

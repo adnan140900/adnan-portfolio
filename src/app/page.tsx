@@ -13,10 +13,9 @@ export default function HomePage() {
     <div className="home-universe-frame">
     <KnowledgeGraph key="portfolio-universe" graph={portfolioGraph} initialViewId="portfolio-universe" routePath="/" />
     <header className="constellation-page-copy public-world-copy">
-      <p className="eyebrow" data-home-copy="identity"><DecodeText text={profile.name} mode="system" replayKey="home-identity" heroStage={1} /></p>
-      <h1 data-home-copy="headline"><DecodeText text={profile.headline.text} replayKey="home-headline" presentation="typewriter" heroStage={2} /></h1>
-      <p data-home-copy="support">{profile.introduction.text}</p>
-      <Link href="/about" className="constellation-return-link" data-home-copy="support">About ↗</Link>
+      <h1 data-home-copy="headline"><DecodeText text={profile.headline.text} replayKey="home-headline" presentation="typewriter" heroStage={1} /></h1>
+      <p data-home-copy="support"><DecodeText text={profile.homeIntroduction.text} replayKey="home-support" heroStage={2} /></p>
+      <p className="home-universe-cta" data-home-copy="cta"><DecodeText text={profile.homeCta.text} replayKey="home-cta" heroStage={3} /></p>
     </header>
     </div>
     </div>
