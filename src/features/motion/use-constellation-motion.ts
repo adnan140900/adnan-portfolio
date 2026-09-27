@@ -10,8 +10,8 @@ export function useConstellationMotion(rootRef: RefObject<HTMLElement | null>, p
     const root = rootRef.current;
     if (!root) return;
     const pointerLayer = root.querySelector<HTMLElement>(".constellation-pointer-layer");
-    const nodes = [...root.querySelectorAll<HTMLElement>(".force-node-control")];
-    const cores = [...root.querySelectorAll<HTMLElement>(".knowledge-star-core")];
+    const nodes = [...root.querySelectorAll<SVGGraphicsElement>(".force-node-control")];
+    const cores = [...root.querySelectorAll<SVGCircleElement>(".knowledge-star-core")];
     root.style.setProperty("--breath-scale", String(1 + M.ambient.scale));
     root.style.setProperty("--hover-duration", `${M.pointer.response}s`);
     const edges = [...root.querySelectorAll<SVGElement>("[data-force-edge]")];

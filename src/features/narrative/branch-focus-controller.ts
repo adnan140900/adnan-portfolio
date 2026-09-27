@@ -69,8 +69,9 @@ export function createBranchFocus(svg: SVGSVGElement, graph: GraphDocument, kind
     const scale = Number.isFinite(measuredScale) && measuredScale > 0 ? measuredScale : 1;
     svg.style.setProperty("--branch-label-scale", String(1 / Math.max(0.1, scale)));
     const group = groups.find(group => idOf(group) === target);
-    const core = group?.querySelector<HTMLElement>(".knowledge-star-core");
-    const coreWidth = core ? parseFloat(getComputedStyle(core).width) : NaN;
+    const core = group?.querySelector<SVGCircleElement>(".knowledge-star-core");
+    const nativeRadius = core?.r.baseVal.value;
+    const coreWidth = nativeRadius ? nativeRadius * 2 : core ? parseFloat(getComputedStyle(core).width) : NaN;
     // Route travel can temporarily detach or hide the measured control.
     const coreRadius = Number.isFinite(coreWidth) ? coreWidth / 2 : Number(group?.querySelector("[data-projection-core]")?.getAttribute("r") ?? 5);
     radius = coreRadius + (profile.viewport === "compact" ? 5 : 8) / Math.max(0.1, scale);
