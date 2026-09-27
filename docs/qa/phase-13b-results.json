@@ -1,0 +1,28 @@
+{
+  "results": [
+    {
+      "kind": "desktop",
+      "cycles": 2,
+      "nodes": 38,
+      "relationships": 50,
+      "result": "PASS"
+    },
+    {
+      "kind": "mobile",
+      "cycles": 2,
+      "nodes": 38,
+      "relationships": 50,
+      "result": "PASS"
+    },
+    {
+      "kind": "replay-stress",
+      "cycles": 5,
+      "nodes": 38,
+      "relationships": 50,
+      "result": "PASS"
+    }
+  ],
+  "errors": [],
+  "sectionReplay": "PASS",
+  "reducedMotionAndNavigation": "PASS"
+}

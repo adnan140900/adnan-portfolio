@@ -1,0 +1,3434 @@
+{
+  "result": "PASS",
+  "results": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "visits": [
+        {
+          "active": 0,
+          "target": "tool-hermes",
+          "sceneFont": 41.76,
+          "routeFont": 74.88,
+          "bodyFont": 16,
+          "title": "Hermes",
+          "titleBox": {
+            "x": 936,
+            "y": 281.359375,
+            "width": 432,
+            "height": 44.265625,
+            "top": 281.359375,
+            "right": 1368,
+            "bottom": 325.625,
+            "left": 936
+          },
+          "copyBox": {
+            "x": 936,
+            "y": 392.828125,
+            "width": 379.5,
+            "height": 57.59375,
+            "top": 392.828125,
+            "right": 1315.5,
+            "bottom": 450.421875,
+            "left": 936
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "top": 0,
+            "right": 1440,
+            "bottom": 900,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 341,
+          "ringError": 0.010973064044967342,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-39.904455204184075 -4.293702824994739)",
+            "translate(-52.07115411138848 -1.5192047185439295)",
+            "translate(-27.781999896517355 -2.8524234715078842)",
+            "translate(-30.17556893009427 -12.036213839988552)",
+            "translate(-28.907261153658897 2.5620217225695052)",
+            "translate(-27.483912260721514 -7.6400415683345795)",
+            "translate(-28.036262880070268 -5.141416464333878)"
+          ]
+        },
+        {
+          "active": 1,
+          "target": "experiment-local-ai",
+          "sceneFont": 41.76,
+          "routeFont": 74.88,
+          "bodyFont": 16,
+          "title": "Local AI",
+          "titleBox": {
+            "x": 936,
+            "y": 282.07147216796875,
+            "width": 432,
+            "height": 44.265625,
+            "top": 282.07147216796875,
+            "right": 1368,
+            "bottom": 326.33709716796875,
+            "left": 936
+          },
+          "copyBox": {
+            "x": 936,
+            "y": 352.00994873046875,
+            "width": 379.5,
+            "height": 57.59375,
+            "top": 352.00994873046875,
+            "right": 1315.5,
+            "bottom": 409.60369873046875,
+            "left": 936
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "top": 0,
+            "right": 1440,
+            "bottom": 900,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 514,
+          "ringError": 0.010994600784151268,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(33.650305 -29.490542)",
+            "translate(20.447971318119166 -29.88038084588358)",
+            "translate(43.80029352703135 -25.085651283897192)",
+            "translate(48.110508724377645 -32.06714771068049)",
+            "translate(40.23349433156477 -20.687367971436892)",
+            "translate(43.35863434117567 -36.27064700734043)",
+            "translate(45.5183189382939 -26.132271668671667)"
+          ]
+        },
+        {
+          "active": 2,
+          "target": "theme-ai-agents",
+          "sceneFont": 41.76,
+          "routeFont": 74.88,
+          "bodyFont": 16,
+          "title": "AI Agents",
+          "titleBox": {
+            "x": 936,
+            "y": 282.0773620605469,
+            "width": 432,
+            "height": 44.265625,
+            "top": 282.0773620605469,
+            "right": 1368,
+            "bottom": 326.3429870605469,
+            "left": 936
+          },
+          "copyBox": {
+            "x": 936,
+            "y": 352.01654052734375,
+            "width": 379.5,
+            "height": 57.59375,
+            "top": 352.01654052734375,
+            "right": 1315.5,
+            "bottom": 409.61029052734375,
+            "left": 936
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "top": 0,
+            "right": 1440,
+            "bottom": 900,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 691,
+          "ringError": 0.010973064044967342,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(14.960887 31.9)",
+            "translate(2.4739477982253177 28.33273725825336)",
+            "translate(21.02297436420896 38.258634760987206)",
+            "translate(30.90905256797123 35.41275338738392)",
+            "translate(16.114047859894413 41.090737961538224)",
+            "translate(20.105844180771953 23.175057906745376)",
+            "translate(24.492359449926326 38.64817389205695)"
+          ]
+        },
+        {
+          "active": 3,
+          "target": "theme-research-workflows",
+          "sceneFont": 41.76,
+          "routeFont": 74.88,
+          "bodyFont": 16,
+          "title": "Research Workflows",
+          "titleBox": {
+            "x": 936,
+            "y": 282.0832824707031,
+            "width": 432,
+            "height": 44.265625,
+            "top": 282.0832824707031,
+            "right": 1368,
+            "bottom": 326.3489074707031,
+            "left": 936
+          },
+          "copyBox": {
+            "x": 936,
+            "y": 352.02313232421875,
+            "width": 379.5,
+            "height": 57.59375,
+            "top": 352.02313232421875,
+            "right": 1315.5,
+            "bottom": 409.61688232421875,
+            "left": 936
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "top": 0,
+            "right": 1440,
+            "bottom": 900,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 877,
+          "ringError": 0.010962226710289494,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-29.394004 -31.9)",
+            "translate(-39.192836977314855 -38.2393656274204)",
+            "translate(-29.142552351274393 -25.211351220237635)",
+            "translate(-16.054376587033115 -23.100347171088075)",
+            "translate(-34.283687700013544 -24.20208325472644)",
+            "translate(-30.246482862687692 -40.41988905331735)",
+            "translate(-24.517166625300653 -23.59388125567868)"
+          ]
+        },
+        {
+          "active": 4,
+          "target": "theme-knowledge-management",
+          "sceneFont": 41.76,
+          "routeFont": 74.88,
+          "bodyFont": 16,
+          "title": "Knowledge Management",
+          "titleBox": {
+            "x": 936,
+            "y": 282.0894775390625,
+            "width": 432,
+            "height": 44.265625,
+            "top": 282.0894775390625,
+            "right": 1368,
+            "bottom": 326.3551025390625,
+            "left": 936
+          },
+          "copyBox": {
+            "x": 936,
+            "y": 393.63934326171875,
+            "width": 379.5,
+            "height": 86.390625,
+            "top": 393.63934326171875,
+            "right": 1315.5,
+            "bottom": 480.02996826171875,
+            "left": 936
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "top": 0,
+            "right": 1440,
+            "bottom": 900,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1055,
+          "ringError": 0.010994600784151268,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(46.114258 8.842473)",
+            "translate(40.25169006113766 1.0019711925165096)",
+            "translate(40.85533011267997 14.07887551049272)",
+            "translate(53.674365468359625 19.65490203376734)",
+            "translate(36.28740382181635 13.629108018767699)",
+            "translate(39.80289607229114 2.6365811691848524)",
+            "translate(45.58933886915072 16.184436868218228)"
+          ]
+        },
+        {
+          "active": 5,
+          "target": "theme-local-cloud-tradeoffs",
+          "sceneFont": 41.76,
+          "routeFont": 74.88,
+          "bodyFont": 16,
+          "title": "Local and Cloud Trade-offs",
+          "titleBox": {
+            "x": 936,
+            "y": 282.0953674316406,
+            "width": 432,
+            "height": 88.53125,
+            "top": 282.0953674316406,
+            "right": 1368,
+            "bottom": 370.6266174316406,
+            "left": 936
+          },
+          "copyBox": {
+            "x": 936,
+            "y": 396.30218505859375,
+            "width": 379.5,
+            "height": 86.390625,
+            "top": 396.30218505859375,
+            "right": 1315.5,
+            "bottom": 482.69281005859375,
+            "left": 936
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "top": 0,
+            "right": 1440,
+            "bottom": 900,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1242,
+          "ringError": 0.011026985384245845,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-26.166225 31.9)",
+            "translate(-26.932105009467527 23.906398892491342)",
+            "translate(-36.06052563128174 34.12900465060721)",
+            "translate(-26.751446006921725 40.98594574256083)",
+            "translate(-39.699769703652045 32.58992050897572)",
+            "translate(-36.95833316894574 29.794087902610464)",
+            "translate(-32.319125291556304 35.94057441997352)"
+          ]
+        },
+        {
+          "active": 4,
+          "target": "theme-knowledge-management",
+          "sceneFont": 41.76,
+          "routeFont": 74.88,
+          "bodyFont": 16,
+          "title": "Knowledge Management",
+          "titleBox": {
+            "x": 936,
+            "y": 282.0894775390625,
+            "width": 432,
+            "height": 44.265625,
+            "top": 282.0894775390625,
+            "right": 1368,
+            "bottom": 326.3551025390625,
+            "left": 936
+          },
+          "copyBox": {
+            "x": 936,
+            "y": 393.63934326171875,
+            "width": 379.5,
+            "height": 86.390625,
+            "top": 393.63934326171875,
+            "right": 1315.5,
+            "bottom": 480.02996826171875,
+            "left": 936
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "top": 0,
+            "right": 1440,
+            "bottom": 900,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1427,
+          "ringError": 0.010962247949625649,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(46.114258 8.842473)",
+            "translate(50.594851619974506 2.2314961254523036)",
+            "translate(33.9652325994661 7.398669179379073)",
+            "translate(37.5044549280511 12.807821350342115)",
+            "translate(31.085052187740573 5.264454303791782)",
+            "translate(33.186772347959675 11.43797618545751)",
+            "translate(35.74874867258136 8.257426740828397)"
+          ]
+        },
+        {
+          "active": 3,
+          "target": "theme-research-workflows",
+          "sceneFont": 41.76,
+          "routeFont": 74.88,
+          "bodyFont": 16,
+          "title": "Research Workflows",
+          "titleBox": {
+            "x": 936,
+            "y": 282.0832824707031,
+            "width": 432,
+            "height": 44.265625,
+            "top": 282.0832824707031,
+            "right": 1368,
+            "bottom": 326.3489074707031,
+            "left": 936
+          },
+          "copyBox": {
+            "x": 936,
+            "y": 352.02313232421875,
+            "width": 379.5,
+            "height": 57.59375,
+            "top": 352.02313232421875,
+            "right": 1315.5,
+            "bottom": 409.61688232421875,
+            "left": 936
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "top": 0,
+            "right": 1440,
+            "bottom": 900,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1612,
+          "ringError": 0.010940668805080172,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-29.394004 -31.9)",
+            "translate(-20.38824656907783 -35.85389586186451)",
+            "translate(-40.83698134757339 -36.594166811566275)",
+            "translate(-43.641863844170985 -34.53738330054143)",
+            "translate(-43.43474160566814 -38.96522644654769)",
+            "translate(-41.611583512451205 -25.320923712951515)",
+            "translate(-41.53216171807351 -36.920801288891006)"
+          ]
+        },
+        {
+          "active": 2,
+          "target": "theme-ai-agents",
+          "sceneFont": 41.76,
+          "routeFont": 74.88,
+          "bodyFont": 16,
+          "title": "AI Agents",
+          "titleBox": {
+            "x": 936,
+            "y": 282.0773620605469,
+            "width": 432,
+            "height": 44.265625,
+            "top": 282.0773620605469,
+            "right": 1368,
+            "bottom": 326.3429870605469,
+            "left": 936
+          },
+          "copyBox": {
+            "x": 936,
+            "y": 352.01654052734375,
+            "width": 379.5,
+            "height": 57.59375,
+            "top": 352.01654052734375,
+            "right": 1315.5,
+            "bottom": 409.61029052734375,
+            "left": 936
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "top": 0,
+            "right": 1440,
+            "bottom": 900,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1791,
+          "ringError": 0.010973064044967342,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(14.960887 31.9)",
+            "translate(26.888581707199254 31.119044751772496)",
+            "translate(6.697435984105702 25.399996854956683)",
+            "translate(-1.0022818686268575 23.952109500141958)",
+            "translate(3.9369346063426853 22.962777616666614)",
+            "translate(5.835042297446073 40.568164810387714)",
+            "translate(3.742920374124525 24.19133032071121)"
+          ]
+        },
+        {
+          "active": 1,
+          "target": "experiment-local-ai",
+          "sceneFont": 41.76,
+          "routeFont": 74.88,
+          "bodyFont": 16,
+          "title": "Local AI",
+          "titleBox": {
+            "x": 936,
+            "y": 282.07147216796875,
+            "width": 432,
+            "height": 44.265625,
+            "top": 282.07147216796875,
+            "right": 1368,
+            "bottom": 326.33709716796875,
+            "left": 936
+          },
+          "copyBox": {
+            "x": 936,
+            "y": 352.00994873046875,
+            "width": 379.5,
+            "height": 57.59375,
+            "top": 352.00994873046875,
+            "right": 1315.5,
+            "bottom": 409.60369873046875,
+            "left": 936
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "top": 0,
+            "right": 1440,
+            "bottom": 900,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1978,
+          "ringError": 0.010951442432139967,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(33.650305 -29.490542)",
+            "translate(46.850353016600394 -26.751421840058754)",
+            "translate(30.693485365802943 -36.08765177568078)",
+            "translate(20.0998867440044 -40.224716819532574)",
+            "translate(27.582589059054513 -38.551638166316955)",
+            "translate(29.734634129652697 -20.898064092791408)",
+            "translate(25.937940925591555 -37.656382002954565)"
+          ]
+        },
+        {
+          "active": 0,
+          "target": "tool-hermes",
+          "sceneFont": 41.76,
+          "routeFont": 74.88,
+          "bodyFont": 16,
+          "title": "Hermes",
+          "titleBox": {
+            "x": 936,
+            "y": 281.359375,
+            "width": 432,
+            "height": 44.265625,
+            "top": 281.359375,
+            "right": 1368,
+            "bottom": 325.625,
+            "left": 936
+          },
+          "copyBox": {
+            "x": 936,
+            "y": 392.828125,
+            "width": 379.5,
+            "height": 57.59375,
+            "top": 392.828125,
+            "right": 1315.5,
+            "bottom": 450.421875,
+            "left": 936
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900,
+            "top": 0,
+            "right": 1440,
+            "bottom": 900,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 2155,
+          "ringError": 0.010940668805080172,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-39.904455 -4.293703)",
+            "translate(-27.457872780178818 1.3336981785348057)",
+            "translate(-37.09347901215036 -9.18798592345556)",
+            "translate(-47.64180177174438 -13.973325239623165)",
+            "translate(-40.284800191180445 -11.635684688795491)",
+            "translate(-38.015638784655756 2.01517947087671)",
+            "translate(-42.561659669546 -10.431681519690326)"
+          ]
+        }
+      ],
+      "selectedText": "Exploring task-orient",
+      "result": "PASS"
+    },
+    {
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "visits": [
+        {
+          "active": 0,
+          "target": "tool-hermes",
+          "sceneFont": 42.346,
+          "routeFont": 71.032,
+          "bodyFont": 16,
+          "title": "Hermes",
+          "titleBox": {
+            "x": 901.546875,
+            "y": 270.859375,
+            "width": 396.125,
+            "height": 44.875,
+            "top": 270.859375,
+            "right": 1297.671875,
+            "bottom": 315.734375,
+            "left": 901.546875
+          },
+          "copyBox": {
+            "x": 901.546875,
+            "y": 370.828125,
+            "width": 362.25,
+            "height": 57.59375,
+            "top": 370.828125,
+            "right": 1263.796875,
+            "bottom": 428.421875,
+            "left": 901.546875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1366,
+            "height": 768,
+            "top": 0,
+            "right": 1366,
+            "bottom": 768,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 339,
+          "ringError": 0.009020099930907497,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-39.904455204184075 -4.293702824994739)",
+            "translate(-52.090925131608394 -1.5514741511411265)",
+            "translate(-27.790740340203556 -2.8176883925929532)",
+            "translate(-30.1112981071843 -11.991234768550864)",
+            "translate(-28.947452716765106 2.58994045096638)",
+            "translate(-27.50171482320046 -7.682124633235146)",
+            "translate(-28.024003875144487 -5.09578152122288)"
+          ]
+        },
+        {
+          "active": 1,
+          "target": "experiment-local-ai",
+          "sceneFont": 42.346,
+          "routeFont": 71.032,
+          "bodyFont": 16,
+          "title": "Local AI",
+          "titleBox": {
+            "x": 901.546875,
+            "y": 270.609375,
+            "width": 396.125,
+            "height": 44.875,
+            "top": 270.609375,
+            "right": 1297.671875,
+            "bottom": 315.484375,
+            "left": 901.546875
+          },
+          "copyBox": {
+            "x": 901.546875,
+            "y": 341.078125,
+            "width": 362.25,
+            "height": 57.59375,
+            "top": 341.078125,
+            "right": 1263.796875,
+            "bottom": 398.671875,
+            "left": 901.546875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1366,
+            "height": 768,
+            "top": 0,
+            "right": 1366,
+            "bottom": 768,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 517,
+          "ringError": 0.008976941558032343,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(33.650305 -29.490542)",
+            "translate(20.446973988299767 -29.89832294728721)",
+            "translate(43.78313631755215 -25.0714799872175)",
+            "translate(48.128499605435714 -32.03449851033719)",
+            "translate(40.20580707016385 -20.680651959393295)",
+            "translate(43.338069625566625 -36.2861323796253)",
+            "translate(45.511794825067085 -26.110318768659234)"
+          ]
+        },
+        {
+          "active": 2,
+          "target": "theme-ai-agents",
+          "sceneFont": 42.346,
+          "routeFont": 71.032,
+          "bodyFont": 16,
+          "title": "AI Agents",
+          "titleBox": {
+            "x": 901.546875,
+            "y": 270.359375,
+            "width": 396.125,
+            "height": 44.875,
+            "top": 270.359375,
+            "right": 1297.671875,
+            "bottom": 315.234375,
+            "left": 901.546875
+          },
+          "copyBox": {
+            "x": 901.546875,
+            "y": 340.828125,
+            "width": 362.25,
+            "height": 57.59375,
+            "top": 340.828125,
+            "right": 1263.796875,
+            "bottom": 398.421875,
+            "left": 901.546875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1366,
+            "height": 768,
+            "top": 0,
+            "right": 1366,
+            "bottom": 768,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 694,
+          "ringError": 0.009009316798520656,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(14.960887 31.9)",
+            "translate(2.520158864952723 28.248696544735584)",
+            "translate(20.883781934973506 38.29251068243798)",
+            "translate(30.896108830721893 35.57827908957758)",
+            "translate(15.953719786820745 41.0765087196352)",
+            "translate(19.957606627537885 23.14863865970831)",
+            "translate(24.394998392667272 38.720689345624415)"
+          ]
+        },
+        {
+          "active": 3,
+          "target": "theme-research-workflows",
+          "sceneFont": 42.346,
+          "routeFont": 71.032,
+          "bodyFont": 16,
+          "title": "Research Workflows",
+          "titleBox": {
+            "x": 901.546875,
+            "y": 270.109375,
+            "width": 396.125,
+            "height": 44.875,
+            "top": 270.109375,
+            "right": 1297.671875,
+            "bottom": 314.984375,
+            "left": 901.546875
+          },
+          "copyBox": {
+            "x": 901.546875,
+            "y": 340.578125,
+            "width": 362.25,
+            "height": 57.59375,
+            "top": 340.578125,
+            "right": 1263.796875,
+            "bottom": 398.171875,
+            "left": 901.546875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1366,
+            "height": 768,
+            "top": 0,
+            "right": 1366,
+            "bottom": 768,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 879,
+          "ringError": 0.009041704868127543,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-29.394004 -31.9)",
+            "translate(-39.19327633685752 -38.23908994719794)",
+            "translate(-29.141802248108394 -25.211268183073024)",
+            "translate(-16.053802637175924 -23.100827566464133)",
+            "translate(-34.28297296766523 -24.201785854541658)",
+            "translate(-30.245727751399762 -40.42006655243152)",
+            "translate(-24.516496716946044 -23.593909922973868)"
+          ]
+        },
+        {
+          "active": 4,
+          "target": "theme-knowledge-management",
+          "sceneFont": 42.346,
+          "routeFont": 71.032,
+          "bodyFont": 16,
+          "title": "Knowledge Management",
+          "titleBox": {
+            "x": 901.546875,
+            "y": 270.859375,
+            "width": 396.125,
+            "height": 89.75,
+            "top": 270.859375,
+            "right": 1297.671875,
+            "bottom": 360.609375,
+            "left": 901.546875
+          },
+          "copyBox": {
+            "x": 901.546875,
+            "y": 415.703125,
+            "width": 362.25,
+            "height": 86.390625,
+            "top": 415.703125,
+            "right": 1263.796875,
+            "bottom": 502.09375,
+            "left": 901.546875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1366,
+            "height": 768,
+            "top": 0,
+            "right": 1366,
+            "bottom": 768,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1056,
+          "ringError": 0.008976967494517034,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(46.114258 8.842473)",
+            "translate(40.25110341027772 1.002085944224012)",
+            "translate(40.85600741400027 14.079167139661514)",
+            "translate(53.67528458307932 19.65486616560984)",
+            "translate(36.28797571462431 13.629566148858183)",
+            "translate(39.803557603002865 2.6361608929949067)",
+            "translate(45.59006906784589 16.18471358334347)"
+          ]
+        },
+        {
+          "active": 5,
+          "target": "theme-local-cloud-tradeoffs",
+          "sceneFont": 42.346,
+          "routeFont": 71.032,
+          "bodyFont": 16,
+          "title": "Local and Cloud Trade-offs",
+          "titleBox": {
+            "x": 901.546875,
+            "y": 270.609375,
+            "width": 396.125,
+            "height": 89.75,
+            "top": 270.609375,
+            "right": 1297.671875,
+            "bottom": 360.359375,
+            "left": 901.546875
+          },
+          "copyBox": {
+            "x": 901.546875,
+            "y": 385.953125,
+            "width": 362.25,
+            "height": 86.390625,
+            "top": 385.953125,
+            "right": 1263.796875,
+            "bottom": 472.34375,
+            "left": 901.546875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1366,
+            "height": 768,
+            "top": 0,
+            "right": 1366,
+            "bottom": 768,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1241,
+          "ringError": 0.009030895969520173,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-26.166225 31.9)",
+            "translate(-27.045770064825227 23.89325758759651)",
+            "translate(-35.98298082260545 34.20395810572577)",
+            "translate(-26.570001562408688 41.0630932908297)",
+            "translate(-39.641888415535874 32.682744490774084)",
+            "translate(-36.88416017964498 29.695533864796996)",
+            "translate(-32.209118409219144 36.02986942587093)"
+          ]
+        },
+        {
+          "active": 4,
+          "target": "theme-knowledge-management",
+          "sceneFont": 42.346,
+          "routeFont": 71.032,
+          "bodyFont": 16,
+          "title": "Knowledge Management",
+          "titleBox": {
+            "x": 901.546875,
+            "y": 270.859375,
+            "width": 396.125,
+            "height": 89.75,
+            "top": 270.859375,
+            "right": 1297.671875,
+            "bottom": 360.609375,
+            "left": 901.546875
+          },
+          "copyBox": {
+            "x": 901.546875,
+            "y": 415.703125,
+            "width": 362.25,
+            "height": 86.390625,
+            "top": 415.703125,
+            "right": 1263.796875,
+            "bottom": 502.09375,
+            "left": 901.546875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1366,
+            "height": 768,
+            "top": 0,
+            "right": 1366,
+            "bottom": 768,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1429,
+          "ringError": 0.008987737627595267,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(46.114258 8.842473)",
+            "translate(50.46087648429738 2.1763702580949174)",
+            "translate(33.98780601523568 7.495778936704861)",
+            "translate(37.69613531589729 12.973881884129657)",
+            "translate(31.0928916359425 5.371921899355998)",
+            "translate(33.207509200284235 11.316433265158388)",
+            "translate(35.83260564146749 8.38512834328319)"
+          ]
+        },
+        {
+          "active": 3,
+          "target": "theme-research-workflows",
+          "sceneFont": 42.346,
+          "routeFont": 71.032,
+          "bodyFont": 16,
+          "title": "Research Workflows",
+          "titleBox": {
+            "x": 901.546875,
+            "y": 270.109375,
+            "width": 396.125,
+            "height": 44.875,
+            "top": 270.109375,
+            "right": 1297.671875,
+            "bottom": 314.984375,
+            "left": 901.546875
+          },
+          "copyBox": {
+            "x": 901.546875,
+            "y": 340.578125,
+            "width": 362.25,
+            "height": 57.59375,
+            "top": 340.578125,
+            "right": 1263.796875,
+            "bottom": 398.171875,
+            "left": 901.546875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1366,
+            "height": 768,
+            "top": 0,
+            "right": 1366,
+            "bottom": 768,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1618,
+          "ringError": 0.009009368485009427,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-29.394004 -31.9)",
+            "translate(-20.430138693465686 -35.88746151614187)",
+            "translate(-40.86026303257751 -36.56522231827371)",
+            "translate(-43.600499289489626 -34.467515306941486)",
+            "translate(-43.45826524604771 -38.934953111683086)",
+            "translate(-41.63426295311593 -25.35553937995843)",
+            "translate(-41.52816084659327 -36.879702768159305)"
+          ]
+        },
+        {
+          "active": 2,
+          "target": "theme-ai-agents",
+          "sceneFont": 42.346,
+          "routeFont": 71.032,
+          "bodyFont": 16,
+          "title": "AI Agents",
+          "titleBox": {
+            "x": 901.546875,
+            "y": 270.359375,
+            "width": 396.125,
+            "height": 44.875,
+            "top": 270.359375,
+            "right": 1297.671875,
+            "bottom": 315.234375,
+            "left": 901.546875
+          },
+          "copyBox": {
+            "x": 901.546875,
+            "y": 340.828125,
+            "width": 362.25,
+            "height": 57.59375,
+            "top": 340.828125,
+            "right": 1263.796875,
+            "bottom": 398.421875,
+            "left": 901.546875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1366,
+            "height": 768,
+            "top": 0,
+            "right": 1366,
+            "bottom": 768,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1795,
+          "ringError": 0.008987737627595267,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(14.960887 31.9)",
+            "translate(26.864018015806007 31.080941141556167)",
+            "translate(6.649456533157457 25.411798402794524)",
+            "translate(-1.0045219382517683 24.000898252340754)",
+            "translate(3.89240419352857 22.974991283019357)",
+            "translate(5.7883025981026375 40.55555441290178)",
+            "translate(3.7185737415196414 24.210675607287392)"
+          ]
+        },
+        {
+          "active": 1,
+          "target": "experiment-local-ai",
+          "sceneFont": 42.346,
+          "routeFont": 71.032,
+          "bodyFont": 16,
+          "title": "Local AI",
+          "titleBox": {
+            "x": 901.546875,
+            "y": 270.609375,
+            "width": 396.125,
+            "height": 44.875,
+            "top": 270.609375,
+            "right": 1297.671875,
+            "bottom": 315.484375,
+            "left": 901.546875
+          },
+          "copyBox": {
+            "x": 901.546875,
+            "y": 341.078125,
+            "width": 362.25,
+            "height": 57.59375,
+            "top": 341.078125,
+            "right": 1263.796875,
+            "bottom": 398.671875,
+            "left": 901.546875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1366,
+            "height": 768,
+            "top": 0,
+            "right": 1366,
+            "bottom": 768,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1982,
+          "ringError": 0.008987737627595267,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(33.650305 -29.490542)",
+            "translate(46.84777859665194 -26.787856782108005)",
+            "translate(30.629699668235926 -36.09729639815721)",
+            "translate(20.05167775357559 -40.21524640493746)",
+            "translate(27.522023216992217 -38.56111306793353)",
+            "translate(29.671417007325335 -20.884011390109087)",
+            "translate(25.88848260215736 -37.666000806378314)"
+          ]
+        },
+        {
+          "active": 0,
+          "target": "tool-hermes",
+          "sceneFont": 42.346,
+          "routeFont": 71.032,
+          "bodyFont": 16,
+          "title": "Hermes",
+          "titleBox": {
+            "x": 901.546875,
+            "y": 270.859375,
+            "width": 396.125,
+            "height": 44.875,
+            "top": 270.859375,
+            "right": 1297.671875,
+            "bottom": 315.734375,
+            "left": 901.546875
+          },
+          "copyBox": {
+            "x": 901.546875,
+            "y": 370.828125,
+            "width": 362.25,
+            "height": 57.59375,
+            "top": 370.828125,
+            "right": 1263.796875,
+            "bottom": 428.421875,
+            "left": 901.546875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1366,
+            "height": 768,
+            "top": 0,
+            "right": 1366,
+            "bottom": 768,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 2159,
+          "ringError": 0.009041704868127543,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-39.904455 -4.293703)",
+            "translate(-27.40193572898255 1.2506898517608382)",
+            "translate(-37.28316047033827 -9.269560485925282)",
+            "translate(-47.87748194728987 -14.067121969204088)",
+            "translate(-40.480647736756495 -11.719417365091239)",
+            "translate(-38.20996917218309 2.121594127685978)",
+            "translate(-42.74635282809172 -10.533782861838167)"
+          ]
+        }
+      ],
+      "selectedText": "Exploring task-orient",
+      "result": "PASS"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "visits": [
+        {
+          "active": 0,
+          "target": "tool-hermes",
+          "sceneFont": 35.1,
+          "routeFont": 35.1,
+          "bodyFont": 15.2,
+          "title": "Hermes",
+          "titleBox": {
+            "x": 23.390625,
+            "y": 451.8125,
+            "width": 343.21875,
+            "height": 37.1875,
+            "top": 451.8125,
+            "right": 366.609375,
+            "bottom": 489,
+            "left": 23.390625
+          },
+          "copyBox": {
+            "x": 23.390625,
+            "y": 537.6875,
+            "width": 343.21875,
+            "height": 54.09375,
+            "top": 537.6875,
+            "right": 366.609375,
+            "bottom": 591.78125,
+            "left": 23.390625
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 333,
+          "ringError": 0.0034581024994015594,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-19.154139999999995 -5.324199999999997)",
+            "translate(-26.182734480503377 -3.669965361378141)",
+            "translate(-12.111544203893187 -4.5369449495266165)",
+            "translate(-13.601898745923883 -9.877130033301848)",
+            "translate(-12.71994136110198 -1.3872685188234328)",
+            "translate(-11.925925536777491 -7.205997856074169)",
+            "translate(-12.288358121983812 -5.879653622296585)"
+          ]
+        },
+        {
+          "active": 1,
+          "target": "experiment-local-ai",
+          "sceneFont": 35.1,
+          "routeFont": 35.1,
+          "bodyFont": 15.2,
+          "title": "Local AI",
+          "titleBox": {
+            "x": 23.390625,
+            "y": 452.484375,
+            "width": 281.4375,
+            "height": 37.1875,
+            "top": 452.484375,
+            "right": 304.828125,
+            "bottom": 489.671875,
+            "left": 23.390625
+          },
+          "copyBox": {
+            "x": 23.390625,
+            "y": 508.859375,
+            "width": 343.21875,
+            "height": 54.09375,
+            "top": 508.859375,
+            "right": 366.609375,
+            "bottom": 562.953125,
+            "left": 23.390625
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 510,
+          "ringError": 0.003436523550781005,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(16.15214 -36.56828)",
+            "translate(8.495913298490471 -36.77554070174201)",
+            "translate(22.0570589544276 -34.02837495737861)",
+            "translate(24.520012639171252 -38.09696317699928)",
+            "translate(19.99942664553462 -31.469564435507294)",
+            "translate(21.804488076002876 -40.48440720988856)",
+            "translate(23.042334722039485 -34.64357970525935)"
+          ]
+        },
+        {
+          "active": 2,
+          "target": "theme-ai-agents",
+          "sceneFont": 35.1,
+          "routeFont": 35.1,
+          "bodyFont": 15.2,
+          "title": "AI Agents",
+          "titleBox": {
+            "x": 23.390625,
+            "y": 452.15625,
+            "width": 343.21875,
+            "height": 37.1875,
+            "top": 452.15625,
+            "right": 366.609375,
+            "bottom": 489.34375,
+            "left": 23.390625
+          },
+          "copyBox": {
+            "x": 64.5625,
+            "y": 508.53125,
+            "width": 343.21875,
+            "height": 54.09375,
+            "top": 508.53125,
+            "right": 407.78125,
+            "bottom": 562.625,
+            "left": 64.5625
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 686,
+          "ringError": 0.0034364896747158774,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(7.18122 53.9)",
+            "translate(-0.07610964838303058 51.85887208360698)",
+            "translate(10.742943721803087 57.576480974621504)",
+            "translate(16.434632364559867 55.88247887968722)",
+            "translate(7.90297997702389 59.23496755843236)",
+            "translate(10.214058612716226 48.84869702706422)",
+            "translate(12.741231034364954 57.789588875670475)"
+          ]
+        },
+        {
+          "active": 3,
+          "target": "theme-research-workflows",
+          "sceneFont": 35.1,
+          "routeFont": 35.1,
+          "bodyFont": 15.2,
+          "title": "Research Workflows",
+          "titleBox": {
+            "x": 78.3125,
+            "y": 451.828125,
+            "width": 288.296875,
+            "height": 74.375,
+            "top": 451.828125,
+            "right": 366.609375,
+            "bottom": 526.203125,
+            "left": 78.3125
+          },
+          "copyBox": {
+            "x": 23.390625,
+            "y": 545.390625,
+            "width": 343.21875,
+            "height": 54.09375,
+            "top": 545.390625,
+            "right": 366.609375,
+            "bottom": 599.484375,
+            "left": 23.390625
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 867,
+          "ringError": 0.003420318068599568,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-14.10912 -53.63978)",
+            "translate(-19.920753690629773 -57.233551302488664)",
+            "translate(-13.741197611336865 -49.73805354461756)",
+            "translate(-6.206462459047502 -48.68210416667928)",
+            "translate(-16.732517516998374 -49.08885367264727)",
+            "translate(-14.379702057917129 -58.631139885949246)",
+            "translate(-11.08348366442242 -48.83387282519494)"
+          ]
+        },
+        {
+          "active": 4,
+          "target": "theme-knowledge-management",
+          "sceneFont": 35.1,
+          "routeFont": 35.1,
+          "bodyFont": 15.2,
+          "title": "Knowledge Management",
+          "titleBox": {
+            "x": 23.390625,
+            "y": 451.5,
+            "width": 343.21875,
+            "height": 74.375,
+            "top": 451.5,
+            "right": 366.609375,
+            "bottom": 525.875,
+            "left": 23.390625
+          },
+          "copyBox": {
+            "x": 23.390625,
+            "y": 574.5625,
+            "width": 343.21875,
+            "height": 81.140625,
+            "top": 574.5625,
+            "right": 366.609375,
+            "bottom": 655.703125,
+            "left": 23.390625
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1042,
+          "ringError": 0.003431107608302133,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(22.13484 10.96466)",
+            "translate(18.546344300173622 6.456310231481536)",
+            "translate(19.305195379145403 14.093842560680605)",
+            "translate(26.81366645680648 17.218647347161415)",
+            "translate(16.622220648178548 13.887448404335931)",
+            "translate(18.689838180771076 7.231872770365436)",
+            "translate(22.066410448196113 15.309060435449396)"
+          ]
+        },
+        {
+          "active": 5,
+          "target": "theme-local-cloud-tradeoffs",
+          "sceneFont": 35.1,
+          "routeFont": 35.1,
+          "bodyFont": 15.2,
+          "title": "Local and Cloud Trade-offs",
+          "titleBox": {
+            "x": 23.390625,
+            "y": 452.171875,
+            "width": 281.4375,
+            "height": 74.375,
+            "top": 452.171875,
+            "right": 304.828125,
+            "bottom": 526.546875,
+            "left": 23.390625
+          },
+          "copyBox": {
+            "x": 23.390625,
+            "y": 545.734375,
+            "width": 343.21875,
+            "height": 81.140625,
+            "top": 545.734375,
+            "right": 366.609375,
+            "bottom": 626.875,
+            "left": 23.390625
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1224,
+          "ringError": 0.0034310906435748617,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-12.55978 41.74592)",
+            "translate(-13.264611059555536 37.0818980024944)",
+            "translate(-18.11675593291249 43.20967032209959)",
+            "translate(-12.482668422389068 47.18732930603349)",
+            "translate(-20.27291949445572 42.358815188749716)",
+            "translate(-18.645280240752697 40.29930209790636)",
+            "translate(-15.873781651890454 44.29222560207658)"
+          ]
+        },
+        {
+          "active": 4,
+          "target": "theme-knowledge-management",
+          "sceneFont": 35.1,
+          "routeFont": 35.1,
+          "bodyFont": 15.2,
+          "title": "Knowledge Management",
+          "titleBox": {
+            "x": 23.390625,
+            "y": 451.5,
+            "width": 343.21875,
+            "height": 74.375,
+            "top": 451.5,
+            "right": 366.609375,
+            "bottom": 525.875,
+            "left": 23.390625
+          },
+          "copyBox": {
+            "x": 23.390625,
+            "y": 574.5625,
+            "width": 343.21875,
+            "height": 81.140625,
+            "top": 574.5625,
+            "right": 366.609375,
+            "bottom": 655.703125,
+            "left": 23.390625
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1407,
+          "ringError": 0.0034149105150367595,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(22.13484 10.96466)",
+            "translate(24.344534591279086 6.9767069005240225)",
+            "translate(15.165708070942898 10.408749711171186)",
+            "translate(17.703258233178865 13.736596142955708)",
+            "translate(13.450715581720537 9.202279780718694)",
+            "translate(14.708411603058074 12.116931290945626)",
+            "translate(16.374549263739752 10.993952774338766)"
+          ]
+        },
+        {
+          "active": 3,
+          "target": "theme-research-workflows",
+          "sceneFont": 35.1,
+          "routeFont": 35.1,
+          "bodyFont": 15.2,
+          "title": "Research Workflows",
+          "titleBox": {
+            "x": 78.3125,
+            "y": 451.828125,
+            "width": 288.296875,
+            "height": 74.375,
+            "top": 451.828125,
+            "right": 366.609375,
+            "bottom": 526.203125,
+            "left": 78.3125
+          },
+          "copyBox": {
+            "x": 23.390625,
+            "y": 545.390625,
+            "width": 343.21875,
+            "height": 54.09375,
+            "top": 545.390625,
+            "right": 366.609375,
+            "bottom": 599.484375,
+            "left": 23.390625
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1589,
+          "ringError": 0.0034310906435748617,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-14.10912 -53.63978)",
+            "translate(-9.244800427218596 -56.20815252674393)",
+            "translate(-20.922029239419256 -56.111953723664996)",
+            "translate(-22.001933526493964 -54.58038668534852)",
+            "translate(-22.43397341221447 -57.474967208270996)",
+            "translate(-21.366979994330876 -50.12459399313717)",
+            "translate(-21.09719436800557 -56.19835972681674)"
+          ]
+        },
+        {
+          "active": 2,
+          "target": "theme-ai-agents",
+          "sceneFont": 35.1,
+          "routeFont": 35.1,
+          "bodyFont": 15.2,
+          "title": "AI Agents",
+          "titleBox": {
+            "x": 23.390625,
+            "y": 452.15625,
+            "width": 343.21875,
+            "height": 37.1875,
+            "top": 452.15625,
+            "right": 366.609375,
+            "bottom": 489.34375,
+            "left": 23.390625
+          },
+          "copyBox": {
+            "x": 64.5625,
+            "y": 508.53125,
+            "width": 343.21875,
+            "height": 54.09375,
+            "top": 508.53125,
+            "right": 407.78125,
+            "bottom": 562.625,
+            "left": 64.5625
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1766,
+          "ringError": 0.0034149105150367595,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(7.18122 53.9)",
+            "translate(13.872507667338166 53.11718872074507)",
+            "translate(1.9860054896798376 50.245886979807665)",
+            "translate(-2.065632862961273 49.73473273635089)",
+            "translate(0.41329433307233465 48.83616538674308)",
+            "translate(1.496473727638584 58.80113899327606)",
+            "translate(0.4819712759927528 49.61461477547841)"
+          ]
+        },
+        {
+          "active": 1,
+          "target": "experiment-local-ai",
+          "sceneFont": 35.1,
+          "routeFont": 35.1,
+          "bodyFont": 15.2,
+          "title": "Local AI",
+          "titleBox": {
+            "x": 23.390625,
+            "y": 452.484375,
+            "width": 281.4375,
+            "height": 37.1875,
+            "top": 452.484375,
+            "right": 304.828125,
+            "bottom": 489.671875,
+            "left": 23.390625
+          },
+          "copyBox": {
+            "x": 23.390625,
+            "y": 508.859375,
+            "width": 343.21875,
+            "height": 54.09375,
+            "top": 508.859375,
+            "right": 366.609375,
+            "bottom": 562.953125,
+            "left": 23.390625
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1948,
+          "ringError": 0.003436523550781005,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(16.15214 -36.56828)",
+            "translate(23.76560431214063 -35.32945014728012)",
+            "translate(13.838977787723067 -40.46928884036254)",
+            "translate(7.86858102356584 -42.6695221335518)",
+            "translate(12.06730045784995 -41.89653239897952)",
+            "translate(13.289356291012911 -31.472014508688158)",
+            "translate(11.225910470935718 -41.3726034148261)"
+          ]
+        },
+        {
+          "active": 0,
+          "target": "tool-hermes",
+          "sceneFont": 35.1,
+          "routeFont": 35.1,
+          "bodyFont": 15.2,
+          "title": "Hermes",
+          "titleBox": {
+            "x": 23.390625,
+            "y": 451.8125,
+            "width": 343.21875,
+            "height": 37.1875,
+            "top": 451.8125,
+            "right": 366.609375,
+            "bottom": 489,
+            "left": 23.390625
+          },
+          "copyBox": {
+            "x": 23.390625,
+            "y": 537.6875,
+            "width": 343.21875,
+            "height": 54.09375,
+            "top": 537.6875,
+            "right": 366.609375,
+            "bottom": 591.78125,
+            "left": 23.390625
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 844,
+            "top": 0,
+            "right": 390,
+            "bottom": 844,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 2124,
+          "ringError": 0.0034581024994015594,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-19.15414 -5.3242)",
+            "translate(-11.74913615349715 -2.3775274587665733)",
+            "translate(-18.230147820503646 -8.448826214315115)",
+            "translate(-24.488538590482975 -11.246446416116715)",
+            "translate(-20.096587908711243 -9.874962296286387)",
+            "translate(-18.779493151047085 -1.2906982942665373)",
+            "translate(-21.36992817764862 -9.239923746957658)"
+          ]
+        }
+      ],
+      "selectedText": "Exploring task-oriente",
+      "result": "PASS"
+    },
+    {
+      "viewport": {
+        "width": 430,
+        "height": 932
+      },
+      "visits": [
+        {
+          "active": 0,
+          "target": "tool-hermes",
+          "sceneFont": 38.7,
+          "routeFont": 38.7,
+          "bodyFont": 15.2,
+          "title": "Hermes",
+          "titleBox": {
+            "x": 25.796875,
+            "y": 484.265625,
+            "width": 378.40625,
+            "height": 41.015625,
+            "top": 484.265625,
+            "right": 404.203125,
+            "bottom": 525.28125,
+            "left": 25.796875
+          },
+          "copyBox": {
+            "x": 25.796875,
+            "y": 573.96875,
+            "width": 362.25,
+            "height": 54.09375,
+            "top": 573.96875,
+            "right": 388.046875,
+            "bottom": 628.0625,
+            "left": 25.796875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 430,
+            "height": 932,
+            "top": 0,
+            "right": 430,
+            "bottom": 932,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 334,
+          "ringError": 0.003781787054388905,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-19.154139999999995 -5.324199999999997)",
+            "translate(-26.182734172037144 -3.6699648731756582)",
+            "translate(-12.111544083228644 -4.536945479121028)",
+            "translate(-13.601899733751733 -9.877130704761267)",
+            "translate(-12.719940757743398 -1.3872689492427188)",
+            "translate(-11.925925277466135 -7.2059972127360865)",
+            "translate(-12.28835831977209 -5.879654314640103)"
+          ]
+        },
+        {
+          "active": 1,
+          "target": "experiment-local-ai",
+          "sceneFont": 38.7,
+          "routeFont": 38.7,
+          "bodyFont": 15.2,
+          "title": "Local AI",
+          "titleBox": {
+            "x": 25.796875,
+            "y": 484.296875,
+            "width": 310.28125,
+            "height": 41.015625,
+            "top": 484.296875,
+            "right": 336.078125,
+            "bottom": 525.3125,
+            "left": 25.796875
+          },
+          "copyBox": {
+            "x": 25.796875,
+            "y": 544.5,
+            "width": 362.25,
+            "height": 54.09375,
+            "top": 544.5,
+            "right": 388.046875,
+            "bottom": 598.59375,
+            "left": 25.796875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 430,
+            "height": 932,
+            "top": 0,
+            "right": 430,
+            "bottom": 932,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 511,
+          "ringError": 0.003803366044339169,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(16.15214 -36.56828)",
+            "translate(8.495899864292873 -36.775755750643)",
+            "translate(22.05685510233766 -34.028204236538656)",
+            "translate(24.52023104496454 -38.09657263610003)",
+            "translate(19.999095634375273 -31.46948261181351)",
+            "translate(21.80424315252546 -40.48459408911093)",
+            "translate(23.04225850732746 -34.643315877928146)"
+          ]
+        },
+        {
+          "active": 2,
+          "target": "theme-ai-agents",
+          "sceneFont": 38.7,
+          "routeFont": 38.7,
+          "bodyFont": 15.2,
+          "title": "AI Agents",
+          "titleBox": {
+            "x": 25.796875,
+            "y": 484.328125,
+            "width": 378.40625,
+            "height": 41.015625,
+            "top": 484.328125,
+            "right": 404.203125,
+            "bottom": 525.34375,
+            "left": 25.796875
+          },
+          "copyBox": {
+            "x": 71.203125,
+            "y": 544.53125,
+            "width": 362.25,
+            "height": 54.09375,
+            "top": 544.53125,
+            "right": 433.453125,
+            "bottom": 598.625,
+            "left": 71.203125
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 430,
+            "height": 932,
+            "top": 0,
+            "right": 430,
+            "bottom": 932,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 689,
+          "ringError": 0.0037763576265761054,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(7.18122 53.9)",
+            "translate(-0.07610984311082802 51.85887245171808)",
+            "translate(10.742944323030372 57.57648082108157)",
+            "translate(16.434632406554872 55.88247815472517)",
+            "translate(7.902980674442133 59.23496761390235)",
+            "translate(10.214059254448598 48.84869714992567)",
+            "translate(12.741231450991581 57.78958855280904)"
+          ]
+        },
+        {
+          "active": 3,
+          "target": "theme-research-workflows",
+          "sceneFont": 38.7,
+          "routeFont": 38.7,
+          "bodyFont": 15.2,
+          "title": "Research Workflows",
+          "titleBox": {
+            "x": 86.34375,
+            "y": 484.359375,
+            "width": 317.859375,
+            "height": 82.03125,
+            "top": 484.359375,
+            "right": 404.203125,
+            "bottom": 566.390625,
+            "left": 86.34375
+          },
+          "copyBox": {
+            "x": 25.796875,
+            "y": 585.578125,
+            "width": 362.25,
+            "height": 54.09375,
+            "top": 585.578125,
+            "right": 388.046875,
+            "bottom": 639.671875,
+            "left": 25.796875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 430,
+            "height": 932,
+            "top": 0,
+            "right": 430,
+            "bottom": 932,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 871,
+          "ringError": 0.003792545853384289,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-14.10912 -53.63978)",
+            "translate(-19.867369208542215 -57.26874042926154)",
+            "translate(-13.834341435072542 -49.74685541193561)",
+            "translate(-6.274909449753174 -48.61986933950814)",
+            "translate(-16.82194142317784 -49.12451235875845)",
+            "translate(-14.473662365854947 -58.61090883940325)",
+            "translate(-11.165828918990123 -48.82822016156728)"
+          ]
+        },
+        {
+          "active": 4,
+          "target": "theme-knowledge-management",
+          "sceneFont": 38.7,
+          "routeFont": 38.7,
+          "bodyFont": 15.2,
+          "title": "Knowledge Management",
+          "titleBox": {
+            "x": 25.796875,
+            "y": 484.390625,
+            "width": 378.40625,
+            "height": 82.03125,
+            "top": 484.390625,
+            "right": 404.203125,
+            "bottom": 566.421875,
+            "left": 25.796875
+          },
+          "copyBox": {
+            "x": 25.796875,
+            "y": 615.109375,
+            "width": 362.25,
+            "height": 81.140625,
+            "top": 615.109375,
+            "right": 388.046875,
+            "bottom": 696.25,
+            "left": 25.796875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 430,
+            "height": 932,
+            "top": 0,
+            "right": 430,
+            "bottom": 932,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1050,
+          "ringError": 0.0037817562711126504,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(22.13484 10.96466)",
+            "translate(18.61828528058238 6.440793497002347)",
+            "translate(19.220125229408428 14.059006502533697)",
+            "translate(26.701519164362356 17.22659331541705)",
+            "translate(16.54992623731833 13.831538872774392)",
+            "translate(18.606630563039364 7.282502424024506)",
+            "translate(21.97577245479888 15.276812877824913)"
+          ]
+        },
+        {
+          "active": 5,
+          "target": "theme-local-cloud-tradeoffs",
+          "sceneFont": 38.7,
+          "routeFont": 38.7,
+          "bodyFont": 15.2,
+          "title": "Local and Cloud Trade-offs",
+          "titleBox": {
+            "x": 25.796875,
+            "y": 484.421875,
+            "width": 310.28125,
+            "height": 82.03125,
+            "top": 484.421875,
+            "right": 336.078125,
+            "bottom": 566.453125,
+            "left": 25.796875
+          },
+          "copyBox": {
+            "x": 25.796875,
+            "y": 585.640625,
+            "width": 362.25,
+            "height": 81.140625,
+            "top": 585.640625,
+            "right": 388.046875,
+            "bottom": 666.78125,
+            "left": 25.796875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 430,
+            "height": 932,
+            "top": 0,
+            "right": 430,
+            "bottom": 932,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1233,
+          "ringError": 0.003792545853384289,
+          "epoch": 1,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-12.55978 41.74592)",
+            "translate(-13.184175473845567 37.08977153191785)",
+            "translate(-18.173958267895724 43.157185843862344)",
+            "translate(-12.611365396972278 47.135908575151944)",
+            "translate(-20.316020714095124 42.29318470723165)",
+            "translate(-18.700058542906813 40.36857516277841)",
+            "translate(-15.953081645781824 44.2302110877096)"
+          ]
+        },
+        {
+          "active": 4,
+          "target": "theme-knowledge-management",
+          "sceneFont": 38.7,
+          "routeFont": 38.7,
+          "bodyFont": 15.2,
+          "title": "Knowledge Management",
+          "titleBox": {
+            "x": 25.796875,
+            "y": 484.390625,
+            "width": 378.40625,
+            "height": 82.03125,
+            "top": 484.390625,
+            "right": 404.203125,
+            "bottom": 566.421875,
+            "left": 25.796875
+          },
+          "copyBox": {
+            "x": 25.796875,
+            "y": 615.109375,
+            "width": 362.25,
+            "height": 81.140625,
+            "top": 615.109375,
+            "right": 388.046875,
+            "bottom": 696.25,
+            "left": 25.796875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 430,
+            "height": 932,
+            "top": 0,
+            "right": 430,
+            "bottom": 932,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1415,
+          "ringError": 0.0037817562711126504,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(22.13484 10.96466)",
+            "translate(24.42188767998512 7.005963639242232)",
+            "translate(15.148025625424308 10.352890394465735)",
+            "translate(17.590436259864333 13.644779426751185)",
+            "translate(13.442211856014636 9.139921426036176)",
+            "translate(14.691969509461295 12.18716295526644)",
+            "translate(16.322895744625956 10.92111495151057)"
+          ]
+        },
+        {
+          "active": 3,
+          "target": "theme-research-workflows",
+          "sceneFont": 38.7,
+          "routeFont": 38.7,
+          "bodyFont": 15.2,
+          "title": "Research Workflows",
+          "titleBox": {
+            "x": 86.34375,
+            "y": 484.359375,
+            "width": 317.859375,
+            "height": 82.03125,
+            "top": 484.359375,
+            "right": 404.203125,
+            "bottom": 566.390625,
+            "left": 86.34375
+          },
+          "copyBox": {
+            "x": 25.796875,
+            "y": 585.578125,
+            "width": 362.25,
+            "height": 54.09375,
+            "top": 585.578125,
+            "right": 388.046875,
+            "bottom": 639.671875,
+            "left": 25.796875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 430,
+            "height": 932,
+            "top": 0,
+            "right": 430,
+            "bottom": 932,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1598,
+          "ringError": 0.0037763576265761054,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-14.10912 -53.63978)",
+            "translate(-9.18229701528179 -56.162117076776994)",
+            "translate(-20.89488125680752 -56.15589292208542)",
+            "translate(-22.068927307436464 -54.68145073180633)",
+            "translate(-22.405437583982817 -57.52115876308909)",
+            "translate(-21.340457191904356 -50.07166833631685)",
+            "translate(-21.108884386610946 -56.26006133432491)"
+          ]
+        },
+        {
+          "active": 2,
+          "target": "theme-ai-agents",
+          "sceneFont": 38.7,
+          "routeFont": 38.7,
+          "bodyFont": 15.2,
+          "title": "AI Agents",
+          "titleBox": {
+            "x": 25.796875,
+            "y": 484.328125,
+            "width": 378.40625,
+            "height": 41.015625,
+            "top": 484.328125,
+            "right": 404.203125,
+            "bottom": 525.34375,
+            "left": 25.796875
+          },
+          "copyBox": {
+            "x": 71.203125,
+            "y": 544.53125,
+            "width": 362.25,
+            "height": 54.09375,
+            "top": 544.53125,
+            "right": 433.453125,
+            "bottom": 598.625,
+            "left": 71.203125
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 430,
+            "height": 932,
+            "top": 0,
+            "right": 430,
+            "bottom": 932,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1775,
+          "ringError": 0.003792545853384289,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(7.18122 53.9)",
+            "translate(13.911571636181126 53.17097658175357)",
+            "translate(2.0497090373729288 50.224973173691765)",
+            "translate(-2.072147120108429 49.65902355211291)",
+            "translate(0.4726022352653354 48.814573393280284)",
+            "translate(1.5584553013089328 58.824283160468596)",
+            "translate(0.5107683204580216 49.58167709827781)"
+          ]
+        },
+        {
+          "active": 1,
+          "target": "experiment-local-ai",
+          "sceneFont": 38.7,
+          "routeFont": 38.7,
+          "bodyFont": 15.2,
+          "title": "Local AI",
+          "titleBox": {
+            "x": 25.796875,
+            "y": 484.296875,
+            "width": 310.28125,
+            "height": 41.015625,
+            "top": 484.296875,
+            "right": 336.078125,
+            "bottom": 525.3125,
+            "left": 25.796875
+          },
+          "copyBox": {
+            "x": 25.796875,
+            "y": 544.5,
+            "width": 362.25,
+            "height": 54.09375,
+            "top": 544.5,
+            "right": 388.046875,
+            "bottom": 598.59375,
+            "left": 25.796875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 430,
+            "height": 932,
+            "top": 0,
+            "right": 430,
+            "bottom": 932,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 1958,
+          "ringError": 0.0038142165834846482,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(16.15214 -36.56828)",
+            "translate(23.77436604545119 -35.2769583170935)",
+            "translate(13.926813299639214 -40.460473277510815)",
+            "translate(7.927086856312496 -42.692679223219116)",
+            "translate(12.1500334724561 -41.88802592237931)",
+            "translate(13.376082314140087 -31.485938275419386)",
+            "translate(11.290966455423497 -41.365609978714765)"
+          ]
+        },
+        {
+          "active": 0,
+          "target": "tool-hermes",
+          "sceneFont": 38.7,
+          "routeFont": 38.7,
+          "bodyFont": 15.2,
+          "title": "Hermes",
+          "titleBox": {
+            "x": 25.796875,
+            "y": 484.265625,
+            "width": 378.40625,
+            "height": 41.015625,
+            "top": 484.265625,
+            "right": 404.203125,
+            "bottom": 525.28125,
+            "left": 25.796875
+          },
+          "copyBox": {
+            "x": 25.796875,
+            "y": 573.96875,
+            "width": 362.25,
+            "height": 54.09375,
+            "top": 573.96875,
+            "right": 388.046875,
+            "bottom": 628.0625,
+            "left": 25.796875
+          },
+          "canvasCount": 1,
+          "canvasBox": {
+            "x": 0,
+            "y": 0,
+            "width": 430,
+            "height": 932,
+            "top": 0,
+            "right": 430,
+            "bottom": 932,
+            "left": 0
+          },
+          "backgrounds": [
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            },
+            {
+              "color": "rgba(0, 0, 0, 0)",
+              "image": "none",
+              "overflow": "visible"
+            }
+          ],
+          "emptyPointer": "none",
+          "tracerPointer": "none",
+          "controlPointer": "auto",
+          "overflow": false,
+          "sameBase": true,
+          "violations": [],
+          "samples": 2135,
+          "ringError": 0.003792545853384289,
+          "epoch": 2,
+          "rings": 1,
+          "nodes": 7,
+          "edges": 8,
+          "offsets": [
+            "translate(-19.15414 -5.3242)",
+            "translate(-11.770150125789886 -2.3356401038010453)",
+            "translate(-18.13925804470859 -8.414380075583459)",
+            "translate(-24.383658688933853 -11.212234395234567)",
+            "translate(-20.00465660898004 -9.839876590193203)",
+            "translate(-18.687098515581727 -1.3359839842026662)",
+            "translate(-21.284850787429207 -9.197387259350666)"
+          ]
+        }
+      ],
+      "selectedText": "Exploring task-oriente",
+      "result": "PASS"
+    }
+  ],
+  "errors": []
+}

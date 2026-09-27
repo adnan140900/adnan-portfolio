@@ -1,0 +1,371 @@
+{
+  "complete": true,
+  "resumedFrom": 4,
+  "through": 5,
+  "results": [
+    {
+      "route": "/about",
+      "mobile": false,
+      "filmId": "identity",
+      "scenes": 3,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/about",
+      "mobile": false,
+      "filmId": "about-focus",
+      "scenes": 4,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/research",
+      "mobile": false,
+      "filmId": "film-topic-research",
+      "scenes": 1,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/research/flood-accessibility",
+      "mobile": false,
+      "filmId": "film-research-flood-accessibility",
+      "scenes": 8,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/projects",
+      "mobile": false,
+      "filmId": "film-topic-projects",
+      "scenes": 2,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/projects/nothipotro",
+      "mobile": false,
+      "filmId": "film-project-nothipotro",
+      "scenes": 2,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/projects/knowledge-workflows",
+      "mobile": false,
+      "filmId": "film-project-knowledge-workflows",
+      "scenes": 1,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/ai",
+      "mobile": false,
+      "filmId": "film-topic-ai-technology",
+      "scenes": 6,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/leadership",
+      "mobile": false,
+      "filmId": "film-topic-leadership",
+      "scenes": 11,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/learning",
+      "mobile": false,
+      "filmId": "film-topic-learning",
+      "scenes": 7,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/about",
+      "mobile": false,
+      "filmId": "identity",
+      "scenes": 3,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/about",
+      "mobile": false,
+      "filmId": "about-focus",
+      "scenes": 4,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/research",
+      "mobile": false,
+      "filmId": "film-topic-research",
+      "scenes": 1,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/research/flood-accessibility",
+      "mobile": false,
+      "filmId": "film-research-flood-accessibility",
+      "scenes": 8,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/projects",
+      "mobile": false,
+      "filmId": "film-topic-projects",
+      "scenes": 2,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/projects/nothipotro",
+      "mobile": false,
+      "filmId": "film-project-nothipotro",
+      "scenes": 2,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/projects/knowledge-workflows",
+      "mobile": false,
+      "filmId": "film-project-knowledge-workflows",
+      "scenes": 1,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/ai",
+      "mobile": false,
+      "filmId": "film-topic-ai-technology",
+      "scenes": 6,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/leadership",
+      "mobile": false,
+      "filmId": "film-topic-leadership",
+      "scenes": 11,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/learning",
+      "mobile": false,
+      "filmId": "film-topic-learning",
+      "scenes": 7,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/",
+      "mobile": false,
+      "filmId": "current-focus",
+      "scenes": 4,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/about",
+      "mobile": true,
+      "filmId": "identity",
+      "scenes": 3,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/about",
+      "mobile": true,
+      "filmId": "about-focus",
+      "scenes": 4,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/research",
+      "mobile": true,
+      "filmId": "film-topic-research",
+      "scenes": 1,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/research/flood-accessibility",
+      "mobile": true,
+      "filmId": "film-research-flood-accessibility",
+      "scenes": 8,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/projects",
+      "mobile": true,
+      "filmId": "film-topic-projects",
+      "scenes": 2,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/projects/nothipotro",
+      "mobile": true,
+      "filmId": "film-project-nothipotro",
+      "scenes": 2,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/projects/knowledge-workflows",
+      "mobile": true,
+      "filmId": "film-project-knowledge-workflows",
+      "scenes": 1,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/ai",
+      "mobile": true,
+      "filmId": "film-topic-ai-technology",
+      "scenes": 6,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/about",
+      "mobile": true,
+      "filmId": "identity",
+      "scenes": 3,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/about",
+      "mobile": true,
+      "filmId": "about-focus",
+      "scenes": 4,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/research",
+      "mobile": true,
+      "filmId": "film-topic-research",
+      "scenes": 1,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/research/flood-accessibility",
+      "mobile": true,
+      "filmId": "film-research-flood-accessibility",
+      "scenes": 8,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/projects",
+      "mobile": true,
+      "filmId": "film-topic-projects",
+      "scenes": 2,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/projects/nothipotro",
+      "mobile": true,
+      "filmId": "film-project-nothipotro",
+      "scenes": 2,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/projects/knowledge-workflows",
+      "mobile": true,
+      "filmId": "film-project-knowledge-workflows",
+      "scenes": 1,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/ai",
+      "mobile": true,
+      "filmId": "film-topic-ai-technology",
+      "scenes": 6,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/leadership",
+      "mobile": true,
+      "filmId": "film-topic-leadership",
+      "scenes": 11,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/learning",
+      "mobile": true,
+      "filmId": "film-topic-learning",
+      "scenes": 7,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "route": "/",
+      "mobile": true,
+      "filmId": "current-focus",
+      "scenes": 4,
+      "firstEpoch": 1,
+      "returnEpoch": 2,
+      "result": "PASS"
+    },
+    {
+      "reducedMotion": "PASS"
+    }
+  ],
+  "errors": []
+}

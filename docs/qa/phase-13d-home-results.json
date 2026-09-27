@@ -1,0 +1,20 @@
+{
+  "result": "PASS",
+  "results": [
+    {
+      "home": true,
+      "mobile": false,
+      "result": "PASS",
+      "nodes": 38,
+      "edges": 50
+    },
+    {
+      "home": true,
+      "mobile": true,
+      "result": "PASS",
+      "nodes": 38,
+      "edges": 50
+    }
+  ],
+  "errors": []
+}

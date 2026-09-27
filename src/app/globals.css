@@ -7,6 +7,8 @@
 @import "../features/graph/universe-depth.css";
 @import "../features/narrative/semantic-stage.css";
 @import "../features/narrative/semantic-projection.css";
+@import "../features/universe/universe-motion.css";
+@import "../features/narrative/branch-universe.css";
 
 :root {
   --background: #080a0c;
@@ -862,4 +864,101 @@ html[data-cinematic-transition] [data-force-edge] {
   .home-world .public-world-copy { position: absolute; inset: 0 auto auto 0; width: min(91%, 23rem); padding: clamp(1.1rem, 3.5svh, 1.8rem) 1.25rem 2.5rem; }
   .home-world .graph-surface { position: absolute; inset: 19% -7% -5%; width: 114%; height: 86%; }
   .semantic-film .semantic-stage { position: relative; top: auto; height: clamp(18rem, var(--mobile-stage-height, 42svh), 29rem); }
+}
+
+/* Phase 13C: graph-first normal flow; framing never changes semantic coordinates. */
+.home-world .discovery-hero {
+  height: auto; min-height: calc(100svh - 4rem); max-height: none;
+  display: flex; flex-direction: column; align-items: center; isolation: isolate; overflow: visible;
+}
+.home-world .home-universe-frame { width: 100%; }
+.home-world .home-universe-frame > .constellation-shell {
+  position: relative; inset: auto; width: 100%; height: calc(clamp(28rem, 65svh, 48rem) + 2rem);
+  min-height: 0; flex: none;
+}
+.home-world .discovery-hero .public-world-copy {
+  position: relative; z-index: 14; inset: auto; width: min(90%, 38rem);
+  display: grid; justify-items: center; text-align: center;
+  margin: 0 auto; padding: 0.25rem 0 1rem; gap: 0.45rem; background: none; pointer-events: none;
+}
+.home-world .discovery-hero .public-world-copy > * { pointer-events: auto; }
+.home-world .discovery-hero .public-world-copy h1 {
+  font-size: clamp(1.5rem, 2vw, 1.9rem); line-height: 1.18; letter-spacing: -0.035em;
+  max-width: 30ch; text-wrap: initial;
+}
+.home-world .discovery-hero .public-world-copy > p:not(.eyebrow) {
+  font-size: 0.82rem; line-height: 1.65; max-width: 58ch; margin-top: 0.15rem;
+}
+.home-world .discovery-hero .public-world-copy .constellation-return-link { font-size: 0.74rem; margin-top: 0.1rem; }
+.home-world .discovery-hero .graph-surface { inset: 0 6%; width: 88%; height: calc(100% - 2rem); overflow: visible; }
+.home-world .discovery-hero .force-graph-svg { transform: scale(1.1); transform-origin: center; }
+.home-world .discovery-hero .constellation-meta { top: 1.5rem; opacity: 0.65; }
+.knowledge-field[data-hero-quiet="true"] .field-ghost { visibility: hidden; }
+.knowledge-field[data-hero-quiet="true"] .field-annotation,
+.knowledge-field[data-hero-quiet="true"] .field-preview { filter: opacity(0.2); }
+
+@media (max-width: 47.999rem) {
+  .home-world .discovery-hero { height: auto; min-height: calc(100svh - 3.75rem); }
+  .home-world .home-universe-frame > .constellation-shell { height: clamp(27rem, 66svh, 40rem); }
+  .home-world .discovery-hero .public-world-copy {
+    inset: auto; width: calc(100% - 2.5rem); grid-template-columns: 1fr;
+    gap: 0.5rem; padding: 0.3rem 0 2rem;
+  }
+  .home-world .discovery-hero .public-world-copy .eyebrow { font-size: 0.54rem; }
+  .home-world .discovery-hero .public-world-copy .eyebrow .decode-system { font-size: inherit; }
+  .home-world .discovery-hero .public-world-copy h1 {
+    font-size: clamp(1.35rem, 5.65vw, 1.6rem); line-height: 1.14; max-width: 28ch; letter-spacing: -0.03em;
+  }
+  .home-world .discovery-hero .public-world-copy > p:not(.eyebrow) { font-size: 0.69rem; line-height: 1.5; max-width: 47ch; margin-top: 0.25rem; }
+  .home-world .discovery-hero .public-world-copy .constellation-return-link { font-size: 0.66rem; min-height: 1.6rem; margin-top: 0; }
+  .home-world .discovery-hero .graph-surface { inset: 0; width: 100%; height: 100%; }
+  .home-world .discovery-hero .graph-inspection { position: absolute; bottom: 0.4rem; right: 1rem; }
+}
+/* AI has safe horizontal negative space inside its existing stage. No title resizing. */
+@media (min-width: 64rem) and (min-height: 50rem) and (pointer: fine) {
+  .semantic-film[data-film-kind="ai"] .semantic-stage .force-graph-svg { transform: scale(1.12); transform-origin: center; }
+}
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  /* One viewport of native scroll, bounded by this hero, with no GSAP pin spacer. */
+  .home-world .discovery-hero::after { content: ""; display: block; height: 105svh; flex: none; }
+  .home-world .home-universe-frame { position: sticky; top: 4rem; }
+  .discovery-hero[data-hero-stage="pending"] [data-home-copy],
+  .discovery-hero[data-hero-stage="0"] [data-home-copy],
+  .discovery-hero[data-hero-stage="1"] [data-home-copy="headline"],
+  .discovery-hero[data-hero-stage="1"] [data-home-copy="support"],
+  .discovery-hero[data-hero-stage="2"] [data-home-copy="support"] { opacity: 0; }
+  .discovery-hero [data-home-copy="support"] { transition: opacity 0.45s ease; }
+  .discovery-hero:focus-within [data-home-copy] { opacity: 1; }
+}
+@media (max-width: 47.999rem) and (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  .home-world .home-universe-frame { top: 3.75rem; }
+}
+
+/* Branch focus is continuous: one stage, one quiet tracking ring. */
+.semantic-focus-tracer { fill: none; stroke: #c4d2c8; stroke-width: 1; stroke-dasharray: 1 1; pointer-events: none; }
+[data-branch-persistent="true"] [data-story-active="true"] .knowledge-star-label {
+  opacity: 1; color: var(--text-primary); font-weight: 600;
+  top: calc(50% + max(1.55rem, var(--tracer-label-gap, 0px)));
+}
+[data-branch-persistent="true"] [data-story-neighbor="true"] .knowledge-star-label { opacity: 0.84; }
+[data-branch-persistent="true"] [data-story-active="false"][data-story-neighbor="false"] .knowledge-star-label { opacity: 0.55; }
+[data-branch-persistent="true"] [data-story-active="true"] .knowledge-star-core { background: #f0f5e9; }
+[data-branch-persistent="true"] [data-story-active="true"] .projection-label { font-weight: 600; }
+@media (max-width: 63.999rem), (max-height: 49.999rem), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .semantic-film[data-branch-persistent="true"] .film-stage { overflow: visible; }
+  .semantic-film[data-branch-persistent="true"] .semantic-stage {
+    position: sticky; top: calc(7.5rem + env(safe-area-inset-top, 0px)); z-index: 5;
+    width: 100%; height: clamp(15rem, 40svh, 24rem);
+    background: #080a0cf5; mask-image: none; -webkit-mask-image: none;
+  }
+  .semantic-film[data-branch-persistent="true"] .semantic-stage .constellation-shell { height: 100%; min-height: 0; background: transparent; }
+  .semantic-film[data-branch-persistent="true"] .semantic-stage .constellation-meta { display: none; }
+  .semantic-film[data-branch-persistent="true"] .film-panels { margin-top: 0; position: relative; z-index: 4; }
+  .semantic-film[data-branch-persistent="true"] [data-film-panel] { padding-top: 3rem; min-height: 80svh; scroll-margin-top: calc(8rem + 40svh); }
+  .semantic-film[data-branch-persistent="true"] .film-progress { top: calc(3.75rem + env(safe-area-inset-top, 0px)); }
+  .semantic-film[data-branch-persistent="true"] .graph-inspection { display: none; }
+  .semantic-film[data-branch-persistent="true"] .force-node-control .knowledge-star-label {
+    font-size: calc(10px * var(--branch-label-scale, 1)); width: calc(95px * var(--branch-label-scale, 1)); max-width: none;
+  }
+  .semantic-film[data-branch-persistent="true"] [data-story-active="true"] .knowledge-star-label { font-size: calc(11px * var(--branch-label-scale, 1)); }
 }

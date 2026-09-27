@@ -1,0 +1,104 @@
+/* Phase 13E. Explicit route scope keeps Home's composition and Genesis intact. */
+.narrative-page.branch-universe { position: relative; isolation: isolate; background: var(--background); }
+.branch-universe .branch-atmosphere { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.branch-universe .branch-atmosphere-viewport {
+  position: sticky; top: 0; width: 100%; height: 100svh; overflow: hidden;
+  background: radial-gradient(ellipse at 36% 47%, #18272345, transparent 72%);
+}
+.branch-universe .semantic-film[data-branch-persistent="true"] .film-stage,
+.branch-universe .semantic-film[data-branch-persistent="true"] .semantic-stage,
+.branch-universe .semantic-film[data-branch-persistent="true"] .constellation-shell {
+  background: transparent; border: 0; box-shadow: none; overflow: visible;
+  mask-image: none; -webkit-mask-image: none;
+}
+.branch-universe .film-stage::before,
+.branch-universe .constellation-shell::before { content: none; }
+.branch-universe .semantic-film .force-graph-svg { overflow: visible; }
+.branch-universe .semantic-film .semantic-stage,
+.branch-universe .semantic-film .graph-surface,
+.branch-universe .semantic-film .force-graph-svg { pointer-events: none; }
+.branch-universe .semantic-film .force-node-control,
+.branch-universe .semantic-film .graph-inspection { pointer-events: auto; }
+.branch-universe .semantic-film .film-panels { pointer-events: none; }
+.branch-universe .semantic-film [data-film-title],
+.branch-universe .semantic-film .film-copy,
+.branch-universe .semantic-film .film-subject-link { pointer-events: auto; user-select: text; }
+.branch-universe .semantic-film [data-film-panel] { border: 0; overflow: visible; }
+.branch-universe .semantic-film .film-progress { background: transparent; }
+.branch-universe .film-progress-track { display: none; }
+.branch-universe .semantic-film .film-term { opacity: 0.018; z-index: -1; }
+.branch-universe .semantic-film .film-geometry-caption { opacity: 0.65; }
+.branch-universe .world-intro { padding-block: 3.75rem 2rem; }
+.branch-universe .world-intro h1 { font-size: clamp(3rem, 5.2vw, 6rem); max-width: 18ch; line-height: 1.04; }
+.branch-universe .world-intro > p { font-size: 1rem; line-height: 1.8; }
+.branch-universe .semantic-film[data-branch-persistent="true"] [data-film-title] {
+  font-size: clamp(2rem, 2.9vw, 3.6rem); max-width: 22ch; line-height: 1.06;
+  text-shadow: 0 1px 12px #080a0c70;
+}
+.branch-universe .semantic-film[data-branch-persistent="true"] .film-copy > p:not(.film-status) {
+  font-size: clamp(1rem, 1.05vw, 1.1rem); line-height: 1.8;
+}
+/* Soft falloff belongs only to the reading region; no rectangular backing. */
+.branch-universe .semantic-film .film-copy::before {
+  display: block; content: ""; position: absolute; inset: -2.5rem -3.5rem; z-index: -1;
+  pointer-events: none; background: radial-gradient(ellipse, #080a0c99 0%, #080a0c55 42%, transparent 74%);
+}
+.branch-universe .semantic-film .constellation-meta { opacity: 0.62; }
+.branch-universe .film-entrance, .branch-universe .film-exit { border: 0; background: transparent; }
+.branch-universe .film-entrance::before { content: none; }
+.branch-universe .film-entrance h2 { font-size: clamp(2.6rem, 5vw, 5.5rem); }
+.branch-universe.identity-page .identity-intro { background: transparent; }
+
+@media (min-width: 64rem) and (min-height: 50rem) and (pointer: fine) {
+  .branch-universe .semantic-film[data-film-reduced="false"] .semantic-stage { top: 10%; height: 82%; }
+  .branch-universe .semantic-film[data-film-reduced="false"] .film-panels { top: 26%; bottom: 10%; }
+}
+@media (max-width: 63.999rem), (max-height: 49.999rem), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .branch-universe .semantic-film[data-branch-persistent="true"] { --branch-stage-height: clamp(15rem, 36svh, 23rem); }
+  .branch-universe .semantic-film[data-branch-persistent="true"] .semantic-stage {
+    height: var(--branch-stage-height); z-index: 2;
+  }
+  /* The same shared midground persists behind normal-flow text. Its height is
+     offset once, rather than inserting a graph-sized block before every scene. */
+  .branch-universe .semantic-film[data-branch-persistent="true"] .film-panels {
+    margin-top: calc(-1 * var(--branch-stage-height)); padding-top: calc(var(--branch-stage-height) + 1.25rem);
+    z-index: 4;
+  }
+  .branch-universe .semantic-film[data-branch-persistent="true"] [data-film-panel] {
+    padding-block: 2rem 4rem; min-height: 72svh;
+    scroll-margin-top: calc(8rem + var(--branch-stage-height));
+  }
+  .branch-universe .semantic-film[data-branch-persistent="true"] [data-film-title] { font-size: clamp(2.15rem, 9vw, 4.4rem); }
+  .branch-universe .semantic-film .film-term { opacity: 0.014; }
+  .branch-universe .semantic-film .film-progress {
+    background: linear-gradient(180deg, #080a0ce6, #080a0c55 62%, transparent);
+  }
+  .branch-universe .semantic-film .film-copy { max-width: 42ch; }
+}
+@media (max-width: 47.999rem) {
+  .branch-universe .world-intro { padding: 2.25rem 1.25rem 1.5rem; }
+  .branch-universe .world-intro h1 { font-size: clamp(2.15rem, 9vw, 3rem); max-width: 17ch; }
+  .branch-universe .world-intro > p { font-size: 0.95rem; line-height: 1.75; }
+  .branch-universe .semantic-film[data-branch-persistent="true"] .film-copy > p:not(.film-status) { font-size: 0.95rem; line-height: 1.78; }
+  .branch-universe.identity-page .identity-intro { min-height: 0; padding-bottom: 2rem; }
+  .branch-universe.identity-page #identity { margin-top: 0; }
+}
+/* Short desktop screens retain an editorial column beside the midground.
+   Native-flow scenes still use the compact controller, without a tiny graph
+   stacked above a viewport-wide display heading. */
+@media (min-width: 64rem) and (max-height: 49.999rem) and (pointer: fine), (min-width: 64rem) and (prefers-reduced-motion: reduce) {
+  .branch-universe .semantic-film[data-branch-persistent="true"] { --branch-stage-height: calc(100svh - 11rem); }
+  .branch-universe .semantic-film[data-branch-persistent="true"] .semantic-stage {
+    width: 62%; --branch-reading-fraction: 0.18;
+  }
+  .branch-universe .semantic-film[data-branch-persistent="true"] .film-panels { padding-top: 0; }
+  .branch-universe .semantic-film[data-branch-persistent="true"] [data-film-panel] {
+    margin-left: 66%; width: 29%; padding: 3rem 0 5rem; min-height: 82svh; justify-content: flex-start;
+    scroll-margin-top: calc(8.75rem + var(--branch-stage-height) * 0.18);
+  }
+  .branch-universe .semantic-film[data-branch-persistent="true"] [data-film-title] {
+    font-size: clamp(2rem, 3.1vw, 2.8rem); width: 100%; text-align: left; margin-left: 0;
+  }
+  .branch-universe .semantic-film[data-branch-persistent="true"] .film-copy { width: 100%; margin-left: 0; }
+  .branch-universe .semantic-film .film-term { left: -170%; }
+}

@@ -1,0 +1,26 @@
+{
+  "result": "PASS",
+  "results": [
+    {
+      "home": true,
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "result": "PASS",
+      "nodes": 38,
+      "edges": 50
+    },
+    {
+      "home": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "result": "PASS",
+      "nodes": 38,
+      "edges": 50
+    }
+  ],
+  "errors": []
+}

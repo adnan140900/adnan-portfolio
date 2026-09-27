@@ -24,6 +24,9 @@ export function KnowledgeField({ graph }: { graph: GraphDocument }) {
     const configure = () => {
       dispose();
       const spans = [...element.querySelectorAll<HTMLElement>("[data-field-slot]")];
+      const hero = pathname === "/" ? document.querySelector(".discovery-hero") : null;
+      const heroObserver = new IntersectionObserver(([entry]) => { element.dataset.heroQuiet = String(entry.isIntersecting); });
+      if (hero) { element.dataset.heroQuiet = "true"; heroObserver.observe(hero); }
       const quiet = profile.motionPreference !== "full" || profile.visibility === "hidden";
       element.dataset.mode = profile.motionPreference === "reduced" ? "reduced" : profile.viewport === "compact" ? "compact" : "living";
       let frame = 0, last = 0, seconds = 0, paint = 0;
@@ -108,6 +111,7 @@ export function KnowledgeField({ graph }: { graph: GraphDocument }) {
       narrativeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-narrative-active"] });
       visibility();
       dispose = () => {
+        heroObserver.disconnect(); delete element.dataset.heroQuiet;
         cancelAnimationFrame(frame); narrativeObserver.disconnect(); resetReaction();
         document.removeEventListener("visibilitychange", visibility);
         document.removeEventListener("pointerover", pointer); document.removeEventListener("focusin", focus); document.removeEventListener("focusout", focus);

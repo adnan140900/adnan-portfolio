@@ -1,0 +1,17 @@
+/* Temporary Home ownership only. Rest has no overriding declarations. */
+/* Avoid showing the assembled SSR graph before the entry controller claims it.
+   CSS preference/scripting gates keep reduced-motion and no-JS output visible. */
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  [data-universe-pending="true"] .graph-surface svg {
+    visibility: hidden;
+  }
+}
+
+[data-graph-route="/"][data-universe-motion="scroll"] .knowledge-star-core,
+[data-graph-route="/"][data-universe-motion="genesis"] .knowledge-star-core {
+  animation-play-state: paused;
+}
+[data-graph-route="/"][data-universe-motion="scroll"] [data-universe-body],
+[data-graph-route="/"][data-universe-motion="genesis"] [data-universe-body] {
+  will-change: transform, opacity;
+}

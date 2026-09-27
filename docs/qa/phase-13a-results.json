@@ -1,0 +1,38 @@
+{
+  "reports": [
+    {
+      "device": "desktop",
+      "mode": "genesis",
+      "nodes": 38,
+      "edges": 50,
+      "file": "phase-13a-genesis-desktop.webm",
+      "result": "PASS"
+    },
+    {
+      "device": "desktop",
+      "mode": "scroll-dissolution",
+      "nodes": 38,
+      "edges": 50,
+      "file": "phase-13a-scroll-dissolution-desktop.webm",
+      "result": "PASS"
+    },
+    {
+      "device": "mobile",
+      "mode": "genesis",
+      "nodes": 38,
+      "edges": 50,
+      "file": "phase-13a-genesis-mobile.webm",
+      "result": "PASS"
+    },
+    {
+      "device": "mobile",
+      "mode": "scroll-dissolution",
+      "nodes": 38,
+      "edges": 50,
+      "file": "phase-13a-scroll-dissolution-mobile.webm",
+      "result": "PASS"
+    }
+  ],
+  "errors": [],
+  "regression": "PASS"
+}

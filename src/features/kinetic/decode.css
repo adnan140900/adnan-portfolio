@@ -24,9 +24,17 @@
 .decode-signal { position: absolute; top: 2rem; left: 6vw; z-index: 15; color: var(--text-secondary); pointer-events: none; opacity: 0; }
 .decode-signal[data-decoding="true"] { opacity: 0.8; }
 .decode-signal[data-decode-complete="true"] { opacity: 0; }
+[data-decode-style="typewriter"] .decode-cursor { display: none !important; }
+[data-decode-style="typewriter"][data-decoding="true"] [data-type-state="locked"] .decode-final { visibility: visible; }
+[data-decode-style="typewriter"][data-decoding="true"] [data-type-state="locked"] [data-decode-glyph],
+[data-decode-style="typewriter"][data-decoding="true"] [data-type-state="hidden"] [data-decode-glyph] { display: none; }
+[data-decode-style="typewriter"][data-decoding="true"] [data-type-caret="true"]::after {
+  content: ""; position: absolute; right: -0.09em; top: 0.14em; height: 0.8em; width: 1px; background: currentColor; opacity: 0.5;
+}
 @media (prefers-reduced-motion: reduce) {
   .decode-signal { display: none; }
   .decode-visual { filter: none !important; opacity: 1 !important; }
   .decode-final { visibility: visible !important; }
   [data-decode-glyph], .decode-cursor { display: none !important; }
+  [data-type-caret]::after { display: none !important; }
 }

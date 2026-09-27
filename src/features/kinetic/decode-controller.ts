@@ -2,9 +2,13 @@ import { gsap } from "gsap";
 import type { ExperienceViewport } from "../experience/experience-profile";
 import { decodeConfig as C } from "./decode-config";
 import { decodeDuration, decodeFrameState, type DecodeMode, type DecodeTier } from "./decode-model";
+import { typewriterFrame } from "./decode-typewriter-model";
 
 const jobs = new Set<(now: number) => void>();
 const completed = new Set<string>();
+const owners = new WeakMap<HTMLElement, () => void>();
+export const decodeJobCount = () => jobs.size;
+const reportJobs = () => { if (typeof document !== "undefined") document.documentElement.dataset.decodeJobs = String(jobs.size); };
 const tick = (now: number) => jobs.forEach(job => job(now));
 export const hasDecoded = (key: string) => completed.has(key);
 
@@ -12,13 +16,17 @@ interface DecodeOptions {
   duration?: number;
   tier?: DecodeTier;
   viewport?: ExperienceViewport;
+  replay?: boolean;
+  presentation?: "decode" | "typewriter";
 }
 
 /** One shared GSAP ticker, at most two foreground resolves, and no React frame updates. */
 export function startDecode(element: HTMLElement, text: string, mode: DecodeMode, key: string, options: DecodeOptions = {}) {
+  owners.get(element)?.();
   const glyphs = [...element.querySelectorAll<HTMLElement>("[data-decode-glyph]")];
   const cells = glyphs.map(glyph => ({
     glyph,
+    container: glyph.parentElement,
     character: glyph.querySelector?.<HTMLElement>("[data-decode-character]") ?? null,
     path: glyph.querySelector?.<SVGPathElement>("[data-custom-glyph]") ?? null,
   }));
@@ -35,8 +43,11 @@ export function startDecode(element: HTMLElement, text: string, mode: DecodeMode
     if (finished) return;
     finished = true;
     jobs.delete(update);
+    owners.delete(element);
+    reportJobs();
     if (!jobs.size) gsap.ticker.remove(tick);
     cells.forEach((cell, index) => {
+      if (cell.container) { delete cell.container.dataset.typeState; delete cell.container.dataset.typeCaret; }
       if (cell.character) cell.character.textContent = finalChars[index] ?? "";
       else cell.glyph.textContent = finalChars[index] ?? "";
       if (cell.glyph.dataset) {
@@ -58,6 +69,17 @@ export function startDecode(element: HTMLElement, text: string, mode: DecodeMode
     const frame = Math.floor(elapsed * C.timing.fps);
     if (frame !== lastFrame) {
       lastFrame = frame;
+      if (options.presentation === "typewriter") {
+        typewriterFrame(text, progress).forEach((value, index) => {
+          const cell = cells[index];
+          if (!cell) return;
+          if (cell.container) { cell.container.dataset.typeState = value.state; cell.container.dataset.typeCaret = String(value.caret); }
+          if (cell.character) cell.character.textContent = value.character;
+          cell.glyph.dataset.custom = String(value.custom);
+          cell.glyph.dataset.symbol = String(value.state === "arriving");
+          if (value.custom && cell.path) cell.path.setAttribute("d", C.customGlyphs[value.glyph].path);
+        });
+      } else {
       const state = decodeFrameState(text, progress, mode, frame, { seed: key, tier, viewport });
       if (!glyphs.length) element.textContent = state.text;
       Array.from(state.text).forEach((character, index) => {
@@ -76,17 +98,22 @@ export function startDecode(element: HTMLElement, text: string, mode: DecodeMode
       });
       element.style.setProperty("--decode-blur", `${mode === "editorial" ? (1 - progress) * 0.55 : 0}px`);
       element.style.setProperty("--decode-opacity", String(0.8 + progress * 0.2));
+      }
       element.dataset.decodeFrame = String(frame);
     }
     if (elapsed >= duration) finish();
   };
 
-  if (completed.has(key) || jobs.size >= C.policy.maxJobs) { finish(); return finish; }
-  completed.add(key);
+  if ((!options.replay && completed.has(key)) || jobs.size >= C.policy.maxJobs) { finish(); return finish; }
+  if (!options.replay) completed.add(key);
+  owners.set(element, finish);
+  element.dataset.decodeStyle = options.presentation ?? "decode";
+  element.dataset.decodeRuns = String(Number(element.dataset.decodeRuns ?? 0) + 1);
   element.dataset.decoding = "true";
   element.dataset.decodeComplete = "false";
   update(gsap.ticker.time);
   jobs.add(update);
+  reportJobs();
   if (jobs.size === 1) gsap.ticker.add(tick);
   return finish;
 }
