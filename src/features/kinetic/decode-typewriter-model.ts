@@ -1,5 +1,10 @@
 import { decodeConfig } from "./decode-config";
 
+/** Keep short approved headlines concise while retaining the established cap for longer copy. */
+export function typewriterDuration(text: string) {
+  return Math.min(2.3, Math.max(1.3, Array.from(text).length / 25));
+}
+
 /** A moving acquisition window. Everything behind it is permanently locked. */
 export function typewriterFrame(text: string, progress: number) {
   const chars = Array.from(text);

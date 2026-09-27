@@ -1,0 +1,65 @@
+/* Phase 14A: compact presentation only. Semantic topology and wide layout stay authoritative. */
+@media (max-width: 47.999rem) {
+  .branch-universe { --compact-inline: clamp(1.15rem, 5.2vw, 1.4rem); --compact-graph-gap: clamp(3.25rem, 5.6svh, 3.6rem); }
+
+  .branch-universe .world-intro {
+    padding: clamp(2.25rem, 5svh, 3rem) var(--compact-inline) clamp(2.5rem, 6svh, 3.25rem);
+  }
+  .branch-universe .world-intro h1 { max-width: 15ch; font-size: clamp(2rem, 8.2vw, 2.8rem); }
+  .branch-universe .world-intro > p { max-width: 35ch; }
+
+  .branch-universe .semantic-film[data-branch-persistent="true"] {
+    --branch-stage-height: clamp(17.5rem, 38svh, 22rem);
+  }
+  .branch-universe .semantic-film[data-branch-persistent="true"] .semantic-stage {
+    top: calc(7.35rem + env(safe-area-inset-top, 0px)); --branch-reading-fraction: 1.025;
+  }
+  .branch-universe .semantic-film[data-compact-graph-density="sparse"] .semantic-stage { --branch-reading-fraction: 0.82; }
+  .branch-universe .semantic-film[data-branch-persistent="true"] .film-panels {
+    padding-top: calc(var(--branch-stage-height) + var(--compact-graph-gap));
+  }
+  .branch-universe .semantic-film[data-branch-persistent="true"] [data-film-panel] {
+    min-height: max(72svh, 34rem); padding: 0 var(--compact-inline) clamp(4.5rem, 10svh, 6rem);
+    scroll-margin-top: calc(7.35rem + env(safe-area-inset-top, 0px) + var(--branch-stage-height) + 1.5rem);
+  }
+  .branch-universe .semantic-film[data-branch-persistent="true"] [data-film-title] {
+    width: auto; max-width: min(100%, 14ch); margin-inline: 0;
+    font-size: clamp(1.8rem, 7.8vw, 3.15rem); line-height: 1.01; text-align: left;
+  }
+  .branch-universe .semantic-film[data-branch-persistent="true"] [data-composition="atlas"] [data-film-title],
+  .branch-universe .semantic-film[data-branch-persistent="true"] [data-composition="distributed"] [data-film-title] {
+    margin-left: auto; text-align: right;
+  }
+  .branch-universe .semantic-film[data-branch-persistent="true"] .film-copy { max-width: 36ch; margin-top: 1.35rem; }
+  .branch-universe .semantic-film .film-copy::before {
+    inset: -2.2rem -1.4rem; background: radial-gradient(ellipse, #080a0cc4 0%, #080a0c7a 46%, transparent 76%);
+  }
+  .branch-universe .semantic-film .film-term { opacity: 0.008; }
+
+  /* Opacity keeps the text in the accessible control name; only its visual ink is filtered. */
+  .branch-universe [data-compact-label="hidden"] .knowledge-star-label,
+  .branch-universe [data-compact-label="hidden"] .projection-label { opacity: 0 !important; pointer-events: none; }
+  .branch-universe [data-compact-label="visible"] .knowledge-star-label,
+  .branch-universe [data-compact-label="visible"] .projection-label { opacity: 0.78; }
+  .branch-universe [data-compact-label-role="active"] .knowledge-star-label,
+  .branch-universe [data-compact-label-role="active"] .projection-label { opacity: 1 !important; font-weight: 600; }
+  .branch-universe [data-compact-label-role="parent"] .knowledge-star-label,
+  .branch-universe [data-compact-label-role="root"] .knowledge-star-label { opacity: 0.86; }
+  .branch-universe .projection-persistent [data-compact-label-role="active"] .projection-label { font-size: 27px; }
+  .branch-universe .projection-persistent [data-compact-label-role="parent"] .projection-label,
+  .branch-universe .projection-persistent [data-compact-label-role="root"] .projection-label { font-size: 23px; }
+
+  .primary-navigation a { column-gap: 0.42rem; scroll-margin-inline: 1.25rem; }
+  .primary-navigation li:not([data-navigation-active="true"]) .navigation-index { opacity: 0.42; }
+  .primary-navigation li:not([data-navigation-active="true"]) .navigation-label { opacity: 0.48; }
+  .primary-navigation li[data-navigation-active="true"] .navigation-label { font-weight: 600; }
+
+  .branch-universe .film-progress { padding-inline: var(--compact-inline); }
+  .branch-universe .film-progress a { min-height: 2.75rem; }
+  .branch-universe .film-progress a:not([aria-current]) { opacity: 0.52; }
+  .branch-universe .film-progress a[aria-current] { opacity: 1; }
+}
+
+@media (max-width: 47.999rem) and (prefers-reduced-motion: reduce) {
+  .branch-universe .semantic-film[data-branch-persistent="true"] .semantic-stage { position: relative; top: auto; }
+}

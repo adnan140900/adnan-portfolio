@@ -1,0 +1,196 @@
+{
+  "status": "PASS",
+  "errors": [],
+  "results": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "copy": {
+        "headline": "YOU’VE ENTERED THE MULTIVERSE OF ADNAN",
+        "support": "Every node is a fragment of who I am — projects, research, ideas, stories, and obsessions.",
+        "cta": "Choose a node to begin exploring."
+      },
+      "expected": {
+        "headline": "YOU’VE ENTERED THE MULTIVERSE OF ADNAN",
+        "support": "Every node is a fragment of who I am — projects, research, ideas, stories, and obsessions.",
+        "cta": "Choose a node to begin exploring."
+      },
+      "sizes": {
+        "headline": 33.84,
+        "support": 13.12,
+        "cta": 13.12,
+        "ctaWeight": 700
+      },
+      "placement": {
+        "graphBottom": 682,
+        "copyTop": 682,
+        "gap": 0
+      },
+      "overflow": 0,
+      "nodes": 38,
+      "edges": 50,
+      "overlay": false,
+      "bodyLength": 4860,
+      "stage": "3",
+      "reconstructed": {
+        "progress": "0.0000",
+        "nodes": 38,
+        "edges": 50
+      }
+    },
+    {
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "copy": {
+        "headline": "YOU’VE ENTERED THE MULTIVERSE OF ADNAN",
+        "support": "Every node is a fragment of who I am — projects, research, ideas, stories, and obsessions.",
+        "cta": "Choose a node to begin exploring."
+      },
+      "expected": {
+        "headline": "YOU’VE ENTERED THE MULTIVERSE OF ADNAN",
+        "support": "Every node is a fragment of who I am — projects, research, ideas, stories, and obsessions.",
+        "cta": "Choose a node to begin exploring."
+      },
+      "sizes": {
+        "headline": 22.08,
+        "support": 11.52,
+        "cta": 11.52,
+        "ctaWeight": 700
+      },
+      "placement": {
+        "graphBottom": 588,
+        "copyTop": 588,
+        "gap": 0
+      },
+      "overflow": 0,
+      "nodes": 38,
+      "edges": 50,
+      "overlay": false,
+      "bodyLength": 4439,
+      "stage": "3",
+      "reconstructed": {
+        "progress": "0.0000",
+        "nodes": 38,
+        "edges": 50
+      }
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "copy": {
+        "headline": "YOU’VE ENTERED THE MULTIVERSE OF ADNAN",
+        "support": "Every node is a fragment of who I am — projects, research, ideas, stories, and obsessions.",
+        "cta": "Choose a node to begin exploring."
+      },
+      "expected": {
+        "headline": "YOU’VE ENTERED THE MULTIVERSE OF ADNAN",
+        "support": "Every node is a fragment of who I am — projects, research, ideas, stories, and obsessions.",
+        "cta": "Choose a node to begin exploring."
+      },
+      "sizes": {
+        "headline": 22.62,
+        "support": 11.52,
+        "cta": 11.52,
+        "ctaWeight": 700
+      },
+      "placement": {
+        "graphBottom": 617.03125,
+        "copyTop": 617.03125,
+        "gap": 0
+      },
+      "overflow": 0,
+      "nodes": 38,
+      "edges": 50,
+      "overlay": false,
+      "bodyLength": 4439,
+      "stage": "3",
+      "reconstructed": {
+        "progress": "0.0000",
+        "nodes": 38,
+        "edges": 50
+      }
+    },
+    {
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "copy": {
+        "headline": "YOU’VE ENTERED THE MULTIVERSE OF ADNAN",
+        "support": "Every node is a fragment of who I am — projects, research, ideas, stories, and obsessions.",
+        "cta": "Choose a node to begin exploring."
+      },
+      "expected": {
+        "headline": "YOU’VE ENTERED THE MULTIVERSE OF ADNAN",
+        "support": "Every node is a fragment of who I am — projects, research, ideas, stories, and obsessions.",
+        "cta": "Choose a node to begin exploring."
+      },
+      "sizes": {
+        "headline": 23.896,
+        "support": 11.52,
+        "cta": 11.52,
+        "ctaWeight": 700
+      },
+      "placement": {
+        "graphBottom": 663.890625,
+        "copyTop": 663.890625,
+        "gap": 0
+      },
+      "overflow": 0,
+      "nodes": 38,
+      "edges": 50,
+      "overlay": false,
+      "bodyLength": 4439,
+      "stage": "3",
+      "reconstructed": {
+        "progress": "0.0000",
+        "nodes": 38,
+        "edges": 50
+      }
+    },
+    {
+      "viewport": {
+        "width": 430,
+        "height": 932
+      },
+      "copy": {
+        "headline": "YOU’VE ENTERED THE MULTIVERSE OF ADNAN",
+        "support": "Every node is a fragment of who I am — projects, research, ideas, stories, and obsessions.",
+        "cta": "Choose a node to begin exploring."
+      },
+      "expected": {
+        "headline": "YOU’VE ENTERED THE MULTIVERSE OF ADNAN",
+        "support": "Every node is a fragment of who I am — projects, research, ideas, stories, and obsessions.",
+        "cta": "Choose a node to begin exploring."
+      },
+      "sizes": {
+        "headline": 24.94,
+        "support": 11.52,
+        "cta": 11.52,
+        "ctaWeight": 700
+      },
+      "placement": {
+        "graphBottom": 675.109375,
+        "copyTop": 675.109375,
+        "gap": 0
+      },
+      "overflow": 0,
+      "nodes": 38,
+      "edges": 50,
+      "overlay": false,
+      "bodyLength": 4439,
+      "stage": "3",
+      "reconstructed": {
+        "progress": "0.0000",
+        "nodes": 38,
+        "edges": 50
+      }
+    }
+  ]
+}

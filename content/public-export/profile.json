@@ -5,7 +5,15 @@
   "graphNodeId": "person-adnan",
   "headline": {
     "id": "homepage-headline",
-    "text": "Engineering questions. Connected ideas. Careful experiments."
+    "text": "YOU’VE ENTERED THE MULTIVERSE OF ADNAN"
+  },
+  "homeIntroduction": {
+    "id": "homepage-multiverse-introduction",
+    "text": "Every node is a fragment of who I am —\nprojects, research, ideas, stories, and obsessions."
+  },
+  "homeCta": {
+    "id": "homepage-multiverse-cta",
+    "text": "Choose a node to begin exploring."
   },
   "introduction": {
     "id": "homepage-introduction",

@@ -24,10 +24,10 @@ export function getGraphViewport(viewport: ExperienceViewport): GraphViewport {
 export function projectGraphPoint(point: GraphPoint, viewport: ExperienceViewport): GraphPoint {
   if (viewport === "wide") return { x: point.x, y: point.y };
 
-  const x = PORTRAIT_GRAPH_WIDTH / 2 + (point.x - GRAPH_WIDTH / 2) * 0.48;
+  const x = PORTRAIT_GRAPH_WIDTH / 2 + (point.x - GRAPH_WIDTH / 2) * 0.62;
   const y = PORTRAIT_GRAPH_HEIGHT / 2 + (point.y - GRAPH_HEIGHT / 2) * 1.24;
   return {
-    x: Number(Math.min(Math.max(x, 54), PORTRAIT_GRAPH_WIDTH - 54).toFixed(4)),
+    x: Number(Math.min(Math.max(x, 44), PORTRAIT_GRAPH_WIDTH - 44).toFixed(4)),
     y: Number(Math.min(Math.max(y, 72), PORTRAIT_GRAPH_HEIGHT - 72).toFixed(4)),
   };
 }

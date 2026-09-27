@@ -9,6 +9,7 @@
 @import "../features/narrative/semantic-projection.css";
 @import "../features/universe/universe-motion.css";
 @import "../features/narrative/branch-universe.css";
+@import "../features/narrative/mobile-legibility.css";
 
 :root {
   --background: #080a0c;
@@ -883,12 +884,13 @@ html[data-cinematic-transition] [data-force-edge] {
 }
 .home-world .discovery-hero .public-world-copy > * { pointer-events: auto; }
 .home-world .discovery-hero .public-world-copy h1 {
-  font-size: clamp(1.5rem, 2vw, 1.9rem); line-height: 1.18; letter-spacing: -0.035em;
-  max-width: 30ch; text-wrap: initial;
+  font-size: clamp(1.65rem, 2.35vw, 2.2rem); line-height: 1.12; letter-spacing: -0.035em;
+  max-width: 27ch; text-wrap: balance;
 }
 .home-world .discovery-hero .public-world-copy > p:not(.eyebrow) {
   font-size: 0.82rem; line-height: 1.65; max-width: 58ch; margin-top: 0.15rem;
 }
+.home-world .discovery-hero .public-world-copy .home-universe-cta { font-weight: 700; color: var(--text-primary); }
 .home-world .discovery-hero .public-world-copy .constellation-return-link { font-size: 0.74rem; margin-top: 0.1rem; }
 .home-world .discovery-hero .graph-surface { inset: 0 6%; width: 88%; height: calc(100% - 2rem); overflow: visible; }
 .home-world .discovery-hero .force-graph-svg { transform: scale(1.1); transform-origin: center; }
@@ -907,9 +909,10 @@ html[data-cinematic-transition] [data-force-edge] {
   .home-world .discovery-hero .public-world-copy .eyebrow { font-size: 0.54rem; }
   .home-world .discovery-hero .public-world-copy .eyebrow .decode-system { font-size: inherit; }
   .home-world .discovery-hero .public-world-copy h1 {
-    font-size: clamp(1.35rem, 5.65vw, 1.6rem); line-height: 1.14; max-width: 28ch; letter-spacing: -0.03em;
+    font-size: clamp(1.38rem, 5.8vw, 1.65rem); line-height: 1.14; max-width: 25ch; letter-spacing: -0.03em;
   }
-  .home-world .discovery-hero .public-world-copy > p:not(.eyebrow) { font-size: 0.69rem; line-height: 1.5; max-width: 47ch; margin-top: 0.25rem; }
+  .home-world .discovery-hero .public-world-copy > p:not(.eyebrow) { font-size: 0.72rem; line-height: 1.5; max-width: 43ch; margin-top: 0.25rem; }
+  .home-world .discovery-hero .public-world-copy .home-universe-cta { font-size: 0.74rem; }
   .home-world .discovery-hero .public-world-copy .constellation-return-link { font-size: 0.66rem; min-height: 1.6rem; margin-top: 0; }
   .home-world .discovery-hero .graph-surface { inset: 0; width: 100%; height: 100%; }
   .home-world .discovery-hero .graph-inspection { position: absolute; bottom: 0.4rem; right: 1rem; }
@@ -924,10 +927,11 @@ html[data-cinematic-transition] [data-force-edge] {
   .home-world .home-universe-frame { position: sticky; top: 4rem; }
   .discovery-hero[data-hero-stage="pending"] [data-home-copy],
   .discovery-hero[data-hero-stage="0"] [data-home-copy],
-  .discovery-hero[data-hero-stage="1"] [data-home-copy="headline"],
   .discovery-hero[data-hero-stage="1"] [data-home-copy="support"],
-  .discovery-hero[data-hero-stage="2"] [data-home-copy="support"] { opacity: 0; }
-  .discovery-hero [data-home-copy="support"] { transition: opacity 0.45s ease; }
+  .discovery-hero[data-hero-stage="1"] [data-home-copy="cta"],
+  .discovery-hero[data-hero-stage="2"] [data-home-copy="cta"] { opacity: 0; }
+  .discovery-hero [data-home-copy="support"],
+  .discovery-hero [data-home-copy="cta"] { transition: opacity 0.45s ease; }
   .discovery-hero:focus-within [data-home-copy] { opacity: 1; }
 }
 @media (max-width: 47.999rem) and (prefers-reduced-motion: no-preference) and (scripting: enabled) {

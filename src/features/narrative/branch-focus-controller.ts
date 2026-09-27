@@ -4,12 +4,15 @@ import { applyStoryProjection, getStoryPoint, getVisualOffset, observeStoryProje
 import type { FilmScene } from "./film-model";
 import type { ExperienceProfile } from "../experience/experience-profile";
 import { branchCamera, branchFocus } from "./branch-focus-model";
+import { resolveCompactLabels, type CompactLabelCandidate, type CompactLabelRole } from "./compact-label-policy";
 
 /** One focus job and one tracer per persistent stage. D3 and idle keep ownership. */
 export function createBranchFocus(svg: SVGSVGElement, graph: GraphDocument, kind: string, profile: ExperienceProfile) {
   const groups = [...svg.querySelectorAll<SVGGElement>("[data-force-node], [data-projection-node]")];
   const idOf = (group: SVGGElement) => (group.dataset.nodeId ?? group.dataset.projectionNode)!;
   const nodes = groups.map(group => graph.nodes.find(node => node.id === idOf(group))!);
+  const film = svg.closest<HTMLElement>("[data-branch-persistent='true']");
+  if (profile.viewport === "compact" && film) film.dataset.compactGraphDensity = nodes.length <= 4 ? "sparse" : "standard";
   const edges = [...svg.querySelectorAll<SVGPathElement>("[data-force-edge]")];
   const originalNodes = new Map(groups.map(group => [group, group.getAttribute("opacity")]));
   const originalEdges = new Map(edges.map(edge => [edge, edge.style.opacity]));
@@ -22,6 +25,36 @@ export function createBranchFocus(svg: SVGSVGElement, graph: GraphDocument, kind
   let target: string | null = null, tween: gsap.core.Timeline | null = null;
   let radius = 12, current = { x: 0, y: 0 }, origin = { x: 0, y: 0 };
   const tracer = { travel: 1, opacity: 0, scale: 1, draw: 1 };
+  let focusNeighbors = new Set<string>();
+  const clearCompactLabels = () => {
+    groups.forEach(group => { delete group.dataset.compactLabel; delete group.dataset.compactLabelRole; });
+    delete svg.dataset.compactLabelCount;
+  };
+  const compactLabels = () => {
+    if (profile.viewport !== "compact" || !target) { clearCompactLabels(); return; }
+    const active = nodes.find(node => node.id === target);
+    const parent = active?.parentId;
+    const candidates = groups.flatMap((group): CompactLabelCandidate[] => {
+      const id = idOf(group), node = nodes.find(candidate => candidate.id === id);
+      const label = group.querySelector<SVGGraphicsElement | HTMLElement>(".knowledge-star-label, .projection-label");
+      if (!node || !label) return [];
+      const rect = label.getBoundingClientRect();
+      const isRoot = node.kind === "person" || group.querySelector<HTMLElement>("[data-root='true']") !== null;
+      const role: CompactLabelRole = id === target ? "active" : id === parent ? "parent" : isRoot ? "root"
+        : focusNeighbors.has(id) ? "neighbor" : node.importance === "primary" || node.kind === "cluster" ? "primary"
+        : node.importance === "featured" ? "supporting" : "context";
+      group.dataset.compactLabelRole = role;
+      return [{ id, role, kind: node.kind, importance: node.importance, depth: node.depth ?? 0,
+        bounds: { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom } }];
+    });
+    const frame = svg.getBoundingClientRect();
+    const visible = resolveCompactLabels(candidates, 4, 5, {
+      left: Math.max(4, frame.left + 4), right: Math.min(window.innerWidth - 4, frame.right - 4),
+      top: frame.top + 4, bottom: frame.bottom - 36,
+    });
+    groups.forEach(group => { group.dataset.compactLabel = visible.has(idOf(group)) ? "visible" : "hidden"; });
+    svg.dataset.compactLabelCount = String(visible.size);
+  };
   const paint = () => {
     const point = target ? getStoryPoint(svg, target) : undefined;
     if (!point) { ring.setAttribute("opacity", "0"); return; }
@@ -44,6 +77,7 @@ export function createBranchFocus(svg: SVGSVGElement, graph: GraphDocument, kind
     // Keep labels below the outer ring, in presentation space only.
     groups.forEach(item => item.style.removeProperty("--tracer-label-gap"));
     group?.style.setProperty("--tracer-label-gap", `${radius + 7}px`);
+    compactLabels();
     paint();
   };
   const render = () => {
@@ -63,6 +97,7 @@ export function createBranchFocus(svg: SVGSVGElement, graph: GraphDocument, kind
       if (target === plan.target && svg.dataset.branchFocusReady === "true") return;
       tween?.kill(); tween = null; origin = { ...current };
       const previous = target; target = plan.target;
+      focusNeighbors = plan.neighbors;
       svg.dataset.activeSemanticNode = target ?? ""; svg.dataset.branchFocusReady = "true";
       ring.dataset.focusTarget = target ?? "";
       groups.forEach(group => {
@@ -98,11 +133,13 @@ export function createBranchFocus(svg: SVGSVGElement, graph: GraphDocument, kind
     destroy() {
       tween?.kill(); unsubscribe(); resize.disconnect(); document.removeEventListener("visibilitychange", visibility); ring.remove();
       applyStoryProjection(svg, new Map());
+      clearCompactLabels();
       groups.forEach(group => { delete group.dataset.storyActive; delete group.dataset.storyNeighbor; group.style.removeProperty("--semantic-emphasis"); group.style.removeProperty("--tracer-label-gap"); });
       edges.forEach(edge => { delete edge.dataset.storyIncident; edge.style.removeProperty("--story-edge-opacity"); });
       originalNodes.forEach((opacity, group) => opacity === null ? group.removeAttribute("opacity") : group.setAttribute("opacity", opacity));
       originalEdges.forEach((opacity, edge) => { edge.style.opacity = opacity; });
       delete svg.dataset.activeSemanticNode; delete svg.dataset.branchFocusReady;
+      if (film) delete film.dataset.compactGraphDensity;
       svg.style.removeProperty("--branch-label-scale");
     },
   };

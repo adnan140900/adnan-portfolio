@@ -154,9 +154,11 @@ export function KnowledgeGraph({ graph, initialViewId, routePath, atmosphere = "
       "data-category": node.category,
       "data-display-status": node.displayStatus,
       "data-root": node.id === view.rootNodeId,
+      "data-parent-node": node.parentId,
       "data-selected": isNodeSelected(node),
       "data-idle-held": hoveredNodeId === node.id || focusedVisualNodeId === node.id || isNodeSelected(node),
       tabIndex: transition.isTransitioning ? -1 : undefined,
+      "aria-label": node.route ? `${node.label}, opens ${node.route}` : node.label,
       onFocus: () => {
         setFocusedVisualNodeId(node.id);
         dispatch({ type: "focus-node", nodeId: node.id });

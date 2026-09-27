@@ -39,12 +39,83 @@ import { createUniverseDepth, semanticNeighborhood } from "../features/graph/uni
 import { stageEmphasis, stageOffset } from "../features/narrative/semantic-stage-model";
 import { decodeFrame, decodeFrameState, decodeAllowed, decodeDuration, relationshipFrame } from "../features/kinetic/decode-model";
 import { startDecode, hasDecoded, decodeJobCount } from "../features/kinetic/decode-controller";
-import { typewriterFrame, heroReplayStep } from "../features/kinetic/decode-typewriter-model";
+import { typewriterDuration, typewriterFrame, heroReplayStep } from "../features/kinetic/decode-typewriter-model";
 import { createExperienceProfile, type ExperienceProfile } from "../features/experience/experience-profile";
 import { getGraphViewport, projectGraphPoint, projectGraphPoints } from "../features/graph/physics/graph-projection";
 import { createSceneLifecycle, replaySceneIndex, sceneRevealFrame } from "../features/narrative/scene-replay-model";
 import { createSceneReplay } from "../features/narrative/scene-replay-controller";
 import { branchCamera, branchFocus } from "../features/narrative/branch-focus-model";
+import { compactLabelPriority, resolveCompactLabels, type CompactLabelCandidate } from "../features/narrative/compact-label-policy";
+
+test("owner-approved multiverse copy is sourced from the public export and staged below the universe", () => {
+  const profile = approvedBundle.profile;
+  const page = readFileSync("src/app/page.tsx", "utf8");
+  assert.equal(profile.headline.text, "YOU’VE ENTERED THE MULTIVERSE OF ADNAN");
+  assert.equal(profile.homeIntroduction.text, "Every node is a fragment of who I am —\nprojects, research, ideas, stories, and obsessions.");
+  assert.equal(profile.homeCta.text, "Choose a node to begin exploring.");
+  assert.match(page, /profile\.homeIntroduction\.text/);
+  assert.match(page, /profile\.homeCta\.text/);
+  assert.match(page, /data-home-copy="headline"[\s\S]*data-home-copy="support"[\s\S]*data-home-copy="cta"/);
+});
+
+const labelCandidate = (id: string, role: CompactLabelCandidate["role"], left: number, top = 0): CompactLabelCandidate => ({
+  id, role, bounds: { left, right: left + 80, top, bottom: top + 24 }, depth: role === "context" ? 3 : 1,
+  importance: role === "primary" ? "primary" : "featured", kind: role === "root" ? "cluster" : "subject",
+});
+
+test("compact label priority keeps the active idea ahead of context", () => {
+  const roles = ["context", "supporting", "primary", "neighbor", "root", "parent", "active"] as const;
+  const priorities = roles.map(role => compactLabelPriority(labelCandidate(role, role, 0)));
+  assert.deepEqual(priorities, [...priorities].sort((a, b) => a - b));
+});
+
+test("compact collision resolution always preserves active and suppresses lower priority ink", () => {
+  const candidates = [
+    labelCandidate("context", "context", 0),
+    labelCandidate("neighbor", "neighbor", 2),
+    labelCandidate("parent", "parent", 4),
+    labelCandidate("active", "active", 6),
+    labelCandidate("clear-neighbor", "neighbor", 120),
+  ];
+  const visible = resolveCompactLabels(candidates);
+  assert.equal(visible.has("active"), true);
+  assert.equal(visible.has("parent"), false);
+  assert.equal(visible.has("neighbor"), false);
+  assert.equal(visible.has("context"), false);
+  assert.equal(visible.has("clear-neighbor"), true);
+  assert.ok(visible.size <= 4);
+  assert.deepEqual([...visible], [...resolveCompactLabels([...candidates].reverse())]);
+});
+
+test("compact safe inset hides boundary context but never the active label", () => {
+  const active = labelCandidate("active", "active", 5, 82);
+  const neighbor = labelCandidate("neighbor", "neighbor", 120, 82);
+  const visible = resolveCompactLabels([neighbor, active], 4, 5, { left: 0, right: 240, top: 0, bottom: 100 });
+  assert.equal(visible.has("active"), true);
+  assert.equal(visible.has("neighbor"), false);
+});
+
+test("compact label filtering is visual-only and retains explicit accessible control names", () => {
+  const graphSource = readFileSync("src/features/graph/components/knowledge-graph.tsx", "utf8");
+  const compactCss = readFileSync("src/features/narrative/mobile-legibility.css", "utf8");
+  assert.match(graphSource, /"aria-label": node\.route/);
+  assert.match(compactCss, /data-compact-label="hidden"/);
+  assert.match(compactCss, /opacity: 0 !important/);
+  assert.doesNotMatch(compactCss, /data-compact-label="hidden"[^}]*display:\s*none/);
+  assert.doesNotMatch(compactCss, /data-compact-label="hidden"[^}]*visibility:\s*hidden/);
+});
+
+test("Phase 14 compact spacing and title scale stay scoped away from desktop", () => {
+  const compactCss = readFileSync("src/features/narrative/mobile-legibility.css", "utf8");
+  assert.match(compactCss, /@media \(max-width: 47\.999rem\)/);
+  assert.match(compactCss, /--compact-graph-gap: clamp\(3\.25rem, 5\.6svh, 3\.6rem\)/);
+  assert.match(compactCss, /data-compact-graph-density="sparse"/);
+  assert.match(compactCss, /--branch-reading-fraction: 0\.82/);
+  assert.match(compactCss, /font-size: clamp\(1\.8rem, 7\.8vw, 3\.15rem\)/);
+  assert.match(compactCss, /min-height: 2\.75rem/);
+  assert.match(compactCss, /prefers-reduced-motion: reduce/);
+  assert.doesNotMatch(compactCss, /@media \(min-width/);
+});
 
 test("branch focus follows real AI subjects and only their approved incident edges", () => {
   const graph = adaptPublicGraph(approvedBundle.graph);
@@ -163,7 +234,9 @@ test("Home composition places the graph before compact centered copy without sem
   const motion = readFileSync("src/features/universe/universe-motion-controller.ts", "utf8");
   assert.match(motion, /seconds >= 4\.1 \? 2/);
   const title = approvedBundle.profile.headline.text;
-  assert.ok(title.length / 2.3 >= 22 && title.length / 2.3 <= 30);
+  const duration = typewriterDuration(title);
+  assert.ok(title.length / duration >= 22 && title.length / duration <= 30);
+  assert.ok(duration >= 1.3 && duration <= 2.3);
   for (const node of approvedBundle.graph.nodes) {
     const middle = universeNodeFrame(node, "wide", 0.65);
     assert.ok(middle.scale > 0.98 && middle.opacity === 1);
@@ -441,9 +514,11 @@ test("compact portrait projection is deterministic, bounded, and topology-neutra
   assert.deepEqual([...portrait.keys()], [...points.keys()]);
   assert.deepEqual(graph.edges.map(edge => [edge.source, edge.target]), approvedBundle.graph.edges.map(edge => [edge.source, edge.target]));
   for (const point of portrait.values()) {
-    assert.ok(point.x >= 54 && point.x <= 566);
+    assert.ok(point.x >= 44 && point.x <= 576);
     assert.ok(point.y >= 72 && point.y <= 908);
   }
+  const canonicalLeft = { x: 260, y: 290 };
+  assert.ok(Math.abs(projectGraphPoint(canonicalLeft, "compact").x - 310) > Math.abs(310 + (canonicalLeft.x - 520) * 0.48 - 310));
   assert.deepEqual(projectGraphPoint({ x: 520, y: 290 }, "compact"), { x: 310, y: 490 });
   assert.deepEqual(getGraphViewport("compact"), { width: 620, height: 980 });
 });

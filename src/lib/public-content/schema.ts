@@ -40,7 +40,8 @@ const item = object({ id, title: text, summary: text, displayStatus: status, sec
 const collection = object({ schemaVersion: version, items: array(item) });
 const profile = object({
   schemaVersion: version, id, name: text, graphNodeId: id,
-  headline: textBlock, introduction: textBlock, themes: array(textBlock), biography: array(textBlock), supportingLine: textBlock,
+  headline: textBlock, homeIntroduction: textBlock, homeCta: textBlock, introduction: textBlock,
+  themes: array(textBlock), biography: array(textBlock), supportingLine: textBlock,
   currentFocus: array(object({ id, text, displayStatus: status })), links: array(link),
 });
 const node = object({
@@ -81,7 +82,7 @@ export function parsePublicBundle(value: unknown): PublicBundle {
     if (value.graphNodeId && !nodes.has(value.graphNodeId)) fail(path, "mapped to an existing public node");
   };
   checkMapping(bundle.profile, "profile.graphNodeId");
-  const contentIds: string[] = [bundle.profile.id, bundle.profile.headline.id, bundle.profile.introduction.id, bundle.profile.supportingLine.id, ...bundle.profile.themes.map(v => v.id), ...bundle.profile.biography.map(v => v.id), ...bundle.profile.currentFocus.map(v => v.id)];
+  const contentIds: string[] = [bundle.profile.id, bundle.profile.headline.id, bundle.profile.homeIntroduction.id, bundle.profile.homeCta.id, bundle.profile.introduction.id, bundle.profile.supportingLine.id, ...bundle.profile.themes.map(v => v.id), ...bundle.profile.biography.map(v => v.id), ...bundle.profile.currentFocus.map(v => v.id)];
   for (const key of ["research", "projects", "ai", "leadership", "learning"] as const) {
     for (const item of bundle[key].items) {
       contentIds.push(item.id);
