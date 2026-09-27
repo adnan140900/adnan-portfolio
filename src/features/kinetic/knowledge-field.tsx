@@ -34,7 +34,7 @@ export function KnowledgeField({ graph }: { graph: GraphDocument }) {
       const heading = document.querySelector("h1");
       const pageTitle = (heading?.querySelector(".sr-only") ?? heading)?.textContent?.trim();
       const labels = vocabulary.labels.filter(label => label !== pageTitle);
-      const controls = [...document.querySelectorAll<HTMLElement>("[data-control-node]")];
+      const controls = [...document.querySelectorAll<SVGGraphicsElement>("[data-control-node]")];
       const edges = [...document.querySelectorAll<SVGPathElement>("[data-force-edge]")];
       const resetReaction = () => {
         controls.forEach(control => { delete control.dataset.kineticRelated; });
@@ -54,7 +54,7 @@ export function KnowledgeField({ graph }: { graph: GraphDocument }) {
         edges.forEach(edge => { edge.dataset.kineticRelated = String(edge.dataset.source === id || edge.dataset.target === id); });
       };
       const concept = (target: EventTarget | null) => target instanceof Element
-        ? target.closest<HTMLElement>("[data-control-node], [data-story-node]")?.dataset : undefined;
+        ? target.closest<HTMLElement | SVGGraphicsElement>("[data-control-node], [data-story-node]")?.dataset : undefined;
       const pointer = (event: PointerEvent) => { const value = concept(event.target); pointerId = value?.controlNode ?? value?.storyNode ?? ""; preview(); };
       const focus = (event: FocusEvent) => { const value = concept(event.type === "focusout" ? event.relatedTarget : event.target); focusId = value?.controlNode ?? value?.storyNode ?? ""; preview(); };
       const leave = () => { pointerId = ""; preview(); };

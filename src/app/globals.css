@@ -10,6 +10,7 @@
 @import "../features/universe/universe-motion.css";
 @import "../features/narrative/branch-universe.css";
 @import "../features/narrative/mobile-legibility.css";
+@import "../features/graph/components/svg-node-control.css";
 
 :root {
   --background: #080a0c;

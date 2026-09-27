@@ -1,0 +1,112 @@
+/* Phase 14B: one SVG-native interactive node path for every browser. */
+.force-node-control.svg-node-control {
+  display: inline;
+  overflow: visible;
+  color: var(--text-secondary);
+  outline: none;
+  text-decoration: none;
+  user-select: none;
+}
+
+.svg-node-control .knowledge-star-hit {
+  fill: transparent;
+  pointer-events: all;
+  stroke: transparent;
+  stroke-width: 1;
+}
+
+.svg-node-control .knowledge-star-visual {
+  display: inline;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.svg-node-control .knowledge-star-halo,
+.svg-node-control .knowledge-star-core {
+  pointer-events: none;
+  transform-box: fill-box;
+  transform-origin: center;
+  vector-effect: non-scaling-stroke;
+}
+
+.svg-node-control .knowledge-star-halo {
+  fill: #dbe4ce;
+  filter: none;
+  opacity: 0.035;
+  transition: opacity 180ms ease, transform 220ms ease;
+}
+
+.svg-node-control .knowledge-star-core {
+  fill: #e1e6dc;
+  stroke: transparent;
+  stroke-width: 0;
+  transition: fill 160ms ease, opacity 180ms ease, transform 180ms ease, stroke 180ms ease;
+}
+
+.svg-node-control .knowledge-star-label {
+  position: static;
+  width: auto;
+  max-width: none;
+  fill: currentColor;
+  color: #c6cbc7;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+  opacity: 1;
+  pointer-events: none;
+  text-align: initial;
+  transform: none !important;
+  transition: color 160ms ease, opacity 180ms ease;
+}
+
+.svg-node-control[data-root="true"] .knowledge-star-label,
+.svg-node-control[data-kind="person"] .knowledge-star-label {
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.svg-node-control .story-star-marker {
+  fill: var(--accent);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.force-node-group[data-active="true"] .svg-node-control .knowledge-star-halo,
+.force-node-group[data-neighbor="true"] .svg-node-control .knowledge-star-halo,
+.svg-node-control:focus-visible .knowledge-star-halo,
+.svg-node-control[data-selected="true"] .knowledge-star-halo { opacity: 0.12; }
+
+.force-node-group[data-active="true"] .svg-node-control .knowledge-star-core,
+.svg-node-control[data-selected="true"] .knowledge-star-core { fill: #fff; transform: scale(1.18); }
+
+.svg-node-control:focus-visible .knowledge-star-core {
+  fill: #fff;
+  stroke: var(--focus);
+  stroke-width: 3;
+}
+
+.force-node-group[data-active="true"] .svg-node-control .knowledge-star-label,
+.force-node-group[data-neighbor="true"] .svg-node-control .knowledge-star-label,
+.svg-node-control:focus-visible .knowledge-star-label,
+.svg-node-control[data-selected="true"] .knowledge-star-label { color: var(--text-primary); opacity: 1; }
+
+.svg-node-control:focus-visible .knowledge-star-label { color: var(--focus); text-decoration: underline; }
+
+.force-node-group[data-draggable="true"] .svg-node-control { cursor: grab; touch-action: none; }
+.force-node-group[data-draggable="true"] .svg-node-control:active { cursor: grabbing; }
+
+@media (max-width: 47.999rem) {
+  .svg-node-control { touch-action: manipulation; }
+  .svg-node-control .knowledge-star-label { font-size: 11px; }
+  .svg-node-control[data-root="true"] .knowledge-star-label,
+  .svg-node-control[data-kind="person"] .knowledge-star-label { font-size: 15px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svg-node-control .knowledge-star-halo,
+  .svg-node-control .knowledge-star-core,
+  .svg-node-control .knowledge-star-label { transition: none; }
+}

@@ -12,7 +12,7 @@ export function useSemanticIdle(rootRef: RefObject<HTMLElement | null>, svgRef: 
     const root = rootRef.current;
     const svg = svgRef.current;
     if (!root || !svg) return;
-    const controls = new Map([...svg.querySelectorAll<HTMLElement>("[data-control-node]")].map(element => [element.dataset.controlNode, element]));
+    const controls = new Map([...svg.querySelectorAll<SVGGraphicsElement>("[data-control-node]")].map(element => [element.dataset.controlNode, element]));
     const bodies = nodes.map(node => ({ id: node.id, parameters: createIdleParameters(node, anchorId, root.dataset.graphRoute === "/" && (node.depth ?? 0) > 1), time: 0, speed: 0, envelope: 0 }));
     const offsets = new Map(nodes.map(node => [node.id, { x: 0, y: 0 }]));
     let frame: number | null = null;

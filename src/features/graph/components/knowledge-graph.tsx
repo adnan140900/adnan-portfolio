@@ -1,6 +1,6 @@
 "use client";
 
-import type { MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent } from "react";
+import type { KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent } from "react";
 import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import Link from "next/link";
 import { getGraphView, getViewEdges, getViewNodes } from "../selectors";
@@ -13,7 +13,6 @@ import {
   createForceGraphLinks,
   createConstellationPath,
   createStableGraphNodes,
-  NODE_BOX,
   resolveForcePoint,
 } from "../physics/graph-geometry";
 import { useForceGraph } from "../physics/use-force-graph";
@@ -103,8 +102,13 @@ export function KnowledgeGraph({ graph, initialViewId, routePath, atmosphere = "
     dispatch({ type: "focus-node", nodeId: node.id });
   };
 
+  const activateNonRoutedNode = (node: GraphNode) => {
+    setTouchSelectedNodeId(current => current === node.id ? null : node.id);
+    selectNode(node);
+  };
+
   const handleControlClick = (
-    event: ReactMouseEvent<HTMLElement>,
+    event: ReactMouseEvent<Element>,
     node: GraphNode,
     followsRoute: boolean,
   ) => {
@@ -114,22 +118,19 @@ export function KnowledgeGraph({ graph, initialViewId, routePath, atmosphere = "
       return;
     }
 
-    if (!followsRoute) {
-      setTouchSelectedNodeId(current => current === node.id ? null : node.id);
-      selectNode(node);
-    }
+    if (!followsRoute) activateNonRoutedNode(node);
   };
 
   const isNodeSelected = (node: GraphNode) =>
     (state.level === "cluster" && state.activeClusterId === node.id) ||
     (state.level === "subject" && state.activeSubjectId === node.id);
 
-  const previewPress = (event: ReactPointerEvent<HTMLElement>, node: GraphNode) => {
+  const previewPress = (event: ReactPointerEvent<Element>, node: GraphNode) => {
     if (event.pointerType === "touch" || event.pointerType === "pen" || profile.pointer === "coarse") setPressedNodeId(node.id);
     drag.beginDrag(event, node.id);
   };
 
-  const finishPress = (event: ReactPointerEvent<HTMLElement>) => {
+  const finishPress = (event: ReactPointerEvent<Element>) => {
     drag.finishDrag(event);
     if (pressTimeoutRef.current !== null) window.clearTimeout(pressTimeoutRef.current);
     pressTimeoutRef.current = window.setTimeout(() => {
@@ -142,8 +143,19 @@ export function KnowledgeGraph({ graph, initialViewId, routePath, atmosphere = "
     if (pressTimeoutRef.current !== null) window.clearTimeout(pressTimeoutRef.current);
   }, []);
 
+  const labelLines = (label: string) => {
+    const words = label.split(" ");
+    const lines: string[] = [];
+    for (const word of words) {
+      const current = lines.at(-1);
+      if (!current || `${current} ${word}`.length > 24) lines.push(word);
+      else lines[lines.length - 1] = `${current} ${word}`;
+    }
+    return lines.slice(0, 3);
+  };
+
   const renderNodeControl = (node: GraphNode) => {
-    const className = "force-node-control";
+    const className = "force-node-control svg-node-control";
     const sharedProps = {
       className,
       "data-graph-control": true,
@@ -157,7 +169,7 @@ export function KnowledgeGraph({ graph, initialViewId, routePath, atmosphere = "
       "data-parent-node": node.parentId,
       "data-selected": isNodeSelected(node),
       "data-idle-held": hoveredNodeId === node.id || focusedVisualNodeId === node.id || isNodeSelected(node),
-      tabIndex: transition.isTransitioning ? -1 : undefined,
+      tabIndex: transition.isTransitioning ? -1 : 0,
       "aria-label": node.route ? `${node.label}, opens ${node.route}` : node.label,
       onFocus: () => {
         setFocusedVisualNodeId(node.id);
@@ -167,28 +179,33 @@ export function KnowledgeGraph({ graph, initialViewId, routePath, atmosphere = "
       onMouseEnter: () => setHoveredNodeId(node.id),
       onMouseLeave: () => setHoveredNodeId(null),
     };
+    const root = node.id === view.rootNodeId || node.kind === "person";
+    const coreRadius = root ? 5.8 : node.importance === "primary" ? 4.8 : node.importance === "featured" ? 3.8 : 2.8;
     const content = (
       <>
-        <span
+        <circle className="knowledge-star-hit" r={62} aria-hidden="true" />
+        <g
           aria-hidden="true"
           className="knowledge-star-visual"
           data-transition-anchor={node.route ? node.id : undefined}
         >
-          <span className="knowledge-star-halo" />
-          <span className="knowledge-star-core" />
-        </span>
-        <span className="knowledge-star-label">{node.label}</span>
-        <span className="story-star-marker" data-story-marker aria-hidden="true" />
+          <circle className="knowledge-star-halo" r={root ? 25 : 19} />
+          <circle className="knowledge-star-core" r={coreRadius} />
+        </g>
+        <text className="knowledge-star-label" textAnchor="middle" aria-hidden="true">
+          {labelLines(node.label).map((line, index) => <tspan key={`${index}:${line}`} x="0" dy={index === 0 ? 27 : 14}>{line}</tspan>)}
+        </text>
+        <circle className="story-star-marker" data-story-marker aria-hidden="true" cx={20} cy={-20} r={1.5} />
       </>
     );
 
     if (node.route) {
       return (
-        <Link
+        <a
           href={node.route}
-          draggable={false}
-          onClick={(event) => handleControlClick(event, node, true)}
-          onNavigate={(event) => {
+          onClick={(event) => {
+            handleControlClick(event, node, true);
+            if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
             if (!node.route || node.route === routePath || node.kind === "person") return;
             const enter = node.kind === "subject" ? transition.enterSubject : transition.enterCluster;
             const handled = enter({
@@ -206,16 +223,21 @@ export function KnowledgeGraph({ graph, initialViewId, routePath, atmosphere = "
           {...sharedProps}
         >
           {content}
-          <span className="sr-only">, opens {node.route}</span>
-        </Link>
+        </a>
       );
     }
 
     return (
-      <button
-        type="button"
+      <g
+        role="button"
         aria-pressed={isNodeSelected(node)}
         onClick={(event) => handleControlClick(event, node, false)}
+        onKeyDown={(event: ReactKeyboardEvent<SVGGElement>) => {
+          if ((event.key === "Enter" || event.key === " ") && !event.repeat) {
+            event.preventDefault();
+            activateNonRoutedNode(node);
+          }
+        }}
         onPointerDown={(event) => previewPress(event, node)}
         onPointerMove={drag.moveDrag}
         onPointerUp={finishPress}
@@ -224,7 +246,7 @@ export function KnowledgeGraph({ graph, initialViewId, routePath, atmosphere = "
         {...sharedProps}
       >
         {content}
-      </button>
+      </g>
     );
   };
 
@@ -338,15 +360,9 @@ export function KnowledgeGraph({ graph, initialViewId, routePath, atmosphere = "
                   className="force-node-group"
                   transform={`translate(${stableNode?.x ?? 0} ${stableNode?.y ?? 0})`}
                 >
-                  <g data-story-position={node.id}><g data-scene-body data-universe-body={routePath === "/" ? node.id : undefined}><foreignObject
-                    x={-NODE_BOX.width / 2}
-                    y={-NODE_BOX.height / 2}
-                    width={NODE_BOX.width}
-                    height={NODE_BOX.height}
-                    className="overflow-visible"
-                  >
-                    <div className="scene-node h-full w-full" data-scene-node={node.id}>{renderNodeControl(node)}</div>
-                  </foreignObject></g></g>
+                  <g data-story-position={node.id}><g data-scene-body data-universe-body={routePath === "/" ? node.id : undefined}>
+                    <g className="scene-node" data-scene-node={node.id}>{renderNodeControl(node)}</g>
+                  </g></g>
                 </g>
               );
             })}

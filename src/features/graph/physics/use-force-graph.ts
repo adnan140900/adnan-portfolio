@@ -30,7 +30,7 @@ interface ActiveDrag {
 }
 
 function eventToGraphPoint(
-  event: ReactPointerEvent<HTMLElement>,
+  event: ReactPointerEvent<Element>,
   svg: SVGSVGElement,
 ): GraphPoint {
   const matrix = svg.getScreenCTM();
@@ -98,7 +98,7 @@ export function useForceGraph({
   }, [edges, nodes, profile, rootNodeId, suspended, svgRef]);
 
   const beginDrag = useCallback(
-    (event: ReactPointerEvent<HTMLElement>, nodeId: GraphNodeId) => {
+    (event: ReactPointerEvent<Element>, nodeId: GraphNodeId) => {
       const svg = svgRef.current;
       const controller = controllerRef.current;
       if (!svg || !controller?.dragEnabled) return;
@@ -129,7 +129,7 @@ export function useForceGraph({
   );
 
   const moveDrag = useCallback(
-    (event: ReactPointerEvent<HTMLElement>) => {
+    (event: ReactPointerEvent<Element>) => {
       const drag = dragRef.current;
       const svg = svgRef.current;
       if (!drag || drag.pointerId !== event.pointerId || !svg) return;
@@ -147,7 +147,7 @@ export function useForceGraph({
     [svgRef],
   );
 
-  const finishDrag = useCallback((event: ReactPointerEvent<HTMLElement>) => {
+  const finishDrag = useCallback((event: ReactPointerEvent<Element>) => {
     const drag = dragRef.current;
     if (!drag || drag.pointerId !== event.pointerId) return;
 

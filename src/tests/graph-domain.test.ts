@@ -58,6 +58,19 @@ test("owner-approved multiverse copy is sourced from the public export and stage
   assert.match(page, /data-home-copy="headline"[\s\S]*data-home-copy="support"[\s\S]*data-home-copy="cta"/);
 });
 
+test("interactive graph nodes are SVG-native, accessible, and retain controller contracts", () => {
+  const source = readFileSync("src/features/graph/components/knowledge-graph.tsx", "utf8");
+  assert.doesNotMatch(source, /<foreignObject\b/);
+  assert.match(source, /<circle className="knowledge-star-hit"/);
+  assert.match(source, /<circle className="knowledge-star-core"/);
+  assert.match(source, /<text className="knowledge-star-label"/);
+  assert.match(source, /<a[\s\S]*href=\{node\.route\}/);
+  assert.match(source, /<g[\s\S]*role="button"[\s\S]*onKeyDown=/);
+  for (const contract of ["data-force-node", "data-node-id", "data-story-position", "data-scene-body", "data-control-node", "data-active", "data-neighbor", "data-idle-held", "data-transition-anchor"]) {
+    assert.ok(source.includes(contract), `missing ${contract}`);
+  }
+});
+
 const labelCandidate = (id: string, role: CompactLabelCandidate["role"], left: number, top = 0): CompactLabelCandidate => ({
   id, role, bounds: { left, right: left + 80, top, bottom: top + 24 }, depth: role === "context" ? 3 : 1,
   importance: role === "primary" ? "primary" : "featured", kind: role === "root" ? "cluster" : "subject",
