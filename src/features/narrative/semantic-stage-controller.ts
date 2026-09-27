@@ -40,7 +40,9 @@ export function createSemanticStage(svg: SVGSVGElement, graph: GraphDocument, ki
       edges.forEach(edge => {
         const value = lines.get(edge.dataset.edgeId!)!;
         edge.style.setProperty("--story-edge-opacity", String(value.opacity));
-        edge.style.strokeDasharray = value.dash > 0.5 ? "0.04 0.025" : "none";
+        const dash = value.dash > 0.5 ? "0.04 0.025" : "none";
+        edge.dataset.sceneRestDash = dash;
+        if (edge.dataset.sceneDrawing !== "true") edge.style.strokeDasharray = dash;
       });
       applyStoryProjection(svg, offsets);
     },

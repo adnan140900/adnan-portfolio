@@ -1,11 +1,13 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { FilmScene } from "./film-model";
-import { activeFilmScene } from "./film-model";
+import { replaySceneIndex } from "./scene-replay-model";
+import { createSceneReplay } from "./scene-replay-controller";
 import type { GraphDocument } from "../graph/types";
 import { createSemanticStage } from "./semantic-stage-controller";
 import { createProjectionStage } from "./semantic-projection-controller";
 import type { ExperienceProfile } from "../experience/experience-profile";
+import { createBranchFocus } from "./branch-focus-controller";
 
 /** One owner per film. CSS sticky, no body locks/pin spacers; reverse scroll is the same timeline. */
 export function registerFilm(root: HTMLElement, scenes: FilmScene[], profile: ExperienceProfile, graph: GraphDocument) {
@@ -16,9 +18,22 @@ export function registerFilm(root: HTMLElement, scenes: FilmScene[], profile: Ex
   const media = gsap.matchMedia();
   const resetTabs = () => originalTabs.forEach((value, link) => value === null ? link.removeAttribute("tabindex") : link.setAttribute("tabindex", value));
   let active = -1;
+  const persistent = root.dataset.branchPersistent === "true";
+  const branchSvg = persistent ? root.querySelector<SVGSVGElement>(".semantic-stage .force-graph-svg, .projection-persistent svg") : null;
+  const branch = branchSvg ? createBranchFocus(branchSvg, graph, root.dataset.filmKind ?? "world", profile) : null;
+  const replay = createSceneReplay(root, panels, profile);
+  const intro = root.parentElement?.querySelector<HTMLElement>("[data-film-intro]");
+  const introReplay = intro ? createSceneReplay(intro, [intro], profile) : null;
+  const revealBoundaries = (time: number) => panels.forEach((panel, index) => {
+    // The active-index boundary alone is too sensitive to wheel jitter.
+    const state = Math.abs(time - (index + 0.2)) >= 0.85 ? "left" : "near";
+    if (panel.dataset.filmReveal !== state) panel.dataset.filmReveal = state;
+  });
   const select = (index: number, enhanced = false) => {
+    if (root.dataset.filmActive === "true") replay.activate(index);
     if (index === active) return;
     active = index;
+    branch?.select(scenes[index]);
     root.dataset.activeFilmScene = String(index);
     progress.forEach((link, i) => i === index ? link.setAttribute("aria-current", "step") : link.removeAttribute("aria-current"));
     const currentLink = progress[index], list = currentLink?.parentElement?.parentElement;
@@ -34,29 +49,42 @@ export function registerFilm(root: HTMLElement, scenes: FilmScene[], profile: Ex
     else delete document.documentElement.dataset.narrativeActive;
   };
   const environmentObserver = new IntersectionObserver(entries => {
-    root.dataset.filmActive = String(entries[0]?.isIntersecting ?? false); activeEnvironment();
-  }, { rootMargin: "-20% 0px -20%" });
+    for (const entry of entries) {
+      // Separate enter/leave reading bands, including a return to a route's intro.
+      const inBand = entry.isIntersecting && entry.boundingClientRect.top < window.innerHeight * (entry.target === intro ? 0.8 : persistent ? 0.4 : 0.16) && entry.boundingClientRect.bottom > window.innerHeight * 0.2;
+      if (entry.target === intro) {
+        if (inBand) introReplay?.activate(0); else if (!entry.isIntersecting) introReplay?.leave();
+        continue;
+      }
+      if (inBand) { root.dataset.filmActive = "true"; if (active >= 0) replay.activate(active); }
+      else if (!entry.isIntersecting || entry.boundingClientRect.top > window.innerHeight * (persistent ? 0.55 : 0.28) || entry.boundingClientRect.bottom < window.innerHeight * 0.12) { root.dataset.filmActive = "false"; replay.leave(); }
+      activeEnvironment();
+    }
+  }, { threshold: Array.from({ length: 41 }, (_, i) => i / 40) });
   environmentObserver.observe(root);
+  if (intro) environmentObserver.observe(intro);
   if (profile.motionPreference !== "full") {
-    const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) select(panels.indexOf(entry.target as HTMLElement)); }), { rootMargin: "-15% 0px -50%" });
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) select(panels.indexOf(entry.target as HTMLElement)); }), { rootMargin: persistent ? "-55% 0px -10%" : "-15% 0px -50%" });
     panels.forEach(panel => observer.observe(panel));
-    return () => { observer.disconnect(); environmentObserver.disconnect(); media.revert(); resetTabs(); delete root.dataset.filmActive; activeEnvironment(); };
+    if (persistent) select(0);
+    return () => { observer.disconnect(); environmentObserver.disconnect(); media.revert(); branch?.destroy(); replay.destroy(); introReplay?.destroy(); resetTabs(); delete root.dataset.filmActive; delete root.dataset.activeFilmScene; activeEnvironment(); };
   }
   media.add("(min-width: 64rem) and (min-height: 50rem) and (pointer: fine)", () => {
     root.dataset.filmEnhanced = "true";
     const semanticSvg = root.querySelector<SVGSVGElement>(".semantic-stage .force-graph-svg");
     const projectionSvg = root.querySelector<SVGSVGElement>(".projection-persistent svg");
-    const semantic = semanticSvg ? createSemanticStage(semanticSvg, graph, root.dataset.filmKind ?? "world", "wide")
+    const semantic = persistent ? null : semanticSvg ? createSemanticStage(semanticSvg, graph, root.dataset.filmKind ?? "world", "wide")
       : projectionSvg ? createProjectionStage(projectionSvg, graph, scenes, root.dataset.filmKind === "identity", "wide") : null;
     let updates = 0;
     const render = () => {
       semantic?.render();
+      replay.render();
       root.dataset.filmUpdates = String(++updates);
     };
     gsap.set(panels, { opacity: 0, pointerEvents: "none" });
     gsap.set(panels[0], { opacity: 1, pointerEvents: "auto" });
     const timeline = gsap.timeline({ paused: true, defaults: { ease: "none" }, onUpdate() {
-      render(); select(activeFilmScene(this.time(), scenes.length), true);
+      render(); revealBoundaries(this.time()); select(replaySceneIndex(this.time(), active, scenes.length), true);
       root.style.setProperty("--film-progress", String(this.progress()));
     } });
     scenes.forEach((scene, index) => {
@@ -93,14 +121,14 @@ export function registerFilm(root: HTMLElement, scenes: FilmScene[], profile: Ex
       if (panel && panels.indexOf(panel) !== active) seek(panels.indexOf(panel));
     };
     const visibility = () => {
-      if (document.hidden) { trigger.getTween()?.pause(); trigger.disable(false); }
+      if (document.hidden) { replay.suspend(); introReplay?.suspend(); trigger.getTween()?.pause(); trigger.disable(false); }
       else { trigger.enable(false); trigger.update(); trigger.getTween()?.resume(); }
     };
     root.addEventListener("click", click); root.addEventListener("focusin", focus);
     document.addEventListener("visibilitychange", visibility);
     select(0, true); render();
     return () => {
-      semantic?.reset();
+      replay.leave(); semantic?.reset();
       cancelAnimationFrame(hashFrame); window.removeEventListener("hashchange", followHash);
       root.removeEventListener("click", click); root.removeEventListener("focusin", focus); document.removeEventListener("visibilitychange", visibility);
       delete root.dataset.filmEnhanced; delete root.dataset.filmActive; root.dataset.filmTriggerCount = "0";
@@ -109,9 +137,44 @@ export function registerFilm(root: HTMLElement, scenes: FilmScene[], profile: Ex
   });
   media.add("(max-width: 63.999rem), (max-height: 49.999rem), (pointer: coarse)", () => {
     root.dataset.filmEnhanced = "compact";
+    if (persistent) {
+      // Read geometry only at refresh. Native scroll selects the panel actually
+      // entering the reading band underneath the persistent compact stage.
+      const stage = root.querySelector<HTMLElement>(".semantic-stage")!;
+      let stops: number[] = [];
+      const measure = () => {
+        const style = getComputedStyle(stage);
+        const readingFraction = parseFloat(style.getPropertyValue("--branch-reading-fraction")) || 1;
+        const band = parseFloat(style.top) + stage.offsetHeight * readingFraction + 20;
+        stops = panels.map(panel => window.scrollY + panel.getBoundingClientRect().top - band);
+      };
+      const update = () => {
+        let next = active < 0 ? 0 : active;
+        while (next < panels.length - 1 && window.scrollY >= stops[next + 1] + 16) next++;
+        while (next > 0 && window.scrollY < stops[next] - 16) next--;
+        select(next);
+      };
+      measure();
+      ScrollTrigger.create({ trigger: root, start: "top bottom", end: "bottom bottom", onRefresh: () => { measure(); update(); }, onUpdate: update });
+      root.dataset.filmTriggerCount = "1";
+      const seek = (index: number) => window.scrollTo({ top: Math.max(0, stops[index] + 24), behavior: "instant" });
+      const click = (event: MouseEvent) => {
+        const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("[data-film-seek]") : null;
+        if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
+        event.preventDefault(); seek(Number(link.dataset.filmSeek));
+      };
+      const followHash = () => { const index = panels.findIndex(panel => `#${panel.id}` === window.location.hash); if (index >= 0) seek(index); };
+      const frame = requestAnimationFrame(followHash);
+      const visibility = () => { if (document.hidden) { replay.suspend(); introReplay?.suspend(); } else triggerUpdate(); };
+      const triggerUpdate = () => { measure(); update(); };
+      root.addEventListener("click", click); window.addEventListener("hashchange", followHash);
+      document.addEventListener("visibilitychange", visibility);
+      select(0); update();
+      return () => { cancelAnimationFrame(frame); root.removeEventListener("click", click); window.removeEventListener("hashchange", followHash); document.removeEventListener("visibilitychange", visibility); delete root.dataset.filmEnhanced; root.dataset.filmTriggerCount = "0"; active = -1; };
+    }
     const semanticSvg = root.querySelector<SVGSVGElement>(".semantic-stage .force-graph-svg");
     const projectionSvg = root.querySelector<SVGSVGElement>(".projection-persistent svg");
-    const semantic = semanticSvg ? createSemanticStage(semanticSvg, graph, root.dataset.filmKind ?? "world", "compact")
+    const semantic = persistent ? null : semanticSvg ? createSemanticStage(semanticSvg, graph, root.dataset.filmKind ?? "world", "compact")
       : projectionSvg ? createProjectionStage(projectionSvg, graph, scenes, root.dataset.filmKind === "identity", "compact") : null;
     const click = (event: MouseEvent) => {
       const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("[data-film-seek]") : null;
@@ -119,12 +182,11 @@ export function registerFilm(root: HTMLElement, scenes: FilmScene[], profile: Ex
       event.preventDefault();
       const index = Number(link.dataset.filmSeek);
       window.scrollTo({ top: window.scrollY + panels[index].getBoundingClientRect().top - 110, behavior: "instant" });
-      select(index);
     };
     root.addEventListener("click", click);
     let updates = 0;
     const timeline = gsap.timeline({ paused: true, defaults: { ease: "none" }, onUpdate() {
-      semantic?.render(); select(activeFilmScene(this.time(), scenes.length));
+      semantic?.render(); replay.render(); revealBoundaries(this.time()); select(replaySceneIndex(this.time(), active, scenes.length));
       root.style.setProperty("--film-progress", String(this.progress()));
       root.dataset.filmUpdates = String(++updates);
     } });
@@ -134,18 +196,19 @@ export function registerFilm(root: HTMLElement, scenes: FilmScene[], profile: Ex
       timeline.fromTo(panels[index].querySelector("[data-film-title]"), { y: 10 }, { y: 0, duration: 0.38 }, index);
     });
     timeline.to({}, { duration: 0.01 }, scenes.length);
-    const trigger = ScrollTrigger.create({ id: `film:${root.id}`, trigger: root, start: "top 64px", end: "bottom top", animation: timeline, scrub: 0.38 });
+    // The last compact scene must be reachable before the document runs out of scroll.
+    const trigger = ScrollTrigger.create({ id: `film:${root.id}`, trigger: root, start: "top 64px", end: "bottom bottom", animation: timeline, scrub: 0.38 });
     root.dataset.filmTriggerCount = "1";
     const visibility = () => {
-      if (document.hidden) { trigger.getTween()?.pause(); trigger.disable(false); }
+      if (document.hidden) { replay.suspend(); introReplay?.suspend(); trigger.getTween()?.pause(); trigger.disable(false); }
       else { trigger.enable(false); trigger.update(); trigger.getTween()?.resume(); }
     };
     document.addEventListener("visibilitychange", visibility);
     select(0); semantic?.render();
     return () => {
-      semantic?.reset(); root.removeEventListener("click", click); document.removeEventListener("visibilitychange", visibility);
+      replay.leave(); semantic?.reset(); root.removeEventListener("click", click); document.removeEventListener("visibilitychange", visibility);
       delete root.dataset.filmEnhanced; root.dataset.filmTriggerCount = "0"; root.style.removeProperty("--film-progress"); active = -1;
     };
   });
-  return () => { environmentObserver.disconnect(); media.revert(); resetTabs(); delete root.dataset.filmActive; activeEnvironment(); };
+  return () => { environmentObserver.disconnect(); media.revert(); branch?.destroy(); replay.destroy(); introReplay?.destroy(); resetTabs(); panels.forEach(panel => { delete panel.dataset.filmReveal; }); delete root.dataset.filmActive; activeEnvironment(); };
 }

@@ -18,7 +18,8 @@ import { createPublicStory } from "../lib/public-content/story-adapter";
 import { publicRoutes } from "../lib/public-content/routes";
 import { parsePublicBundle } from "../lib/public-content/schema";
 import { getStoryEdgeState, validateStoryMoments } from "../features/motion/story-model";
-import { applyStoryProjection, applyIdleProjection } from "../features/graph/physics/story-projection";
+import { applyStoryProjection, applyIdleProjection, applyUniverseProjection } from "../features/graph/physics/story-projection";
+import { genesisDuration, genesisNodeFrame, genesisEdgeProgress, universeNodeFrame, universeEdgeProgress } from "../features/universe/universe-motion-model";
 import { createIdleParameters, idlePoint, idleCanRun, advanceIdleClock } from "../features/motion/semantic-idle-model";
 import { createSvgGraphAdapter } from "../features/graph/physics/svg-graph-adapter";
 import {
@@ -37,12 +38,222 @@ import { decodeConfig } from "../features/kinetic/decode-config";
 import { createUniverseDepth, semanticNeighborhood } from "../features/graph/universe-depth";
 import { stageEmphasis, stageOffset } from "../features/narrative/semantic-stage-model";
 import { decodeFrame, decodeFrameState, decodeAllowed, decodeDuration, relationshipFrame } from "../features/kinetic/decode-model";
-import { startDecode, hasDecoded } from "../features/kinetic/decode-controller";
+import { startDecode, hasDecoded, decodeJobCount } from "../features/kinetic/decode-controller";
+import { typewriterFrame, heroReplayStep } from "../features/kinetic/decode-typewriter-model";
 import { createExperienceProfile, type ExperienceProfile } from "../features/experience/experience-profile";
 import { getGraphViewport, projectGraphPoint, projectGraphPoints } from "../features/graph/physics/graph-projection";
+import { createSceneLifecycle, replaySceneIndex, sceneRevealFrame } from "../features/narrative/scene-replay-model";
+import { createSceneReplay } from "../features/narrative/scene-replay-controller";
+import { branchCamera, branchFocus } from "../features/narrative/branch-focus-model";
+
+test("branch focus follows real AI subjects and only their approved incident edges", () => {
+  const graph = adaptPublicGraph(approvedBundle.graph);
+  const view = graph.views.find(view => view.rootNodeId === "topic-ai-technology")!;
+  const nodes = graph.nodes.filter(node => view.nodeIds.includes(node.id));
+  const scenes = createRouteFilm(createPublicStory(approvedBundle.ai.items, graph, view), "/ai", graph);
+  const before = JSON.stringify(graph);
+  for (const scene of scenes) {
+    const plan = branchFocus(graph, scene, "ai", nodes);
+    assert.equal(plan.target, nodes.find(node => node.label === scene.title)?.id ?? scene.topicId);
+    assert.ok(plan.target && nodes.some(node => node.id === plan.target));
+    assert.deepEqual([...plan.edges], graph.edges.filter(edge => view.nodeIds.includes(edge.source) && view.nodeIds.includes(edge.target) && [edge.source, edge.target].includes(plan.target!)).map(edge => edge.id));
+  }
+  const unrelated = branchFocus(graph, { ...scenes[0], title: "Unmapped", topicId: "missing" }, "ai", nodes);
+  assert.equal(unrelated.target, null);
+  assert.equal(JSON.stringify(graph), before);
+});
+
+test("branch camera remains absolute, bounded and still for reduced motion", () => {
+  const point = { x: 950, y: 20 }, first = branchCamera(point, 1040, 580, false);
+  for (let cycle = 0; cycle < 40; cycle++) {
+    branchCamera({ x: 20, y: 550 }, 1040, 580, false);
+    assert.deepEqual(branchCamera(point, 1040, 580, false), first);
+  }
+  assert.ok(Math.abs(first.x) <= 1040 * 0.055 && Math.abs(first.y) <= 580 * 0.055);
+  assert.deepEqual(branchCamera(point, 1040, 580, true), { x: 0, y: 0 });
+});
 
 const experience = (overrides: Partial<ExperienceProfile> = {}): ExperienceProfile => ({
   motionPreference: "full", viewport: "wide", pointer: "fine", performance: "normal", visibility: "visible", ...overrides,
+});
+
+test("scene epochs re-arm only on meaningful leave and invalidate rapid reversal jobs", () => {
+  const state = createSceneLifecycle(3);
+  const first = state.enter(0, "full")!;
+  assert.equal(first.epoch, 1); assert.equal(first.animate, true);
+  assert.equal(state.enter(0, "full"), null);
+  for (const time of [0.77, 0.8, 0.84, 0.79]) assert.equal(replaySceneIndex(time, 0, 3), 0);
+  assert.equal(replaySceneIndex(0.89, 0, 3), 1);
+  const next = state.enter(1, "full")!;
+  assert.equal(state.isCurrent(first.token), false);
+  for (const time of [0.85, 0.79, 0.74]) assert.equal(replaySceneIndex(time, 1, 3), 1);
+  assert.equal(replaySceneIndex(0.71, 1, 3), 0);
+  const back = state.enter(0, "full")!;
+  assert.equal(back.epoch, 2); assert.equal(state.isCurrent(next.token), false);
+  state.enter(2, "full"); assert.equal(state.isCurrent(back.token), false);
+  state.leave();
+  assert.equal(state.enter(2, "full")?.epoch, 2);
+});
+
+test("scene replay bypasses reduced motion and leaves exact geometry to existing owners", () => {
+  assert.equal(createSceneLifecycle(1).enter(0, "reduced")?.animate, false);
+  for (let t = 0; t < 1.7; t += 0.01) {
+    const frame = sceneRevealFrame(t);
+    if (frame.edge > 0) { assert.equal(frame.node, 1); assert.equal(frame.label, 1); }
+  }
+  assert.deepEqual(sceneRevealFrame(1.65, 1), { node: 1, label: 1, edge: 1, copy: 1 });
+  const source = readFileSync("src/features/narrative/scene-replay-controller.ts", "utf8");
+  assert.doesNotMatch(source, /createForceGraph|applyStoryProjection|requestAnimationFrame|IntersectionObserver/);
+  const decode = readFileSync("src/features/kinetic/decode-text.tsx", "utf8");
+  assert.match(decode, /if \(panel && replay === "scene"\) return/);
+  const film = readFileSync("src/features/narrative/film-controller.ts", "utf8");
+  assert.doesNotMatch(film, /end: "bottom top"/);
+  assert.equal(replaySceneIndex(11.01, 9, 11), 10);
+});
+
+test("cross-film handoff cancels the previous foreground timeline and Decode jobs", () => {
+  const globals = globalThis as unknown as Record<string, unknown>, original = globals.document;
+  globals.document = { hidden: false, documentElement: { dataset: {} } };
+  const fixture = (id: string) => {
+    const texts = [true, false].map(title => ({ dataset: { sceneDecode: "Research", decodeMode: "editorial" }, style: { setProperty() {}, removeProperty() {} }, querySelectorAll: () => [], closest: () => title ? {} : null }) as unknown as HTMLElement);
+    const panel = { id, dataset: {}, querySelector: () => null, querySelectorAll: () => texts } as unknown as HTMLElement;
+    const root = { dataset: {}, querySelector: () => null, querySelectorAll: () => [] } as unknown as HTMLElement;
+    return { root, texts, controller: createSceneReplay(root, [panel], experience()) };
+  };
+  const a = fixture("a"), b = fixture("b");
+  try {
+    a.controller.activate(0); assert.equal(decodeJobCount(), 2);
+    b.controller.activate(0);
+    assert.equal(decodeJobCount(), 2);
+    assert.equal(a.root.dataset.sceneRevealRunning, "false");
+    assert.ok(a.texts.every(t => t.dataset.decoding === "false"));
+    assert.ok(b.texts.every(t => t.dataset.decodeRuns === "1"));
+    b.controller.activate(0); assert.ok(b.texts.every(t => t.dataset.decodeRuns === "1"));
+    b.controller.leave(); assert.equal(decodeJobCount(), 0);
+    b.controller.activate(0); assert.ok(b.texts.every(t => t.dataset.decodeRuns === "2"));
+  } finally {
+    a.controller.destroy(); b.controller.destroy(); assert.equal(decodeJobCount(), 0);
+    if (original === undefined) delete globals.document; else globals.document = original;
+  }
+});
+
+test("branch text replay never acquires graph presentation or suspends semantic idle", () => {
+  const globals = globalThis as unknown as Record<string, unknown>, original = globals.document;
+  globals.document = { hidden: false, documentElement: { dataset: {} } };
+  const panel = { id: "branch", dataset: {}, querySelector: () => null, querySelectorAll: () => [] } as unknown as HTMLElement;
+  const root = { dataset: { branchPersistent: "true" }, querySelector() { throw new Error("branch replay must not acquire stage"); }, querySelectorAll() { throw new Error("branch replay must not acquire graph"); } } as unknown as HTMLElement;
+  const controller = createSceneReplay(root, [panel], experience());
+  try {
+    controller.activate(0); controller.leave(); controller.activate(0);
+    assert.equal(panel.dataset.sceneEpoch, "2");
+  } finally {
+    controller.destroy();
+    if (original === undefined) delete globals.document; else globals.document = original;
+  }
+});
+
+test("Home composition places the graph before compact centered copy without semantic changes", () => {
+  const page = readFileSync("src/app/page.tsx", "utf8");
+  assert.ok(page.indexOf("<KnowledgeGraph") < page.indexOf("<header"));
+  assert.match(page, /home-universe-frame/);
+  const css = readFileSync("src/app/globals.css", "utf8").split("/* Phase 13C:")[1];
+  assert.match(css, /justify-items: center; text-align: center/);
+  assert.match(css, /position: relative; z-index: 14; inset: auto/);
+  assert.match(css, /position: sticky; top: 4rem/);
+  const motion = readFileSync("src/features/universe/universe-motion-controller.ts", "utf8");
+  assert.match(motion, /seconds >= 4\.1 \? 2/);
+  const title = approvedBundle.profile.headline.text;
+  assert.ok(title.length / 2.3 >= 22 && title.length / 2.3 <= 30);
+  for (const node of approvedBundle.graph.nodes) {
+    const middle = universeNodeFrame(node, "wide", 0.65);
+    assert.ok(middle.scale > 0.98 && middle.opacity === 1);
+  }
+});
+
+test("Genesis settles all 38 real nodes before any of the 50 edges can draw", () => {
+  const nodes = approvedBundle.graph.nodes;
+  for (const viewport of ["wide", "compact"] as const) {
+    for (let time = 0; time <= genesisDuration; time += 0.025) {
+      const visibleEdge = approvedBundle.graph.edges.some((_, index) => genesisEdgeProgress(index, 50, time) > 0);
+      if (visibleEdge) for (const node of nodes) {
+        const frame = genesisNodeFrame(node, viewport, time);
+        assert.equal(frame.x, 0); assert.equal(frame.y, 0); assert.equal(frame.scale, 1);
+      }
+    }
+    assert.ok(nodes.every(node => Math.hypot(genesisNodeFrame(node, viewport, 0).x, genesisNodeFrame(node, viewport, 0).y) > 0));
+    assert.ok(approvedBundle.graph.edges.every((_, i) => genesisEdgeProgress(i, 50, genesisDuration) === 1));
+  }
+});
+
+test("dissolution retracts all edges before displacement and reverses without accumulated state", () => {
+  const snapshot = JSON.stringify(approvedBundle.graph);
+  for (const viewport of ["wide", "compact"] as const) for (const node of approvedBundle.graph.nodes) {
+    for (const p of [0, 0.2, 0.4, 0.53, 0.8, 1, 0.8, 0.2, 0.8, 0.4, 0, 1, 0]) {
+      const frame = universeNodeFrame(node, viewport, p);
+      assert.deepEqual(frame, universeNodeFrame(node, viewport, p));
+      if (Math.hypot(frame.x, frame.y) > 0) for (const tier of ["primary", "secondary", "tertiary"] as const) assert.equal(universeEdgeProgress(tier, p), 0);
+      if (p === 0) assert.deepEqual(frame, { x: 0, y: 0, scale: 1, opacity: 1, label: 1, idleWeight: 1 });
+      if (p === 1) { assert.ok(Math.hypot(frame.x, frame.y) > 0); assert.equal(frame.label, 0); }
+    }
+  }
+  assert.equal(JSON.stringify(approvedBundle.graph), snapshot);
+  assert.ok(universeEdgeProgress("primary", 0.25) > 0);
+  assert.equal(universeEdgeProgress("tertiary", 0.25), 0);
+});
+
+test("typewriter accumulates immutable final characters and retains whitespace without exposing future text", () => {
+  const text = "Engineering questions. Connected ideas.";
+  const locked = new Map<number, string>();
+  for (let p = 0; p <= 1; p += 0.005) {
+    const frame = typewriterFrame(text, p);
+    assert.ok(frame.filter(cell => cell.state === "arriving").length <= 3);
+    for (const [index, character] of locked) { assert.equal(frame[index].state, "locked"); assert.equal(frame[index].character, character); }
+    frame.forEach((cell, index) => { if (cell.state === "locked") { assert.equal(cell.character, text[index]); locked.set(index, cell.character); } });
+  }
+  assert.equal(typewriterFrame(text, 1).map(cell => cell.character).join(""), text);
+  assert.ok(typewriterFrame(text, 0.2).some(cell => cell.state === "hidden"));
+});
+
+test("hero replay requires full departure and meaningful return without restarting on intermediate reversals", () => {
+  let armed = false, replays = 0;
+  for (let cycle = 0; cycle < 5; cycle++) {
+    for (const p of [0, 0.01, 0.4, 0.2, 0.8, 0.5, 1, 0.95, 0.6, 0.4, 0.7, 0.19, 0.18, 0.15, 0]) {
+      const next = heroReplayStep(armed, p); armed = next.armed;
+      if (next.replay) replays++;
+    }
+    assert.equal(replays, cycle + 1);
+  }
+});
+
+test("replayable Decode jobs reuse one owner and release the shared ticker after every cycle", () => {
+  const element = { dataset: {}, style: { setProperty() {}, removeProperty() {} }, querySelectorAll: () => [] } as unknown as HTMLElement;
+  for (let i = 0; i < 5; i++) {
+    const stop = startDecode(element, "Research", "editorial", "replay-test", { replay: true });
+    assert.equal(decodeJobCount(), 1);
+    const replacement = startDecode(element, "Research", "editorial", "replay-test", { replay: true });
+    assert.equal(decodeJobCount(), 1);
+    stop(); replacement();
+    assert.equal(decodeJobCount(), 0);
+  }
+  assert.equal(hasDecoded("replay-test"), false);
+});
+
+test("Home projection releases exactly to the pre-existing idle geometry after repeated cycles", () => {
+  const attrs = new Map<string, string>();
+  const transforms = new Map<string, string>();
+  const edge = { dataset: { source: "a", target: "b", edgeId: "ab" }, setAttribute: (key: string, value: string) => attrs.set(key, value) };
+  const positions = ["a", "b"].map(id => ({ dataset: { storyPosition: id }, setAttribute: (_key: string, value: string) => transforms.set(id, value), removeAttribute: () => transforms.delete(id) }));
+  const svg = { querySelectorAll: (selector: string) => selector === "[data-force-edge]" ? [edge] : selector === "[data-story-position]" ? positions : [] } as unknown as SVGSVGElement;
+  const nodes = ["a", "b"].map((id, i) => ({ id, kind: "concept" as const, weight: 0.5, isRoot: !i, collisionRadius: 30, x: i * 100, y: i * 50 }));
+  createSvgGraphAdapter(svg).render(nodes, []);
+  applyIdleProjection(svg, new Map([["a", { x: 2, y: 1 }], ["b", { x: 8, y: -3 }]]));
+  const before = new Map(transforms), path = attrs.get("d");
+  for (let cycle = 0; cycle < 25; cycle++) {
+    applyUniverseProjection(svg, new Map([["a", { x: 300, y: 200 }], ["b", { x: -220, y: -100 }]]), 0);
+    applyUniverseProjection(svg, new Map(), 1);
+    assert.deepEqual(transforms, before); assert.equal(attrs.get("d"), path);
+  }
+  assert.equal(nodes[1].x, 100); assert.equal(nodes[1].y, 50);
 });
 
 test("decode preserves final strings, whitespace and punctuation with restrained editorial substitutions", () => {
@@ -283,6 +494,11 @@ test("background relationship endpoints combine fixed depth positions with D3 an
   assert.equal(attrs.get("d"), "M 130 85 L 303 202");
   applyIdleProjection(svg, new Map());
   assert.equal(attrs.get("d"), "M 120 80 L 300 200");
+  // A responsive handoff must not retain the initial SSR/wide depth endpoint.
+  background.dataset.baseX = "180";
+  background.dataset.baseY = "360";
+  adapter.render(nodes, []);
+  assert.equal(attrs.get("d"), "M 120 80 L 180 360");
 });
 
 test("focus film preserves each statement once and uses four approved, distinct topic identities", () => {
@@ -391,7 +607,7 @@ test("reduced film lifecycle never enhances or hides panels and disconnects its 
     disconnect() { disconnected++; }
   }
   const panel = { dataset: {}, style: {}, querySelectorAll: () => [] };
-  const root = { dataset: {}, querySelectorAll: (selector: string) => selector === "[data-film-panel]" ? [panel] : [] };
+  const root = { dataset: {}, querySelector: () => null, querySelectorAll: (selector: string) => selector === "[data-film-panel]" ? [panel] : [] };
   globals.document = { documentElement: { dataset: {} }, querySelectorAll: () => [] };
   globals.IntersectionObserver = ObserverStub;
   try {

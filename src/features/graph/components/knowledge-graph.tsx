@@ -3,7 +3,6 @@
 import type { MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent } from "react";
 import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import Link from "next/link";
-import { gsap } from "gsap";
 import { getGraphView, getViewEdges, getViewNodes } from "../selectors";
 import {
   createInitialGraphState,
@@ -26,16 +25,16 @@ import { useSemanticIdle } from "@/features/motion/use-semantic-idle";
 import { createUniverseDepth } from "../universe-depth";
 import { UniverseDepthLayer } from "./universe-depth-layer";
 import { getGraphViewport, projectGraphPoint } from "../physics/graph-projection";
-import { createBranchGrowthPlan, scheduleBranchGrowth } from "../../transitions/branch-growth-plan";
-import { motionTokens as M } from "../../motion/motion-tokens";
+import { useUniverseMotion } from "../../universe/use-universe-motion";
 
 interface KnowledgeGraphProps {
   graph: GraphDocument;
   initialViewId: GraphViewId;
   routePath: string;
+  atmosphere?: "local" | "page";
 }
 
-export function KnowledgeGraph({ graph, initialViewId, routePath }: KnowledgeGraphProps) {
+export function KnowledgeGraph({ graph, initialViewId, routePath, atmosphere = "local" }: KnowledgeGraphProps) {
   const view = getGraphView(graph, initialViewId);
   const [state, dispatch] = useReducer(graphExplorerReducer, view, createInitialGraphState);
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
@@ -88,46 +87,7 @@ export function KnowledgeGraph({ graph, initialViewId, routePath }: KnowledgeGra
     suspended: transition.isTransitioning,
   });
 
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root || routePath !== "/" || profile.viewport !== "compact" || profile.motionPreference !== "full" || transition.isTransitioning) return;
-    const svg = svgRef.current;
-    if (!svg) return;
-    const controls = new Map([...svg.querySelectorAll<HTMLElement>("[data-graph-control]")].map(control => [control.dataset.controlNode ?? "", control]));
-    const edges = [...svg.querySelectorAll<SVGPathElement>(".force-edge")];
-    const edgeData = edges.map(edge => ({ id: edge.dataset.edgeId ?? "", source: edge.dataset.source ?? "", target: edge.dataset.target ?? "" }));
-    const edgeMap = new Map(edges.map(edge => [edge.dataset.edgeId ?? "", edge]));
-    const plan = createBranchGrowthPlan(view.rootNodeId, [...controls.keys()], edgeData);
-    const otherControls = [...controls].filter(([id]) => id !== view.rootNodeId).map(([, control]) => control);
-    const labels = otherControls.flatMap(control => [...control.querySelectorAll<HTMLElement>(".knowledge-star-label")]);
-    root.dataset.mobileForming = "true";
-    gsap.set(edges, { opacity: 0 });
-    gsap.set(otherControls, { opacity: 0, scale: 0.3 });
-    gsap.set(labels, { opacity: 0 });
-    const timeline = gsap.timeline({ onComplete() {
-      gsap.set([...edges, ...otherControls, ...labels], { clearProps: "opacity,transform,strokeDasharray,strokeDashoffset" });
-      delete root.dataset.mobileForming;
-    } });
-    for (const branch of scheduleBranchGrowth(view.rootNodeId, plan, edgeData, M.transition)) {
-      const edge = edgeMap.get(branch.edgeId);
-      const at = branch.at * 0.7;
-      if (edge) {
-        timeline.set(edge, { opacity: 0.3, strokeDasharray: 1, strokeDashoffset: branch.reverse ? -1 : 1 }, at);
-        timeline.to(edge, { strokeDashoffset: 0, duration: M.transition.branch * 0.72, ease: M.ease.quiet }, at);
-      }
-      const control = branch.nodeId ? controls.get(branch.nodeId) : undefined;
-      if (control) {
-        timeline.to(control, { opacity: 1, scale: 1, duration: M.transition.star * 0.72, ease: M.ease.reveal }, at + M.transition.branch * 0.65);
-        timeline.to(control.querySelector(".knowledge-star-label"), { opacity: 1, duration: M.transition.label * 0.7 }, at + M.transition.branch * 0.78);
-      }
-    }
-    root.dataset.mobileFormationEdges = String(plan.branches.length);
-    return () => {
-      timeline.kill();
-      gsap.set([...edges, ...otherControls, ...labels], { clearProps: "opacity,transform,strokeDasharray,strokeDashoffset" });
-      delete root.dataset.mobileForming;
-    };
-  }, [profile.motionPreference, profile.viewport, routePath, transition.isTransitioning, view.rootNodeId]);
+  useUniverseMotion(rootRef, svgRef, graph.nodes, routePath, profile, transition.isTransitioning);
 
   const selectNode = (node: GraphNode) => {
     if (node.kind === "subject" && node.parentId) {
@@ -274,6 +234,7 @@ export function KnowledgeGraph({ graph, initialViewId, routePath }: KnowledgeGra
       className="constellation-shell"
       data-graph-root
       data-graph-route={routePath}
+      data-universe-pending={routePath === "/" && profile.motionPreference === "unresolved" ? true : undefined}
       data-reduced-motion={profile.motionPreference !== "full"}
       data-graph-level={state.level}
       data-graph-view={state.activeViewId}
@@ -282,7 +243,7 @@ export function KnowledgeGraph({ graph, initialViewId, routePath }: KnowledgeGra
       data-route-transition-mode={transition.mode ?? "none"}
       data-inspecting={activeNodeId !== null}
     >
-      <AmbientStarfield seed="shared-public-universe" />
+      {atmosphere === "local" && <AmbientStarfield seed="shared-public-universe" />}
 
       <div className="constellation-meta">
         <div>
@@ -375,7 +336,7 @@ export function KnowledgeGraph({ graph, initialViewId, routePath }: KnowledgeGra
                   className="force-node-group"
                   transform={`translate(${stableNode?.x ?? 0} ${stableNode?.y ?? 0})`}
                 >
-                  <g data-story-position={node.id}><foreignObject
+                  <g data-story-position={node.id}><g data-scene-body data-universe-body={routePath === "/" ? node.id : undefined}><foreignObject
                     x={-NODE_BOX.width / 2}
                     y={-NODE_BOX.height / 2}
                     width={NODE_BOX.width}
@@ -383,7 +344,7 @@ export function KnowledgeGraph({ graph, initialViewId, routePath }: KnowledgeGra
                     className="overflow-visible"
                   >
                     <div className="scene-node h-full w-full" data-scene-node={node.id}>{renderNodeControl(node)}</div>
-                  </foreignObject></g>
+                  </foreignObject></g></g>
                 </g>
               );
             })}

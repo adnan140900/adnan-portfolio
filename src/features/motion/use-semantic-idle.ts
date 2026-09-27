@@ -20,7 +20,7 @@ export function useSemanticIdle(rootRef: RefObject<HTMLElement | null>, svgRef: 
     let activeTime = 0;
     let intersecting = false;
     let frames = 0;
-    const forming = () => root.dataset.routeTransitionActive === "true" || root.dataset.mobileForming === "true";
+    const forming = () => root.dataset.sceneRevealing === "true" || root.dataset.routeTransitionActive === "true" || (root.dataset.universeMotion !== undefined && root.dataset.universeMotion !== "rest");
     const running = () => idleCanRun(profile.motionPreference, rendererReady, profile.visibility === "visible", intersecting, forming());
     const tick = (now: number) => {
       frame = null;
@@ -67,7 +67,7 @@ export function useSemanticIdle(rootRef: RefObject<HTMLElement | null>, svgRef: 
     const observer = new IntersectionObserver(([entry]) => { intersecting = entry.isIntersecting; configure(); });
     observer.observe(svg);
     const transitionObserver = new MutationObserver(configure);
-    transitionObserver.observe(root, { attributes: true, attributeFilter: ["data-route-transition-active", "data-mobile-forming"] });
+    transitionObserver.observe(root, { attributes: true, attributeFilter: ["data-route-transition-active", "data-universe-motion", "data-scene-revealing"] });
     configure();
     return () => {
       if (frame !== null) cancelAnimationFrame(frame);
