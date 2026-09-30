@@ -2,6 +2,18 @@ import type { GraphDocument, GraphNode } from "../graph/types";
 import type { FilmScene } from "./film-model";
 import { stageEmphasis } from "./semantic-stage-model";
 
+export const branchFocusTiming = {
+  minimum: 0.21,
+  distanceSpan: 0.105,
+  distanceRate: 0.225,
+} as const;
+
+/** Phase 15A: the persistent branch camera/tracer is 25% faster, still distance-scaled. */
+export function branchFocusDuration(distance: number, width: number) {
+  const ratio = width > 0 ? Math.max(0, distance) / width : 0;
+  return branchFocusTiming.minimum + Math.min(branchFocusTiming.distanceSpan, ratio * branchFocusTiming.distanceRate);
+}
+
 /** Exact public label or existing editorial topic only; never infer from prose. */
 export function branchFocus(graph: GraphDocument, scene: FilmScene, kind: string, nodes: GraphNode[]) {
   const plan = stageEmphasis(graph, scene, kind, nodes);

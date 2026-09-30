@@ -3,7 +3,7 @@ import type { GraphDocument } from "../graph/types";
 import { applyStoryProjection, getStoryPoint, getVisualOffset, observeStoryProjection } from "../graph/physics/story-projection";
 import type { FilmScene } from "./film-model";
 import type { ExperienceProfile } from "../experience/experience-profile";
-import { branchCamera, branchFocus } from "./branch-focus-model";
+import { branchCamera, branchFocus, branchFocusDuration } from "./branch-focus-model";
 import { resolveCompactLabels, type CompactLabelCandidate, type CompactLabelRole } from "./compact-label-policy";
 
 /** One focus job and one tracer per persistent stage. D3 and idle keep ownership. */
@@ -122,7 +122,7 @@ export function createBranchFocus(svg: SVGSVGElement, graph: GraphDocument, kind
         Object.assign(camera, next); Object.assign(tracer, { travel: 1, opacity: target ? 0.64 : 0, scale: 1, draw: 1 }); render(); return;
       }
       const distance = point ? Math.hypot(point.x - origin.x, point.y - origin.y) : 0;
-      const duration = 0.28 + Math.min(0.14, distance / svg.viewBox.baseVal.width * 0.3);
+      const duration = branchFocusDuration(distance, svg.viewBox.baseVal.width);
       tracer.travel = 0;
       tween = gsap.timeline({ onUpdate: render, onComplete: () => { tween = null; } });
       tween.to(camera, { ...next, duration, ease: "power2.inOut" }, 0)
