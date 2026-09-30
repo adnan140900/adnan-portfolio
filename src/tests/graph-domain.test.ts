@@ -10,7 +10,7 @@ import { getGraphRuntimePolicy } from "../features/graph/physics/graph-runtime-p
 import { createConstellationPath, createStableGraphNodes } from "../features/graph/physics/graph-geometry";
 import { getStarfieldProfile } from "../features/atmosphere/starfield-policy";
 import { createBranchGrowthPlan, scheduleBranchGrowth } from "../features/transitions/branch-growth-plan";
-import { clampMotion, motionCanRun } from "../features/motion/motion-tokens";
+import { clampMotion, motionCanRun, motionTokens } from "../features/motion/motion-tokens";
 import { createForceGraphController } from "../features/graph/physics/force-graph-controller";
 import { approvedBundle } from "./public-fixture";
 import { adaptPublicGraph } from "../lib/public-content/graph-adapter";
@@ -44,7 +44,7 @@ import { createExperienceProfile, type ExperienceProfile } from "../features/exp
 import { getGraphViewport, projectGraphPoint, projectGraphPoints } from "../features/graph/physics/graph-projection";
 import { createSceneLifecycle, replaySceneIndex, sceneRevealFrame } from "../features/narrative/scene-replay-model";
 import { createSceneReplay } from "../features/narrative/scene-replay-controller";
-import { branchCamera, branchFocus } from "../features/narrative/branch-focus-model";
+import { branchCamera, branchFocus, branchFocusDuration, branchFocusTiming } from "../features/narrative/branch-focus-model";
 import { compactLabelPriority, resolveCompactLabels, type CompactLabelCandidate } from "../features/narrative/compact-label-policy";
 
 test("owner-approved multiverse copy is sourced from the public export and staged below the universe", () => {
@@ -155,6 +155,24 @@ test("branch camera remains absolute, bounded and still for reduced motion", () 
   }
   assert.ok(Math.abs(first.x) <= 1040 * 0.055 && Math.abs(first.y) <= 580 * 0.055);
   assert.deepEqual(branchCamera(point, 1040, 580, true), { x: 0, y: 0 });
+});
+
+test("persistent branch focus is 25 percent faster without changing Home motion owners", () => {
+  assert.equal(branchFocusDuration(0, 1040), 0.21);
+  assert.equal(branchFocusDuration(1040, 1040), 0.315);
+  assert.equal(branchFocusDuration(520, 1040), 0.315);
+  assert.deepEqual(branchFocusTiming, { minimum: 0.21, distanceSpan: 0.105, distanceRate: 0.225 });
+  assert.ok(Math.abs(branchFocusDuration(0, 1040) / 0.28 - 0.75) < 1e-12);
+  assert.ok(Math.abs(branchFocusDuration(1040, 1040) / 0.42 - 0.75) < 1e-12);
+
+  // Home Genesis, route-formation and non-persistent stage timings stay frozen.
+  assert.equal(genesisDuration, 5.2);
+  assert.deepEqual(motionTokens.transition, {
+    travel: 0.42, resolve: 0.3, fade: 0.14, compact: 0.18,
+    branch: 0.32, star: 0.2, label: 0.2, stagger: 0.12,
+  });
+  const stage = readFileSync("src/features/narrative/semantic-stage-controller.ts", "utf8");
+  assert.match(stage, /duration: sceneIndex \? 0\.6 : 0\.18/g);
 });
 
 const experience = (overrides: Partial<ExperienceProfile> = {}): ExperienceProfile => ({
