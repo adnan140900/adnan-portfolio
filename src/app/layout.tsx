@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { PortfolioTransitionProvider } from "@/features/transitions/portfolio-transition-provider";
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <SiteFooter />
           </PortfolioTransitionProvider>
         </ExperienceProfileProvider>
+        <Analytics />
       </body>
     </html>
   );
